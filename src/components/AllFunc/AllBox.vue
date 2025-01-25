@@ -19,7 +19,7 @@
     </n-tab-pane>
     <n-tab-pane name="suisoruix" tab="SuisoruIX">
      <h2>[SuisoruIX] is a startpage developing by Open Source Community</h2>
-     <h3>25/01/114-2330</h3>
+     <h3>26/01/114-011794</h3>
     </n-tab-pane>
   </n-tabs>
 </template>
