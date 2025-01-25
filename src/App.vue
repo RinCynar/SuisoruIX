@@ -1,8 +1,8 @@
 <template>
   <Provider>
-    <!-- 壁纸 -->
+    <!-- wallpaper -->
     <Cover @loadComplete="loadComplete" />
-    <!-- 主界面 -->
+    <!-- main page -->
     <Transition name="fade" mode="out-in">
       <main
         v-if="status.imgLoadStatus"
@@ -18,7 +18,7 @@
         <SearchInp @contextmenu.stop />
         <AllFunc @contextmenu.stop />
         <Footer />
-        <!-- 状态切换 -->
+        <!-- transition -->
         <Transition name="fade">
           <div
             class="all-controls"
@@ -26,7 +26,7 @@
           >
             <div
               class="change-status"
-              :title="status.mainBoxBig ? '收起' : '展开'"
+              :title="status.mainBoxBig ? 'Close' : 'Open'"
               @click.stop="status.setMainBoxBig(!status.mainBoxBig)"
             >
               <Transition name="fade" mode="out-in">
@@ -38,7 +38,7 @@
             </div>
             <div
               class="change-status"
-              :title="status.siteStatus !== 'set' ? '设置' : '首页'"
+              :title="status.siteStatus !== 'set' ? 'Settings' : 'Home'"
               @click.stop="status.setSiteStatus(status.siteStatus !== 'set' ? 'set' : 'normal')"
             >
               <Transition name="fade" mode="out-in">
@@ -53,7 +53,7 @@
       </main>
       <div v-else id="loading">
         <img src="/icon/logo.png" alt="logo" class="logo" />
-        <span class="tip">开发中</span>
+        <span class="tip">SuisoruIX</span>
       </div>
     </Transition>
   </Provider>
@@ -74,16 +74,14 @@ const set = setStore();
 const status = statusStore();
 const mainClickable = ref(false);
 
-// 获取配置
-const welcomeText = import.meta.env.VITE_WELCOME_TEXT ?? "欢迎访问本站";
+// get config
+const welcomeText = import.meta.env.VITE_WELCOME_TEXT ?? "Ciallo～(∠・ω< )⌒☆";
 
-// 鼠标右键
 const mainContextmenu = (event) => {
   event.preventDefault();
   status.setSiteStatus("box");
 };
 
-// 加载完成事件
 const loadComplete = () => {
   nextTick().then(() => {
     mainClickable.value = true;
@@ -94,26 +92,23 @@ const loadComplete = () => {
   });
 };
 
-// 全局键盘事件
 const mainPressKeyboard = (event) => {
   const keyCode = event.keyCode;
-  // 回车
+
   if (keyCode === 13) {
-    // focus 元素
+
     const mainInput = document.getElementById("main-input");
     status.setSiteStatus("focus");
     mainInput?.focus();
   }
 };
 
-// 根据主题类别更改
 const changeThemeType = (val) => {
   const htmlElement = document.querySelector("html");
   const themeType = val === "light" ? "light" : "dark";
   htmlElement.setAttribute("theme", themeType);
 };
 
-// 监听颜色变化
 watch(
   () => set.themeType,
   (val) => changeThemeType(val),

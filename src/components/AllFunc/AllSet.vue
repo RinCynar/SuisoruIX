@@ -1,13 +1,13 @@
 <template>
   <div class="all-set">
     <n-tabs class="set" size="large" justify-content="space-evenly" animated>
-      <n-tab-pane name="main" tab="基础设置">
+      <n-tab-pane name="main" tab="Basic">
         <n-scrollbar class="scrollbar">
-          <n-h6 prefix="bar"> 主题与壁纸 </n-h6>
+          <n-h6 prefix="bar"> Themes and Wallpapers </n-h6>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">主题类别</span>
-              <span class="tip">切换全站主题类别</span>
+              <span class="title">Theme Category</span>
+              <span class="tip">Switch the theme category for the entire site</span>
             </div>
             <n-select class="set" v-model:value="themeType" :options="themeTypeOptions" />
           </n-card>
@@ -20,8 +20,8 @@
           >
             <div class="desc">
               <div class="name">
-                <span class="title">壁纸偏好</span>
-                <span class="tip"> 除默认以外的其他选项可能会导致页面载入缓慢 </span>
+                <span class="title">Wallpaper Preference</span>
+                <span class="tip"> Options other than default may cause the page to load slowly </span>
               </div>
               <n-space>
                 <Transition name="fade" mode="out-in">
@@ -31,14 +31,14 @@
                     secondary
                     @click="changeBackground(0, true)"
                   >
-                    恢复默认
+                    Restore Defaults
                   </n-button>
                 </Transition>
                 <n-button strong secondary @click="customCoverModal = true">
                   <template v-if="backgroundType === 4" #icon>
                     <SvgIcon iconName="icon-confirm" />
                   </template>
-                  {{ backgroundType === 4 ? "已开启自定义" : "自定义" }}
+                  {{ backgroundType === 4 ? "Customization Enabled": "Customization" }}
                 </n-button>
               </n-space>
             </div>
@@ -59,11 +59,11 @@
               </n-grid-item>
             </n-grid>
           </n-card>
-          <n-h6 prefix="bar"> 搜索 </n-h6>
+          <n-h6 prefix="bar"> Search </n-h6>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">搜索引擎</span>
-              <span class="tip">切换或自定义搜索引擎</span>
+              <span class="title">Search Engines</span>
+              <span class="tip">Switch or customize your search engine</span>
             </div>
             <n-button
               strong
@@ -75,39 +75,39 @@
                 }
               "
             >
-              前往调整
+              Go to Adjustment
             </n-button>
           </n-card>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">搜索建议</span>
-              <span class="tip">是否显示搜索建议</span>
+              <span class="title">Search suggestions</span>
+              <span class="tip">Whether to show search suggestions</span>
             </div>
             <n-switch v-model:value="showSuggestions" :round="false" />
           </n-card>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">跳转方式</span>
-              <span class="tip">全站链接跳转方式</span>
+              <span class="title">Jump method</span>
+              <span class="tip">Site-wide link jump method</span>
             </div>
             <n-select class="set" v-model:value="urlJumpType" :options="urlJumpTypeOptions" />
           </n-card>
         </n-scrollbar>
       </n-tab-pane>
-      <n-tab-pane name="personalization" tab="个性调整">
+      <n-tab-pane name="personalization" tab="Personality">
         <n-scrollbar class="scrollbar">
-          <n-h6 prefix="bar"> 壁纸 </n-h6>
+          <n-h6 prefix="bar"> wallpaper </n-h6>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">壁纸遮罩</span>
-              <span class="tip">壁纸周围是否显示暗色遮罩</span>
+              <span class="title">Wallpaper Mask</span>
+              <span class="tip">Whether to display a dark mask around the wallpaper</span>
             </div>
             <n-switch v-model:value="showBackgroundGray" :round="false" />
           </n-card>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">壁纸模糊</span>
-              <span class="tip">调整壁纸高斯模糊的程度</span>
+              <span class="title">Blurred wallpaper</span>
+              <span class="tip">Adjust the degree of Gaussian blur of the wallpaper</span>
             </div>
             <n-slider
               class="set"
@@ -118,94 +118,94 @@
               :tooltip="false"
             />
           </n-card>
-          <n-h6 prefix="bar"> 天气与时间 </n-h6>
+          <n-h6 prefix="bar"> Weather and time </n-h6>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">天气显示</span>
-              <span class="tip">是否在首页时间下展示天气</span>
+              <span class="title">Weather display</span>
+              <span class="tip">Whether to display the weather under the time on the home page</span>
             </div>
             <n-switch v-model:value="showWeather" :round="false" />
           </n-card>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">时钟样式</span>
-              <span class="tip">选择一种时钟样式</span>
+              <span class="title">Clock Style</span>
+              <span class="tip">Select a clock style</span>
             </div>
             <n-select class="set" v-model:value="timeStyle" :options="timeStyleOptions" />
           </n-card>
           <n-card v-if="timeStyle === 'one'" class="set-item">
             <div class="name">
-              <span class="title">时间显秒</span>
-              <span class="tip">是否在分钟后面显示秒数</span>
+              <span class="title">Time display seconds</span>
+              <span class="tip">Whether to display seconds after minutes</span>
             </div>
             <n-switch v-model:value="showSeconds" :round="false" />
           </n-card>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">时钟显零</span>
-              <span class="tip">是否在时钟小于 10 时补 0</span>
+              <span class="title">Clock shows zero</span>
+              <span class="tip">Whether to add 0 when the clock is less than 10</span>
             </div>
             <n-switch v-model:value="showZeroTime" :round="false" />
           </n-card>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">显示农历</span>
+              <span class="title">Display lunar calendar</span>
             </div>
             <n-switch v-model:value="showLunar" :round="false" />
           </n-card>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">12 小时制</span>
+              <span class="title">12-hour format</span>
             </div>
             <n-switch v-model:value="use12HourFormat" :round="false" />
           </n-card>
-          <n-h6 prefix="bar"> 搜索框 </n-h6>
+          <n-h6 prefix="bar"> Search Box </n-h6>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">自动收缩</span>
-              <span class="tip">是否在非搜索状态时收起搜索框</span>
+              <span class="title">Automatic shrink</span>
+              <span class="tip">Whether to collapse the search box when not in search state</span>
             </div>
             <n-switch v-model:value="smallInput" :round="false" />
           </n-card>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">自动聚焦</span>
-              <span class="tip">打开网站时自动聚焦搜索框</span>
+              <span class="title">Auto Focus</span>
+              <span class="tip">Automatically focus the search box when opening a website</span>
             </div>
             <n-switch v-model:value="autoFocus" :round="false" />
           </n-card>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">自动失焦</span>
-              <span class="tip">跳转搜索后搜索框自动失焦</span>
+              <span class="title">Automatic Defocus</span>
+              <span class="tip">The search box automatically loses focus after jumping to search</span>
             </div>
             <n-switch v-model:value="autoInputBlur" :round="false" />
           </n-card>
         </n-scrollbar>
       </n-tab-pane>
-      <n-tab-pane name="other" tab="其他设置">
+      <n-tab-pane name="other" tab="Other">
         <n-scrollbar class="scrollbar">
-          <n-h6 prefix="bar"> 重置 </n-h6>
+          <n-h6 prefix="bar"> Reset </n-h6>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">站点重置</span>
-              <span class="tip">若站点显示异常或出现问题时可尝试此操作</span>
+              <span class="title">Site Reset</span>
+              <span class="tip">If the site displays abnormally or there is a problem, you can try this operation</span>
             </div>
-            <n-button strong secondary @click="resetSite"> 重置 </n-button>
+            <n-button strong secondary @click="resetSite"> Reset </n-button>
           </n-card>
-          <n-h6 prefix="bar"> 备份 </n-h6>
+          <n-h6 prefix="bar"> Backup </n-h6>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">站点备份</span>
-              <span class="tip">将站点配置及个性化内容进行备份</span>
+              <span class="title">Site Backup</span>
+              <span class="tip">Back up site configuration and personalized content</span>
             </div>
-            <n-button strong secondary @click="backupSite"> 备份 </n-button>
+            <n-button strong secondary @click="backupSite"> Backup </n-button>
           </n-card>
-          <n-h6 prefix="bar"> 恢复 </n-h6>
+          <n-h6 prefix="bar"> Recover </n-h6>
           <n-card class="set-item">
             <div class="name">
-              <span class="title">数据恢复</span>
-              <span class="tip">将备份的站点内容进行恢复</span>
+              <span class="title">DATA Recover</span>
+              <span class="tip">Restore the backed-up site content</span>
             </div>
             <input
               ref="recoverRef"
@@ -214,27 +214,27 @@
               accept=".json"
               @change="recoverSite"
             />
-            <n-button strong secondary @click="recoverRef?.click()"> 恢复 </n-button>
+            <n-button strong secondary @click="recoverRef?.click()"> Recover </n-button>
           </n-card>
         </n-scrollbar>
       </n-tab-pane>
     </n-tabs>
-    <!-- 自定义壁纸 -->
-    <n-modal preset="card" title="自定义壁纸" v-model:show="customCoverModal" :bordered="false">
+    <!-- Customize wallpaper -->
+    <n-modal preset="card" title="Customize wallpaper" v-model:show="customCoverModal" :bordered="false">
       <n-form>
-        <n-form-item label="自定义壁纸链接">
+        <n-form-item label="Custom wallpaper link">
           <n-input
             clearable
             type="text"
             v-model:value="customCoverUrl"
-            placeholder="请输入自定义壁纸链接"
+            placeholder="Please enter a custom wallpaper link"
           />
         </n-form-item>
       </n-form>
       <template #footer>
         <n-space justify="end">
-          <n-button strong secondary @click="customCoverModal = false"> 取消 </n-button>
-          <n-button strong secondary @click="setCustomCover"> 确认 </n-button>
+          <n-button strong secondary @click="customCoverModal = false"> Cancel </n-button>
+          <n-button strong secondary @click="setCustomCover"> Confirm </n-button>
         </n-space>
       </template>
     </n-modal>
@@ -289,91 +289,84 @@ const recoverRef = ref(null);
 const customCoverModal = ref(false);
 const customCoverUrl = ref("");
 
-// 壁纸类别
 const backgroundTypeArr = [
-  { name: "本地默认", tip: "默认壁纸，随机更换" },
-  { name: "每日必应", tip: "必应每日一图，每天更新" },
-  { name: "随机风景", tip: "随机风景图，随机更换" },
-  { name: "随机动漫", tip: "随机二次元图，随机更换" },
+  { name: "Local default", tip: "Default wallpaper, randomly changed" },
+  { name: "Daily Bing", tip: "Bing daily picture, updated every day" },
+  { name: "Random scenery", tip: "Random scenery picture, randomly changed" },
+  { name: "Random anime", tip: "Random two-dimensional picture, randomly changed" },
 ];
 
-// 主题类别
 const themeTypeOptions = [
   {
-    label: "浅色模式",
+    label: "Light",
     value: "light",
   },
   {
-    label: "深色模式",
+    label: "Dark",
     value: "dark",
   },
 ];
 
-// 切换壁纸
 const changeBackground = (type, reset = false) => {
   if (reset) {
     $dialog.warning({
-      title: "壁纸恢复",
-      content: "确认恢复默认壁纸？若当前为自定义壁纸，你的自定义壁纸将丢失！",
-      positiveText: "恢复",
-      negativeText: "取消",
+      title: "Wallpaper Restoration",
+      content: "Are you sure you want to restore the default wallpaper? If the current wallpaper is a custom wallpaper, your custom wallpaper will be lost!",
+      positiveText: "Recover",
+      negativeText: "Cancel",
       onPositiveClick: () => {
         backgroundType.value = 0;
-        $message.info("已恢复为默认壁纸，刷新后生效");
+        $message.info("The wallpaper has been restored to the default one, and will take effect after refreshing");
       },
     });
     return true;
   }
   backgroundType.value = type;
-  $message.success(`已切换为${backgroundTypeArr[type].name}，刷新后生效`);
+  $message.success(`Switched to${backgroundTypeArr[type].name}, take effect after refresh`);
 };
 
-// 链接跳转方式
 const urlJumpTypeOptions = [
   {
-    label: "新页面打开",
+    label: "Open in new page",
     value: "open",
   },
   {
-    label: "当前页打开",
+    label: "Open in current page",
     value: "href",
   },
 ];
 
-// 时钟样式
 const timeStyleOptions = [
   {
-    label: "横向排布",
+    label: "Horizontal layout",
     value: "one",
   },
   {
-    label: "竖向排布",
+    label: "Vertical arrangement",
     value: "two",
   },
 ];
 
-// 自定义壁纸
 const setCustomCover = () => {
   if (identifyInput(customCoverUrl.value) === "url") {
     backgroundType.value = 4;
     backgroundCustom.value = customCoverUrl.value;
     customCoverModal.value = false;
-    $message.error("已切换为自定义壁纸，刷新后生效");
+    $message.error("Switched to custom wallpaper, takes effect after refresh");
   } else {
-    $message.error("请输入正确的网址");
+    $message.error("Please enter a valid URL");
   }
 };
 
-// 站点重置
 const resetSite = () => {
   $dialog.warning({
-    title: "站点重置",
-    content: "确认重置站点为默认状态？你的全部数据以及自定义设置都将丢失！",
-    positiveText: "重置",
-    negativeText: "取消",
+    title: "Site Reset",
+    content: "Are you sure you want to reset the site to default? All your data and custom settings will be lost!",
+    positiveText: "Reset",
+    negativeText: "Cancel",
     onPositiveClick: () => {
       localStorage.clear();
-      $message.info("站点重置成功，即将刷新");
+      $message.info("The site has been reset successfully and will be refreshed soon");
       setTimeout(() => {
         window.location.reload();
       }, 1000);
@@ -381,7 +374,6 @@ const resetSite = () => {
   });
 };
 
-// 站点备份
 const backupSite = () => {
   try {
     const date = new Date();
@@ -398,40 +390,37 @@ const backupSite = () => {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    // 备份完成
-    $message.success("站点备份成功");
+    $message.success("Site backup successful");
   } catch (error) {
-    console.error("站点备份失败：", error);
-    $message.error("站点备份失败");
+    console.error("Site backup failed:", error);
+    $message.error("Site backup failed");
   }
 };
 
-// 站点恢复
 const recoverSite = async () => {
   try {
     const fileInput = recoverRef.value;
     if (!fileInput?.files.length) {
-      $message.error("请选择要恢复的备份文件");
+      $message.error("Please select the backup file to restore");
       return false;
     }
     const file = fileInput.files[0];
     const jsonData = await file.text();
     const data = JSON.parse(jsonData);
-    // 恢复数据
     $dialog.warning({
-      title: "站点恢复",
-      content: "确认使用该恢复文件？你现有的数据以及自定义设置都将被覆盖！",
-      positiveText: "恢复",
-      negativeText: "取消",
+      title: "Site Restore",
+      content: "Are you sure you want to use this restore file? Your existing data and custom settings will be overwritten!",
+      positiveText: "Restore",
+      negativeText: "Cancel",
       onPositiveClick: async () => {
         const isSuccess = await set.recoverSiteData(data);
         if (isSuccess) {
-          $message.info("站点恢复成功，即将刷新");
+          $message.info("Site restored successfully, will be refreshed soon");
           setTimeout(() => {
             window.location.reload();
           }, 1000);
         } else {
-          $message.error("站点数据恢复失败，请重试");
+          $message.error("Site data recovery failed, please try again");
         }
       },
       onNegativeClick: () => {
@@ -439,13 +428,12 @@ const recoverSite = async () => {
       },
     });
   } catch (error) {
-    console.error("站点数据恢复失败：", error);
-    $message.error("站点数据恢复失败，请重试");
+    console.error("Site data recovery failed:", error);
+    $message.error("Site data recovery failed, please try again");
   }
 };
 
 onMounted(() => {
-  // 检测是否存在自定义壁纸
   if (backgroundCustom.value) customCoverUrl.value = backgroundCustom.value;
 });
 </script>

@@ -3,16 +3,12 @@ import { defineStore } from "pinia";
 const useStatusDataStore = defineStore("statusData", {
   state: () => {
     return {
-      // 壁纸状态
       imgLoadStatus: false,
-      // 站点状态
-      // normal 正常 / focus 搜索 / box 盒子 / set 设置
+      // Site status
+      // normal / focus / box / set
       siteStatus: "normal",
-      // 切换搜索引擎
       engineChangeStatus: false,
-      // 搜索框文本
       searchInputValue: "",
-      // 盒子大小
       mainBoxBig: false,
     };
   },
@@ -36,7 +32,7 @@ const useStatusDataStore = defineStore("statusData", {
       this.mainBoxBig = value;
     },
   },
-  // 开启数据持久化
+
   persist: {
     key: "statusData",
     storage: window.localStorage,

@@ -1,5 +1,5 @@
 <template>
-  <!-- 搜索框 -->
+  <!-- Search box -->
   <div
     :class="[
       'search-input',
@@ -8,7 +8,7 @@
     ]"
     @click.stop
   >
-    <!-- 搜索框遮罩 -->
+    <!-- Search box mask -->
     <div
       v-if="status.siteStatus === 'focus'"
       class="mask"
@@ -19,9 +19,9 @@
         }
       "
     />
-    <!-- 主搜索框 -->
+    <!-- Main search box -->
     <div class="all" ref="searchAllRef" @animationend="inputAnimationEnd">
-      <div class="engine" title="切换搜索引擎" @click="changeEngine">
+      <div class="engine" title="Switch search engine" @click="changeEngine">
         <Transition name="fade" mode="out-in">
           <SvgIcon
             :iconName="`icon-${
@@ -37,7 +37,7 @@
         ref="searchInputRef"
         type="text"
         label="search"
-        title="请输入搜索内容"
+        title="Please enter your search content"
         autocomplete="false"
         :placeholder="inputTip"
         v-model="status.searchInputValue"
@@ -45,13 +45,13 @@
         @click.stop="status.setEngineChangeStatus(false)"
         @keydown.stop="pressKeyboard"
       />
-      <div class="go" title="搜索" @click="toSearch(status.searchInputValue)">
+      <div class="go" title="Search" @click="toSearch(status.searchInputValue)">
         <SvgIcon iconName="icon-search" className="search" />
       </div>
     </div>
-    <!-- 搜索引擎切换 -->
+    <!-- Search engine switch -->
     <SearchEngine />
-    <!-- 搜索建议 -->
+    <!-- Search suggestions -->
     <Suggestions ref="suggestionsRef" :keyWord="status.searchInputValue" @toSearch="toSearch" />
   </div>
 </template>
@@ -66,17 +66,13 @@ import defaultEngine from "@/assets/defaultEngine.json";
 const set = setStore();
 const status = statusStore();
 
-// 搜索框配置
-const inputTip = import.meta.env.VITE_INPUT_TIP ?? "想要搜点什么";
+const inputTip = import.meta.env.VITE_INPUT_TIP ?? "What's you want?";
 
-// 搜索框数据
 const searchAllRef = ref(null);
 const searchInputRef = ref(null);
 
-// 搜索建议子组件
 const suggestionsRef = ref(null);
 
-// 关闭搜索框
 const closeSearchInput = (check = false) => {
   if (check && !set.autoInputBlur) {
     status.setSiteStatus("focus");
@@ -88,10 +84,8 @@ const closeSearchInput = (check = false) => {
   status.setEngineChangeStatus(false);
 };
 
-// 前往搜索
 const toSearch = (val, type = 1) => {
   const searchValue = val?.trim();
-  // 定义跳转方法
   const jumpLink = (url) => {
     if (set.urlJumpType === "href") {
       window.location.href = url;
@@ -99,12 +93,10 @@ const toSearch = (val, type = 1) => {
       window.open(url, "_blank");
     }
   };
-  // 是否为空
   if (searchValue) {
     const searchFormat = encodeURIComponent(searchValue);
-    console.log("前往搜索：" + searchValue, type);
+    console.log("Go to search:" + searchValue, type);
     switch (type) {
-      // 默认搜索
       case 1:
         if (set.searchEngine !== "custom") {
           const engine = defaultEngine[set.searchEngine];
@@ -113,7 +105,6 @@ const toSearch = (val, type = 1) => {
           jumpLink(set.customEngineUrl + searchFormat);
         }
         break;
-      // 快捷翻译
       case 2: {
         const hasTranslation = defaultEngine[set.searchEngine]?.translation;
         jumpLink(
@@ -123,11 +114,9 @@ const toSearch = (val, type = 1) => {
         );
         break;
       }
-      // 电子邮件
       case 3:
         jumpLink(`mailto:${searchFormat}`);
         break;
-      // 直接访问
       case 4: {
         const urlRegex = /^(https?:\/\/)/i;
         const url = urlRegex.test(searchFormat) ? searchFormat : `//${searchFormat}`;
@@ -140,32 +129,26 @@ const toSearch = (val, type = 1) => {
     closeSearchInput(true);
   } else {
     if (status.siteStatus === "focus") {
-      $message.info("请输入搜索内容", { duration: 1500 });
+      $message.info("Please enter your search content", { duration: 1500 });
     }
     status.setSiteStatus("focus");
     searchInputRef.value?.focus();
   }
 };
 
-// 搜索框动画结束
 const inputAnimationEnd = () => {
-  console.log("搜索框动画结束");
-  // 自动 focus
+  console.log("Search box animation ends");
   if (set.autoFocus) {
     status.setSiteStatus("focus");
     searchInputRef.value?.focus();
   }
 };
 
-// 键盘事件
 const pressKeyboard = (event) => {
-  // 获取键的键码
   const keyCode = event.keyCode;
-  // 子组件事件
   suggestionsRef.value?.keyboardEvents(keyCode, event);
 };
 
-// 更换搜索引擎
 const changeEngine = () => {
   status.setSiteStatus("focus", false);
   status.setEngineChangeStatus(!status.engineChangeStatus);

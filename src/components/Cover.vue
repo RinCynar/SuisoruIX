@@ -26,11 +26,11 @@ const bgUrl = ref(null);
 const imgTimeout = ref(null);
 const emit = defineEmits(["loadComplete"]);
 
-// 壁纸随机数
-// 请依据文件夹内的图片个数修改 Math.random() 后面的第一个数字
+// Wallpaper random number
+// Please modify the first number after Math.random() according to the number of pictures in the folder.
 const bgRandom = Math.floor(Math.random() * 3 + 1);
 
-// 赋值壁纸
+// Assign wallpaper
 const setBgUrl = () => {
   const { backgroundType } = set;
   switch (backgroundType) {
@@ -57,7 +57,6 @@ const setBgUrl = () => {
   }
 };
 
-// 图片加载完成
 const imgLoadComplete = () => {
   imgTimeout.value = setTimeout(
     () => {
@@ -67,17 +66,14 @@ const imgLoadComplete = () => {
   );
 };
 
-// 图片动画完成
 const imgAnimationEnd = () => {
-  console.log("壁纸加载且动画完成");
-  // 加载完成事件
+  console.log("Wallpaper loaded and animation completed");
   emit("loadComplete");
 };
 
-// 图片显示失败
 const imgLoadError = () => {
-  console.error("壁纸加载失败：", bgUrl.value);
-  $message.error("壁纸加载失败，已临时切换回默认");
+  console.error("Wallpaper loading failed:", bgUrl.value);
+  $message.error("Wallpaper loading failed, temporarily switched back to default");
   bgUrl.value = `/background/bg${bgRandom}.jpg`;
 };
 

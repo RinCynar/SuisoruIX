@@ -1,8 +1,8 @@
 /**
- * 查找页面中所有元素的最大 z-index 值，并返回新元素应该使用的合适 z-index 值
- * @param {number} min - 可选参数，新元素应该至少具有的最小 z-index 值。
- * @returns {number} 返回新元素应该使用的合适 z-index 值。
- */
+* Find the maximum z-index value of all elements in the page and return the appropriate z-index value that the new element should use
+* @param {number} min - optional parameter, the minimum z-index value that the new element should have at least.
+* @returns {number} returns the appropriate z-index value that the new element should use.
+*/
 export const findMaxZIndex = (min) => {
   const elements = document.getElementsByTagName("*");
   let maxZIndex = 0;
@@ -12,6 +12,6 @@ export const findMaxZIndex = (min) => {
       maxZIndex = zIndex;
     }
   }
-  // 返回新元素应该使用的合适 z-index 值。如果传入了最小值 min，则使用 min，否则使用 2000。
+
   return Math.max(min ? min : 2000, maxZIndex + 1);
 };

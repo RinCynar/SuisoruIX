@@ -1,22 +1,19 @@
 import axios from "axios";
 
-// 全局配置
 axios.defaults.timeout = 30000;
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 axios.defaults.withCredentials = false;
 
-// 请求拦截
 axios.interceptors.request.use(
   (request) => {
     return request;
   },
   (error) => {
-    console.error("请求失败，请稍后重试");
+    console.error("Request failed, please try again later");
     return Promise.reject(error);
   },
 );
 
-// 响应拦截
 axios.interceptors.response.use(
   (response) => {
     return response.data;
@@ -24,9 +21,9 @@ axios.interceptors.response.use(
   (error) => {
     if (error.response) {
       const data = error.response?.data;
-      console.error("请求失败，请稍后重试：" + data);
+      console.error("Request failed, please try again later:" + data);
     } else {
-      console.error("请求失败，请稍后重试:" + error);
+      console.error("Request failed, please try again later:" + error);
     }
     return Promise.reject(error);
   },

@@ -3,15 +3,15 @@
     <div class="copyright">
       <span class="site-name">{{ siteName }}</span>
       <span class="year">{{ fullYear }}</span>
-      <span class="anthor" @click="jumpTo(copyrightLink ?? 'https://github.com/imsyy/Snavigation')">
+      <span class="anthor" @click="jumpTo(copyrightLink ?? 'https://rincynar.us.kg')">
         {{ siteAnthor }}
       </span>
-      <span v-if="icp" class="icp" @click="jumpTo('https://beian.miit.gov.cn')">
+      <span v-if="icp" class="icp" @click="jumpTo('https://google.cn/icp')">
         {{ icp }}
       </span>
-      <span class="about" @click="aboutSiteModal = true">关于</span>
+      <span class="about" @click="aboutSiteModal = true">About</span>
     </div>
-    <!-- 关于 -->
+    <!-- About -->
     <n-modal
       preset="card"
       :bordered="false"
@@ -25,7 +25,7 @@
         </div>
         <div class="desc">
           <n-space class="link" justify="center">
-            <n-button strong secondary @click="jumpTo('https://github.com/imsyy/Snavigation')">
+            <n-button strong secondary @click="jumpTo('https://github.com/RinCynar/SuisoruIX')">
               Github
             </n-button>
           </n-space>
@@ -43,17 +43,14 @@ import packageJson from "@/../package.json";
 
 const set = setStore();
 
-// 站点数据
 const icp = import.meta.env.VITE_ICP;
 const siteName = import.meta.env.VITE_SITE_TITLE;
 const siteAnthor = import.meta.env.VITE_SITE_ANTHOR;
 const copyrightLink = import.meta.env.VITE_SITE_COPYRIGHTLINK;
 const fullYear = new Date().getFullYear();
 
-// 关于弹窗数据
 const aboutSiteModal = ref(false);
 
-// 跳转
 const jumpTo = (url) => {
   if (set.urlJumpType === "href") {
     window.location.href = url;

@@ -2,10 +2,10 @@ import axios from "@/utils/request";
 import fetchJsonp from "fetch-jsonp";
 
 /**
- * 获取天气
- * https://lbs.amap.com/api/webservice/guide/api/weatherinfo
- */
-// 获取高德地理位置信息
+* Get weather
+* https://lbs.amap.com/api/webservice/guide/api/weatherinfo
+*/
+// Get Amap location information
 export const getAdcode = async (key) => {
   return axios({
     method: "GET",
@@ -14,7 +14,7 @@ export const getAdcode = async (key) => {
   });
 };
 
-// 获取高德地理天气信息
+// Get Amap's weather information
 export const getWeather = async (key, city) => {
   return axios({
     method: "GET",
@@ -24,24 +24,27 @@ export const getWeather = async (key, city) => {
 };
 
 /**
- * 获取搜索建议
- * https://suggestion.baidu.com
- * @param {String} keyWord - 搜索关键字
- */
+* Get search suggestions from Google Custom Search API
+* @param {String} keyWord - search keyword
+* @param {String} apiKey - your Google API key
+* @param {String} cx - your Google Custom Search Engine ID
+*/
 export const getSearchSuggestions = async (keyWord) => {
   try {
+    const apiKey = "AIzaSyDx0i-9bI4EffpFFUQASCCzWb0odN73VX0";
+    const cx = "722782f8f7f4b442f";
+
     const encodedKeyword = encodeURIComponent(keyWord);
-    const response = await fetchJsonp(
-      `https://suggestion.baidu.com/su?wd=${encodedKeyword}&cb=json`,
-      {
-        // 回调参数
-        jsonpCallback: "cb",
-      },
+    const response = await fetch(
+      `https://www.googleapis.com/customsearch/v1?q=${encodedKeyword}&key=${apiKey}&cx=${cx}`
     );
+
     const data = await response.json();
-    return data.s;
+
+    const suggestions = data.items?.map(item => item.title) || [];
+    return suggestions;
   } catch (error) {
-    console.error("处理搜索建议发生错误：", error);
+    console.error("An error occurred while processing search suggestions:", error);
     return null;
   }
 };

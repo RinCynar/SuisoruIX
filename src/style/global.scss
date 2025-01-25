@@ -155,7 +155,7 @@ body {
   backdrop-filter: blur(10px);
 }
 
-// Transition 动画
+// Transition
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.25s ease-in-out;
@@ -196,7 +196,6 @@ body {
   transform: translateY(20px);
 }
 
-// 全局动画
 @keyframes fade-up-in {
   0% {
     opacity: 0;
@@ -260,13 +259,13 @@ body {
   }
 }
 
-// 文本选中
+// Text Selection
 ::selection {
   color: var(--main-text-color);
   background-color: var(--main-text-hover-color);
 }
 
-// 滚动条
+// Scrollbars
 .ps__rail-y {
   .ps__thumb-y {
     right: 0;

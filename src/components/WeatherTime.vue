@@ -1,5 +1,5 @@
 <template>
-  <!-- 天气时钟 -->
+  <!-- Weather Clock -->
   <div
     :class="[
       'weather-time',
@@ -40,13 +40,13 @@
     <div class="date">
       <span class="month">{{ timeData.month ?? "0" }}</span>
       <span class="day">{{ timeData.day ?? "0" }}</span>
-      <span class="weekday">{{ timeData.weekday ?? "星期八" }}</span>
+      <span class="weekday">{{ timeData.weekday ?? "???" }}</span>
     </div>
     <div v-if="set.showWeather" class="weather">
       <span class="status">{{ weatherData?.condition ?? "N/A" }}</span>
       <span class="temperature">{{ weatherData?.temp ?? "N/A" }} ℃</span>
       <span class="wind">{{ weatherData?.windDir ?? "N/A" }}</span>
-      <span v-if="weatherData?.windLevel" class="wind-level"> {{ weatherData.windLevel }} 级 </span>
+      <span v-if="weatherData?.windLevel" class="wind-level"> {{ weatherData.windLevel }} Level </span>
     </div>
   </div>
 </template>
@@ -60,61 +60,51 @@ import { getAdcode, getWeather } from "@/api";
 const set = setStore();
 const status = statusStore();
 
-// 时间数据
 const timeData = ref({});
 const timeInterval = ref(null);
 
-// 天气数据
 const weatherData = ref(null);
 const weatherKey = import.meta.env.VITE_WEATHER_KEY;
 
-// 更新时间
 const updateTimeData = () => {
   timeData.value = getCurrentTime(set.showZeroTime, set.use12HourFormat);
 };
 
-// 获取天气数据
 const getWeatherData = async () => {
   if (!weatherKey) {
-    return $message.warning("请配置天气 Key");
+    return $message.warning("Please configure the weather key");
   }
-  // 当前时间戳
   const currentTime = Date.now();
-  // 上次获取天气数据的数据
   let lastWeatherData = JSON.parse(localStorage.getItem("lastWeatherData")) || {
     data: {},
     lastFetchTime: 0,
   };
-  // 上次获取天气数据的时间戳与当前时间的时间差（毫秒）
   const timeDifference = currentTime - lastWeatherData.lastFetchTime;
-  // 是否超出 5 分钟
   if (timeDifference >= 5 * 60 * 1000) {
     const adCodeResult = await getAdcode(weatherKey);
     if (adCodeResult.infocode !== "10000") {
-      return $message.error("地区查询失败");
+      return $message.error("Region query failed");
     }
-    // 获取天气数据
     const weatherResult = await getWeather(weatherKey, adCodeResult.adcode);
     if (weatherResult.infocode !== "10000") {
-      return $message.error("地区查询失败");
+      return $message.error("Region query failed");
     }
     const data = weatherResult.lives[0];
     weatherData.value = {
       condition: data.weather,
       temp: data.temperature,
-      windDir: data.winddirection + "风",
+      windDir: data.winddirection + "wind",
       windLevel: data.windpower,
     };
     lastWeatherData = { data: weatherData.value, lastFetchTime: currentTime };
-    // 储存新天气数据
+
     localStorage.setItem("lastWeatherData", JSON.stringify(lastWeatherData));
   } else {
-    console.log("从缓存中读取天气数据：", lastWeatherData);
+    console.log("Read weather data from the cache:", lastWeatherData);
     weatherData.value = lastWeatherData.data;
   }
 };
 
-// 监听配置发生改变
 watch(
   () => [set.showZeroTime, set.use12HourFormat],
   () => {
@@ -123,10 +113,10 @@ watch(
 );
 
 onMounted(() => {
-  // 时间
+  // Time
   updateTimeData();
   timeInterval.value = setInterval(updateTimeData, 1000);
-  // 天气
+  // Weather
   getWeatherData();
 });
 
@@ -184,13 +174,13 @@ onBeforeUnmount(() => {
     .month {
       &::after {
         margin: 0 4px;
-        content: "月";
+        content: "/";
       }
     }
     .day {
       &::after {
         margin: 0 8px 0 4px;
-        content: "日";
+        content: "";
       }
     }
   }

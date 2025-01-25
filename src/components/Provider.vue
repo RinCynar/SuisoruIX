@@ -1,5 +1,5 @@
 <template>
-  <!-- 全局配置组件 -->
+  <!-- Global Configuration Components -->
   <n-config-provider
     :locale="zhCN"
     :date-locale="dateZhCN"
@@ -34,7 +34,6 @@ import {
   useMessage,
 } from "naive-ui";
 
-// 全局主题
 const themeOverrides = {
   common: {
     fontFamily: "'HarmonyOS_Regular', sans-serif",
@@ -45,17 +44,12 @@ const themeOverrides = {
   },
 };
 
-// 挂载 Naive 组件
 const setupNaiveTools = () => {
-  // 通知
   window.$notification = useNotification();
-  // 信息
   window.$message = useMessage();
-  // 对话框
   window.$dialog = useDialog();
 };
 
-// Naive 功能组件
 const NaiveProviderContent = defineComponent({
   setup() {
     setupNaiveTools();

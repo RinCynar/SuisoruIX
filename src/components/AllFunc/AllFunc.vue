@@ -1,5 +1,5 @@
 <template>
-  <!-- 功能区 -->
+  <!-- Functional area -->
   <div
     :class="status.mainBoxBig ? 'main-box big' : 'main-box'"
     @click.stop

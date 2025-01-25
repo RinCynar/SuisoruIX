@@ -17,18 +17,18 @@
             @click="customEngineClick"
           >
             <SvgIcon iconName="icon-custom" />
-            <span class="name">自定义</span>
+            <span class="name">Custom</span>
           </n-grid-item>
           <n-grid-item class="engine" @click="customEngineModal = true">
             <SvgIcon iconName="icon-custom" />
-            <span class="name">自定义配置</span>
+            <span class="name">Custom Configuration</span>
           </n-grid-item>
         </n-grid>
       </n-scrollbar>
-      <!-- 自定义搜索引擎 -->
+      <!-- Custom Search Engine -->
       <n-modal
         preset="card"
-        title="自定义搜索引擎"
+        title="Custom Search Engine"
         v-model:show="customEngineModal"
         :bordered="false"
       >
@@ -38,18 +38,18 @@
           :model="customEngineValue"
           :label-width="80"
         >
-          <n-form-item label="自定义搜索引擎地址" path="url">
+          <n-form-item label="Custom search engine address" path="url">
             <n-input
               clearable
               v-model:value="customEngineValue.url"
-              placeholder="请输入自定义搜索引擎地址"
+              placeholder="Please enter a custom search engine address"
             />
           </n-form-item>
         </n-form>
         <template #footer>
           <n-space justify="end">
-            <n-button strong secondary @click="customEngineModal = false"> 取消 </n-button>
-            <n-button strong secondary @click="setCustomEngine"> 确认 </n-button>
+            <n-button strong secondary @click="customEngineModal = false"> Cancel </n-button>
+            <n-button strong secondary @click="setCustomEngine"> Confirm </n-button>
           </n-space>
         </template>
       </n-modal>
@@ -76,7 +76,6 @@ import defaultEngine from "@/assets/defaultEngine.json";
 const set = setStore();
 const status = statusStore();
 
-// 自定义搜索引擎数据
 const customEngineRef = ref(null);
 const customEngineModal = ref(false);
 const customEngineValue = ref({
@@ -87,9 +86,9 @@ const customEngineRules = {
     required: true,
     validator(rule, value) {
       if (!value) {
-        return new Error("请输入自定义搜索引擎地址");
+        return new Error("Please enter a custom search engine address");
       } else if (!/^https:\/\/[a-zA-Z0-9\-.]+\.[a-zA-Z]{2,}(\/\S*)?$/.test(value)) {
-        return new Error("请检查是否为网址且是否为 https:// 开头");
+        return new Error("Please check whether it is a URL and whether it starts with https://");
       }
       return true;
     },
@@ -97,35 +96,30 @@ const customEngineRules = {
   },
 };
 
-// 更换搜索引擎
 const changeSearchEngine = (key) => {
-  // 获取元素
   const mainInput = document.getElementById("main-input");
-  // 更改状态
   set.setSearchEngine(key);
   status.setEngineChangeStatus(false);
   mainInput?.focus();
 };
 
-// 点击自定义搜索引擎
 const customEngineClick = () => {
   if (set.customEngineUrl) {
     changeSearchEngine("custom");
   } else {
-    $message.info("无自定义数据，请配置");
+    $message.info("No custom data, please configure");
     customEngineModal.value = true;
   }
 };
 
-// 自定义搜索引擎
 const setCustomEngine = () => {
   customEngineRef.value?.validate((errors) => {
     if (!errors) {
       set.setSearchEngine(customEngineValue.value.url, true);
       customEngineModal.value = false;
-      $message.success("已启用自定义搜索引擎");
+      $message.success("Custom Search Engine Enabled");
     } else {
-      $message.error("请检查您的输入");
+      $message.error("Please check your input");
     }
   });
 };

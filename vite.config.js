@@ -33,9 +33,9 @@ export default defineConfig({
         ],
       },
       manifest: {
-        name: "Snavigation",
-        short_name: "Snavigation",
-        description: "一个极致简约的导航页",
+        name: "SuisoruIX",
+        short_name: "SuisoruIX",
+        description: "StartPage",
         display: "standalone",
         start_url: "/",
         theme_color: "#fff",
@@ -57,7 +57,6 @@ export default defineConfig({
     open: true,
   },
   resolve: {
-    // 配置路径别名
     alias: {
       // eslint-disable-next-line no-undef
       "@": path.resolve(__dirname, "./src"),
@@ -67,7 +66,6 @@ export default defineConfig({
     minify: "terser",
     terserOptions: {
       compress: {
-        // 生产环境时移除 console
         pure_funcs: ["console.log"],
       },
     },
