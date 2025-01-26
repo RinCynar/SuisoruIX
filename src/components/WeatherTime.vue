@@ -72,7 +72,7 @@ const updateTimeData = () => {
 
 const getWeatherData = async () => {
   if (!weatherKey) {
-    /**return $message.warning("Please configure the weather key");*/
+    return $message.warning("(⁠｡⁠•̀⁠ᴗ⁠-⁠)⁠✧");
   }
   const currentTime = Date.now();
   let lastWeatherData = JSON.parse(localStorage.getItem("lastWeatherData")) || {
