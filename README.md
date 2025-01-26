@@ -3,7 +3,8 @@
 A StartPage
 </p>
 
-![Snavigation.png](https://s2.loli.net/2022/07/15/FE6U2BJCynHDep8.jpg)
+![SuisoruIX-PC.png](https://rincynar.us.kg/assets/img/image/image@20250126pas01.png)
+![SuisoruIX-Mobile.png](https://rincynar.us.kg/assets/img/image/image@20250126pas00.png)
 
 ### Technology Stack
 
