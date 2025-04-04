@@ -3,8 +3,8 @@
 A StartPage
 </p>
 
-![SuisoruIX-PC.png](https://rincynar.us.kg/assets/img/image/image@20250126pas01.png)
-![SuisoruIX-Mobile.png](https://rincynar.us.kg/assets/img/image/image@20250126pas00.png)
+![SuisoruIX-PC.png](https://rincynar.dpdns.org/assets/img/image/image@20250126pas01.png)
+![SuisoruIX-Mobile.png](https://rincynar.dpdns.org/assets/img/image/image@20250126pas00.png)
 
 ### Technology Stack
 
