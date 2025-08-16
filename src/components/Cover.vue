@@ -28,7 +28,7 @@ const emit = defineEmits(["loadComplete"]);
 
 // Wallpaper random number
 // Please modify the first number after Math.random() according to the number of pictures in the folder.
-const bgRandom = Math.floor(Math.random() * 3 + 1);
+const bgRandom = Math.floor(Math.random() * 10 + 1);
 
 // Assign wallpaper
 const setBgUrl = () => {
