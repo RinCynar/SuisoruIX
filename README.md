@@ -3,8 +3,8 @@
 A StartPage
 </p>
 
-![SuisoruIX-PC.png](https://blog.rincynar.top/image@20250126pas01.png)
-![SuisoruIX-Mobile.png](https://blog.rincynar.tope/image@20250126pas00.png)
+![SuisoruIX-PC.png](https://blog.rincynar.top/assets/img/image/image@20250126pas01.png)
+![SuisoruIX-Mobile.png](https://blog.rincynar.top/assets/img/image/image@20250126pas00.png)
 
 ### Technology Stack
 
