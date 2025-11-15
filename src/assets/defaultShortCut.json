@@ -1,8 +1,8 @@
 [
   {
     "id": 0,
-    "name": "RinCynar's blog",
-    "url": "https://rincynar.dpdns.org"
+    "name": "RinCynar",
+    "url": "https://blog.rincynar.top"
   },
   {
     "id": 1,
@@ -15,18 +15,8 @@
     "url": "https://dash.cloudflare.com"
   },
   {
-    "id": 3,
-    "name": "Twitter",
-    "url": "https://x.com"
-  },
-  {
-    "id": 4,
+    "id": 3
     "name": "YouTube",
     "url": "https://youtube.com"
   },
-  {
-    "id": 5,
-    "name": "Spotify",
-    "url": "https://open.spotify.com"
-  }
 ]

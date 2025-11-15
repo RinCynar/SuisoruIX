@@ -3,7 +3,7 @@
     <div class="copyright">
       <span class="site-name">{{ siteName }}</span>
       <span class="year">{{ fullYear }}</span>
-      <span class="anthor" @click="jumpTo(copyrightLink ?? 'https://rincynar.dpdns.org')">
+      <span class="anthor" @click="jumpTo(copyrightLink ?? 'https://blog.rincynar.top')">
         {{ siteAnthor }}
       </span>
       <span v-if="icp" class="icp" @click="jumpTo('https://google.cn/icp')">
