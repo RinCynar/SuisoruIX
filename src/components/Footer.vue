@@ -67,18 +67,20 @@ const jumpTo = (url) => {
   align-items: center;
   justify-content: center;
   bottom: 0;
-  height: 50px;
+  height: 60px;
   width: 100%;
   color: var(--md-sys-color-on-surface);
   z-index: 1;
   .copyright {
     display: flex;
     align-items: center;
-    font-size: 13px;
+    font-size: var(--md-sys-typescale-body-small-size);
+    font-weight: var(--md-sys-typescale-body-small-weight);
+    gap: 2px;
     span {
       margin: 0 2px;
-      opacity: 0.68;
-      transition: opacity 0.3s;
+      opacity: 0.7;
+      transition: opacity var(--md-sys-motion-duration-short2) ease;
       &::before {
         opacity: 0.6;
         transition: none;
@@ -87,7 +89,7 @@ const jumpTo = (url) => {
     .year {
       &::before {
         content: "@";
-        opacity: 1;
+        opacity: 0.8;
         margin-right: 4px;
       }
     }
@@ -107,14 +109,19 @@ const jumpTo = (url) => {
     .icp,
     .about {
       cursor: pointer;
+      color: var(--md-sys-color-primary);
       &:hover {
         opacity: 1;
+        text-decoration: underline;
+      }
+      &:active {
+        opacity: 0.8;
       }
     }
   }
 }
 .about-modal {
-  margin-bottom: 10px;
+  margin-bottom: 16px;
   .about {
     display: flex;
     flex-direction: column;
@@ -122,17 +129,18 @@ const jumpTo = (url) => {
     width: 100%;
     color: var(--md-sys-color-on-surface);
     .name {
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 4px;
+      font-size: var(--md-sys-typescale-headline-large-size);
+      font-weight: var(--md-sys-typescale-headline-large-weight);
+      margin-bottom: 8px;
     }
     .version {
-      opacity: 0.68;
-      font-size: 16px;
+      opacity: 0.7;
+      font-size: var(--md-sys-typescale-body-size);
+      font-weight: 400;
     }
   }
   .desc {
-    margin-top: 20px;
+    margin-top: 24px;
   }
 }
 </style>

@@ -29,7 +29,7 @@
 import { NTabs, NTabPane } from "naive-ui";
 import ShortCut from "@/components/AllFunc/Box/ShortCut.vue";
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .height--full {
   height: 100%;
 }
@@ -37,5 +37,34 @@ import ShortCut from "@/components/AllFunc/Box/ShortCut.vue";
   color: var(--md-sys-color-on-surface);
   background-color: transparent;
   --n-tab-text-color-active: var(--md-sys-color-primary) !important;
+  
+  :deep(h2) {
+    font-size: var(--md-sys-typescale-headline-large-size);
+    font-weight: var(--md-sys-typescale-headline-large-weight);
+    margin-bottom: 20px;
+    color: var(--md-sys-color-on-surface);
+  }
+
+  :deep(h3) {
+    font-size: var(--md-sys-typescale-title-large-size);
+    font-weight: var(--md-sys-typescale-title-large-weight);
+    margin: 12px 0;
+    color: var(--md-sys-color-on-surface);
+  }
+
+  :deep(h4) {
+    font-size: var(--md-sys-typescale-title-size);
+    font-weight: var(--md-sys-typescale-title-weight);
+    margin: 16px 0 12px 0;
+    color: var(--md-sys-color-primary);
+  }
+
+  :deep(h5) {
+    font-size: var(--md-sys-typescale-body-size);
+    font-weight: var(--md-sys-typescale-body-weight);
+    margin: 6px 0;
+    color: var(--md-sys-color-on-surface-variant);
+    line-height: 1.5;
+  }
 }
 </style>

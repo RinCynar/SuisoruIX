@@ -177,39 +177,44 @@ const changeEngine = () => {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    height: 48px;
+    height: 56px;
     width: 100%;
-    border-radius: var(--md-sys-shape-corner-large);
+    border-radius: var(--md-sys-shape-corner-extra-large);
     color: var(--md-sys-color-on-surface);
-    background-color: var(--md-sys-color-surface);
-    box-shadow: var(--md-sys-elevation-surface-1);
+    background-color: var(--md-sys-color-surface-container);
+    box-shadow: var(--md-sys-elevation-surface-2);
     backdrop-filter: blur(8px);
     opacity: 1;
     animation: fade-up-in 0.7s cubic-bezier(0.37, 0.99, 0.36, 1);
     transition:
-      transform 0.3s,
-      background-color 0.3s,
-      opacity 0.5s;
+      transform var(--md-sys-motion-duration-medium) ease,
+      background-color var(--md-sys-motion-duration-short2) ease,
+      opacity var(--md-sys-motion-duration-medium) ease,
+      box-shadow var(--md-sys-motion-duration-short2) ease;
     z-index: 1;
     .input {
       display: flex;
       align-items: center;
       height: 100%;
       width: 100%;
-      padding: 0 12px;
+      padding: 0 16px;
       margin: 0;
       border: none;
       outline: none;
       background: none;
-      font-size: 16px;
+      font-size: var(--md-sys-typescale-body-size);
       color: var(--md-sys-color-on-surface);
       font-family: var(--md-sys-typescale-font-family);
+      font-weight: var(--md-sys-typescale-body-weight);
       &::placeholder {
         width: 100%;
         text-align: center;
-        color: rgba(255,255,255,0.6);
-        letter-spacing: 0.6px;
-        transition: opacity 0.3s;
+        color: var(--md-sys-color-on-surface-variant);
+        letter-spacing: 0.3px;
+        transition: opacity var(--md-sys-motion-duration-short2) ease;
+      }
+      &:focus {
+        outline: none;
       }
     }
     .engine,
@@ -218,17 +223,22 @@ const changeEngine = () => {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 36px;
-      width: 56px;
+      height: 40px;
+      width: 48px;
       font-size: 20px;
       border-radius: var(--md-sys-shape-corner-medium);
+      color: var(--md-sys-color-on-surface);
       transition:
-        background-color 0.18s,
-        opacity 0.18s,
-        transform 0.12s;
+        background-color var(--md-sys-motion-duration-short2) ease,
+        opacity var(--md-sys-motion-duration-short2) ease,
+        transform var(--md-sys-motion-duration-short) ease;
       &:hover {
-        background-color: var(--md-sys-color-primary-container);
-        transform: translateY(-1px);
+        background-color: var(--md-sys-color-surface-container-high);
+        transform: scale(1.05);
+      }
+      &:active {
+        transform: scale(0.95);
+        background-color: var(--md-sys-color-surface-container-highest);
       }
       @media (max-width: 520px) {
         font-size: 18px;
@@ -268,9 +278,10 @@ const changeEngine = () => {
     width: calc(100% - 60px);
     .all {
       transform: translateY(-60px);
-      background-color: var(--md-sys-color-primary-container);
+      background-color: var(--md-sys-color-surface-container-high);
+      box-shadow: var(--md-sys-elevation-surface-3);
       .input {
-        color: var(--md-sys-color-on-primary-container);
+        color: var(--md-sys-color-on-surface);
         &::placeholder {
           opacity: 0;
         }
@@ -279,7 +290,7 @@ const changeEngine = () => {
       .go,
       .delete {
         opacity: 1;
-        color: var(--md-sys-color-on-primary-container);
+        color: var(--md-sys-color-on-surface);
       }
     }
   }

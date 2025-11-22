@@ -131,46 +131,50 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   transform: translateY(-140px);
   color: var(--md-sys-color-on-surface);
   animation: fade-time-in 0.6s cubic-bezier(0.21, 0.78, 0.36, 1);
   transition:
-    transform 0.3s,
-    opacity 0.5s,
-    margin-bottom 0.3s;
+    transform var(--md-sys-motion-duration-medium) ease,
+    opacity var(--md-sys-motion-duration-long) ease,
+    margin-bottom var(--md-sys-motion-duration-short2) ease;
   z-index: 1;
   .time {
     cursor: pointer;
-    font-size: 3rem;
-    margin: 6px 0px;
+    font-size: var(--md-sys-typescale-display-large-size);
+    font-weight: 400;
+    margin: 12px 0;
     text-shadow: 0 6px 18px rgba(0,0,0,0.45);
-    transition: transform 0.3s;
+    transition: transform var(--md-sys-motion-duration-short2) ease;
+    letter-spacing: -1px;
     .separator {
       opacity: 0.8;
-      font-size: 2.8rem;
+      font-size: calc(var(--md-sys-typescale-display-large-size) - 4px);
       display: inline-block;
-      margin: 0 5px;
+      margin: 0 8px;
       transform: translateY(-4px);
       animation: separator-breathe 0.7s infinite alternate;
     }
     .amPm {
-      font-size: 1rem;
-      opacity: 0.6;
-      margin-left: 6px;
+      font-size: var(--md-sys-typescale-body-size);
+      opacity: 0.7;
+      margin-left: 8px;
+      font-weight: 500;
     }
     &:hover {
-      transform: scale(1.08);
+      transform: scale(1.06);
     }
     &:active {
-      transform: scale(1);
+      transform: scale(0.98);
     }
   }
   .date {
-    font-size: 1.15rem;
-    opacity: 0.78;
-    margin: 4px 0px;
+    font-size: var(--md-sys-typescale-title-size);
+    opacity: 0.8;
+    margin: 8px 0;
     text-shadow: 0 6px 18px rgba(0,0,0,0.36);
+    font-weight: 500;
     .month {
       &::after {
         margin: 0 4px;
@@ -185,9 +189,10 @@ onBeforeUnmount(() => {
     }
   }
   .lunar {
-    font-size: 0.9rem;
-    opacity: 0.6;
+    font-size: var(--md-sys-typescale-label-large-size);
+    opacity: 0.65;
     text-shadow: 0 6px 18px rgba(0,0,0,0.36);
+    font-weight: 500;
     .year {
       &::after {
         margin-right: 4px;
@@ -196,14 +201,15 @@ onBeforeUnmount(() => {
     }
   }
   .weather {
-    opacity: 0.7;
-    font-size: 1rem;
+    opacity: 0.75;
+    font-size: var(--md-sys-typescale-body-size);
     text-shadow: 0 6px 18px rgba(0,0,0,0.36);
+    font-weight: 400;
     .temperature {
-      margin: 0 6px;
+      margin: 0 8px;
     }
     .wind-level {
-      margin-left: 6px;
+      margin-left: 8px;
     }
   }
 

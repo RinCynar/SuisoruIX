@@ -174,21 +174,24 @@ onMounted(() => {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 26px;
-      padding: 8px;
-      border-radius: 8px;
+      font-size: 24px;
+      padding: 12px;
+      border-radius: var(--md-sys-shape-corner-large);
       color: var(--md-sys-color-on-surface);
       z-index: 1;
       transition:
-        opacity 0.3s,
-        background-color 0.3s,
-        transform 0.3s;
+        opacity var(--md-sys-motion-duration-short) ease,
+        background-color var(--md-sys-motion-duration-short2) ease,
+        transform var(--md-sys-motion-duration-short) ease,
+        box-shadow var(--md-sys-motion-duration-short) ease;
       &:hover {
         backdrop-filter: blur(20px);
-        background-color: var(--md-sys-color-primary-container);
+        background-color: var(--md-sys-color-surface-container-high);
+        box-shadow: var(--md-sys-elevation-surface-1);
       }
       &:active {
         transform: scale(0.95);
+        background-color: var(--md-sys-color-surface-container-highest);
       }
     }
   }
