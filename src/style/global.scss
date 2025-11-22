@@ -1,21 +1,64 @@
+/*
+  Material You (Material 3) inspired tokens + compatibility tokens
+  - Introduce `md-sys-*` tokens for colors and surfaces
+  - Keep legacy `--main-*` tokens for backward compatibility
+*/
 :root {
-  --body-background-color: #333333;
-  --main-text-color: #ffffff;
+  /* Color system (fallbacks provided) */
+  --md-sys-color-primary: #6750a4;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #eaddff;
+  --md-sys-color-on-primary-container: #21005d;
+
+  --md-sys-color-secondary: #625b71;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #e8def8;
+  --md-sys-color-on-secondary-container: #1d192b;
+
+  --md-sys-color-background: #121212;
+  --md-sys-color-on-background: #e6e1e5;
+  --md-sys-color-surface: #121212;
+  --md-sys-color-on-surface: #e6e1e5;
+
+  --md-sys-elevation-surface-0: 0; /* flat */
+  --md-sys-elevation-surface-1: 0 1px 3px rgba(0,0,0,0.12);
+  --md-sys-elevation-surface-2: 0 4px 8px rgba(0,0,0,0.16);
+
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+
+  --md-sys-typescale-font-family: 'HarmonyOS_Regular', sans-serif;
+  --md-sys-typescale-headline-size: 24px;
+  --md-sys-typescale-body-size: 14px;
+
+  /* Motion tokens */
+  --md-sys-motion-duration-short: 120ms;
+  --md-sys-motion-duration-medium: 200ms;
+  --md-sys-motion-duration-long: 360ms;
+
+  /* Legacy tokens (kept for compatibility) */
+  --body-background-color: var(--md-sys-color-background);
+  --main-text-color: var(--md-sys-color-on-background);
   --main-text-grey-color: #eeeeee;
-  --main-text-hover-color: #555555;
-  --main-background-color: #00000040;
-  --main-background-light-color: #ffffff30;
-  --main-background-hover-color: #ffffff70;
-  --main-input-hover-color: #ffffff;
-  --main-notification-background-color: #00000030;
-  --main-box-shadow: 0px 0px 10px 0px #00000020;
-  --main-text-shadow: 0px 0px 8px #00000066;
+  --main-text-hover-color: rgba(255,255,255,0.08);
+  --main-background-color: rgba(255,255,255,0.04);
+  --main-background-light-color: rgba(255,255,255,0.06);
+  --main-background-hover-color: rgba(255,255,255,0.08);
+  --main-input-hover-color: rgba(255,255,255,0.12);
+  --main-notification-background-color: rgba(0,0,0,0.3);
+  --main-box-shadow: 0px 6px 20px rgba(0,0,0,0.4);
+  --main-text-shadow: 0px 0px 8px rgba(0,0,0,0.4);
 }
 
 [theme="dark"] {
-  --main-text-color: #efefef;
-  --main-background-light-color: #00000030;
-  --main-background-hover-color: #00000040;
+  /* Dark theme overrides (mapped to Material tokens) */
+  --md-sys-color-background: #0b0b0b;
+  --md-sys-color-on-background: #e6e1e5;
+  --body-background-color: var(--md-sys-color-background);
+  --main-text-color: var(--md-sys-color-on-background);
+  --main-background-light-color: rgba(255,255,255,0.04);
+  --main-background-hover-color: rgba(255,255,255,0.06);
 }
 
 * {
@@ -155,10 +198,10 @@ body {
   backdrop-filter: blur(10px);
 }
 
-// Transition
+// Transition (use Material You motion tokens)
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.25s ease-in-out;
+  transition: opacity var(--md-sys-motion-duration-short) ease-in-out;
 }
 
 .fade-enter-from,
@@ -168,13 +211,11 @@ body {
 
 .fadeDown-enter-active,
 .fadeDown-leave-active {
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+  transition: opacity var(--md-sys-motion-duration-medium) ease, transform var(--md-sys-motion-duration-medium) ease;
 }
 
 .fadeDown-enter-active {
-  transition-delay: 0.2s;
+  transition-delay: var(--md-sys-motion-duration-short);
 }
 
 .fadeDown-enter-from,
@@ -185,9 +226,7 @@ body {
 
 .show-enter-active,
 .show-leave-active {
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease-in-out;
+  transition: opacity var(--md-sys-motion-duration-medium) ease, transform var(--md-sys-motion-duration-medium) ease-in-out;
 }
 
 .show-enter-from,

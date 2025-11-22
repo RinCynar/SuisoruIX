@@ -133,7 +133,7 @@ onBeforeUnmount(() => {
   align-items: center;
   margin-bottom: 20px;
   transform: translateY(-140px);
-  color: var(--main-text-color);
+  color: var(--md-sys-color-on-surface);
   animation: fade-time-in 0.6s cubic-bezier(0.21, 0.78, 0.36, 1);
   transition:
     transform 0.3s,
@@ -144,7 +144,7 @@ onBeforeUnmount(() => {
     cursor: pointer;
     font-size: 3rem;
     margin: 6px 0px;
-    text-shadow: var(--main-text-shadow);
+    text-shadow: 0 6px 18px rgba(0,0,0,0.45);
     transition: transform 0.3s;
     .separator {
       opacity: 0.8;
@@ -168,9 +168,9 @@ onBeforeUnmount(() => {
   }
   .date {
     font-size: 1.15rem;
-    opacity: 0.8;
+    opacity: 0.78;
     margin: 4px 0px;
-    text-shadow: var(--main-text-shadow);
+    text-shadow: 0 6px 18px rgba(0,0,0,0.36);
     .month {
       &::after {
         margin: 0 4px;
@@ -187,7 +187,7 @@ onBeforeUnmount(() => {
   .lunar {
     font-size: 0.9rem;
     opacity: 0.6;
-    text-shadow: var(--main-text-shadow);
+    text-shadow: 0 6px 18px rgba(0,0,0,0.36);
     .year {
       &::after {
         margin-right: 4px;
@@ -198,7 +198,7 @@ onBeforeUnmount(() => {
   .weather {
     opacity: 0.7;
     font-size: 1rem;
-    text-shadow: var(--main-text-shadow);
+    text-shadow: 0 6px 18px rgba(0,0,0,0.36);
     .temperature {
       margin: 0 6px;
     }

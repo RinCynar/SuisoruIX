@@ -58,8 +58,17 @@ const setBgUrl = () => {
 };
 
 const imgLoadComplete = () => {
+  // Apply a slight delay to allow wallpaper animation
   imgTimeout.value = setTimeout(
     () => {
+      // Try to apply dynamic theme based on wallpaper
+      try {
+        if (window.applyDynamicThemeFromImage) {
+          window.applyDynamicThemeFromImage(bgUrl.value);
+        }
+      } catch (e) {
+        console.warn("applyDynamicThemeFromImage error:", e);
+      }
       status.setImgLoadStatus(true);
     },
     Math.floor(Math.random() * (600 - 300 + 1)) + 300,
@@ -91,7 +100,7 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 100%;
   position: relative;
-  background-color: var(--body-background-color);
+  background-color: var(--md-sys-color-background);
   &.focus {
     .background {
       filter: blur(calc(var(--blur) + 10px)) brightness(0.8);

@@ -30,10 +30,10 @@ const status = statusStore();
   width: 80%;
   height: 64vh;
   max-width: 1200px;
-  background-color: var(--main-background-light-color);
-  backdrop-filter: blur(20px);
-  color: var(--main-text-color);
-  border-radius: 8px;
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  border-radius: var(--md-sys-shape-corner-medium);
+  box-shadow: var(--md-sys-elevation-surface-2);
   transition:
     opacity 0.3s,
     transform 0.3s,
@@ -49,11 +49,11 @@ const status = statusStore();
     }
     :deep(.set-item) {
       width: 100%;
-      border-radius: 8px;
+      border-radius: var(--md-sys-shape-corner-small);
       margin-bottom: 12px;
       border: none;
-      box-shadow: var(--main-box-shadow);
-      --n-color: var(--main-background-light-color);
+      box-shadow: var(--md-sys-elevation-surface-1);
+      --n-color: var(--md-sys-color-surface);
       .n-card__content {
         display: flex;
         flex-direction: row;

@@ -69,7 +69,7 @@ const jumpTo = (url) => {
   bottom: 0;
   height: 50px;
   width: 100%;
-  color: var(--main-text-color);
+  color: var(--md-sys-color-on-surface);
   z-index: 1;
   .copyright {
     display: flex;
@@ -77,7 +77,7 @@ const jumpTo = (url) => {
     font-size: 13px;
     span {
       margin: 0 2px;
-      opacity: 0.6;
+      opacity: 0.68;
       transition: opacity 0.3s;
       &::before {
         opacity: 0.6;
@@ -120,13 +120,14 @@ const jumpTo = (url) => {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    color: var(--md-sys-color-on-surface);
     .name {
       font-size: 26px;
-      font-weight: bold;
+      font-weight: 600;
       margin-bottom: 4px;
     }
     .version {
-      opacity: 0.6;
+      opacity: 0.68;
       font-size: 16px;
     }
   }

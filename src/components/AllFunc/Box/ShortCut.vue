@@ -47,12 +47,12 @@
     </Transition>
     <div class="footer__btn-group">
       <div class="footer__btn" @click="downloadHtmlFile">
-        <SvgIcon iconName="icon-xiazai" />
+            <SvgIcon iconName="mi-download" />
         <span class="btnName">DL</span>
       </div>
       <div class="footer__btn" @click="clickFileDom">
         <input type="file" name="Upload" id="shortCutUploadInput" />
-        <SvgIcon iconName="icon-shangchuan" />
+        <SvgIcon iconName="mi-upload" />
         <span class="btnName">UP</span>
       </div>
     </div>
@@ -429,19 +429,20 @@ function clickFileDom() {
     .all-shortcut {
       padding: 20px;
       box-sizing: border-box;
-      .shortcut-item {
+        .shortcut-item {
         cursor: pointer;
         height: 60px;
         padding: 0 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: var(--main-background-light-color);
-        border-radius: 8px;
+        background-color: var(--md-sys-color-surface);
+        border-radius: var(--md-sys-shape-corner-small);
         font-size: 16px;
         transition:
-          background-color 0.3s,
-          box-shadow 0.3s;
+          background-color var(--md-sys-motion-duration-short),
+          box-shadow var(--md-sys-motion-duration-short),
+          transform var(--md-sys-motion-duration-short);
         .i-icon {
           width: 1rem;
           margin-right: 6px;
@@ -454,11 +455,13 @@ function clickFileDom() {
           white-space: nowrap;
         }
         &:hover {
-          background-color: var(--main-background-hover-color);
-          box-shadow: 0 0 0px 2px var(--main-background-hover-color);
+          background-color: var(--md-sys-color-primary-container);
+          box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+          transform: translateY(-2px);
         }
         &:active {
           box-shadow: none;
+          transform: translateY(0);
         }
       }
     }
@@ -473,15 +476,16 @@ function clickFileDom() {
       margin-bottom: 20px;
     }
   }
-  .footer__btn-group {
+    .footer__btn-group {
     display: flex;
     padding: 15px 0;
     padding-left: 20px;
     .footer__btn {
-      border-radius: 8px;
+      border-radius: var(--md-sys-shape-corner-small);
       width: 80px;
       height: 40px;
-      background-color: var(--main-background-light-color);
+      background-color: var(--md-sys-color-surface);
+      box-shadow: var(--md-sys-elevation-surface-1);
       line-height: 40px;
       text-align: center;
       cursor: pointer;

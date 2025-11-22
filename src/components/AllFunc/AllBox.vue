@@ -29,8 +29,13 @@
 import { NTabs, NTabPane } from "naive-ui";
 import ShortCut from "@/components/AllFunc/Box/ShortCut.vue";
 </script>
-<style>
+<style scoped>
 .height--full {
   height: 100%;
+}
+.all-box {
+  color: var(--md-sys-color-on-surface);
+  background-color: transparent;
+  --n-tab-text-color-active: var(--md-sys-color-primary) !important;
 }
 </style>

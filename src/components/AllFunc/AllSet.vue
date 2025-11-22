@@ -450,12 +450,12 @@ onMounted(() => {
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-    background-color: var(--main-background-light-color);
+    background-color: var(--md-sys-color-surface);
     transition:
-      background-color 0.3s,
-      box-shadow 0.3s;
+      background-color var(--md-sys-motion-duration-short),
+      box-shadow var(--md-sys-motion-duration-short);
     &.check {
-      background-color: var(--main-background-hover-color);
+      background-color: var(--md-sys-color-primary-container);
       &::before {
         content: "";
         position: absolute;
@@ -464,13 +464,13 @@ onMounted(() => {
         left: -4px;
         right: -4px;
         bottom: -4px;
-        border: 2px solid var(--main-background-hover-color);
-        transition: opacity 0.3s;
+        border: 2px solid var(--md-sys-color-primary-container);
+        transition: opacity var(--md-sys-motion-duration-short);
       }
     }
     &:hover {
-      background-color: var(--main-background-hover-color);
-      box-shadow: 0 0 0px 2px var(--main-background-hover-color);
+      background-color: var(--md-sys-color-primary-container);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
       &::before {
         opacity: 0;
       }

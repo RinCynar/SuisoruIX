@@ -177,12 +177,13 @@ const changeEngine = () => {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    height: 42px;
+    height: 48px;
     width: 100%;
-    border-radius: 30px;
-    color: var(--main-text-color);
-    background-color: var(--main-background-color);
-    backdrop-filter: blur(10px);
+    border-radius: var(--md-sys-shape-corner-large);
+    color: var(--md-sys-color-on-surface);
+    background-color: var(--md-sys-color-surface);
+    box-shadow: var(--md-sys-elevation-surface-1);
+    backdrop-filter: blur(8px);
     opacity: 1;
     animation: fade-up-in 0.7s cubic-bezier(0.37, 0.99, 0.36, 1);
     transition:
@@ -192,21 +193,22 @@ const changeEngine = () => {
     z-index: 1;
     .input {
       display: flex;
-      justify-content: center;
+      align-items: center;
       height: 100%;
       width: 100%;
-      padding: 0;
+      padding: 0 12px;
       margin: 0;
       border: none;
       outline: none;
       background: none;
       font-size: 16px;
-      color: var(--main-text-color);
+      color: var(--md-sys-color-on-surface);
+      font-family: var(--md-sys-typescale-font-family);
       &::placeholder {
         width: 100%;
         text-align: center;
-        color: var(--main-text-color);
-        letter-spacing: 2px;
+        color: rgba(255,255,255,0.6);
+        letter-spacing: 0.6px;
         transition: opacity 0.3s;
       }
     }
@@ -216,15 +218,17 @@ const changeEngine = () => {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100%;
-      width: 64px;
+      height: 36px;
+      width: 56px;
       font-size: 20px;
-      border-radius: 30px;
+      border-radius: var(--md-sys-shape-corner-medium);
       transition:
-        background-color 0.3s,
-        opacity 0.3s;
+        background-color 0.18s,
+        opacity 0.18s,
+        transform 0.12s;
       &:hover {
-        background-color: var(--main-background-color);
+        background-color: var(--md-sys-color-primary-container);
+        transform: translateY(-1px);
       }
       @media (max-width: 520px) {
         font-size: 18px;
@@ -251,7 +255,6 @@ const changeEngine = () => {
       }
     }
     &:hover {
-      // width: calc(100% - 60px);
       .all {
         .input {
           &::placeholder {
@@ -265,9 +268,9 @@ const changeEngine = () => {
     width: calc(100% - 60px);
     .all {
       transform: translateY(-60px);
-      background-color: var(--main-input-hover-color);
+      background-color: var(--md-sys-color-primary-container);
       .input {
-        color: var(--main-text-hover-color);
+        color: var(--md-sys-color-on-primary-container);
         &::placeholder {
           opacity: 0;
         }
@@ -276,7 +279,7 @@ const changeEngine = () => {
       .go,
       .delete {
         opacity: 1;
-        color: var(--main-text-hover-color);
+        color: var(--md-sys-color-on-primary-container);
       }
     }
   }

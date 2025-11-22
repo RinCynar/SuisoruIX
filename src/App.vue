@@ -177,7 +177,7 @@ onMounted(() => {
       font-size: 26px;
       padding: 8px;
       border-radius: 8px;
-      color: var(--main-text-color);
+      color: var(--md-sys-color-on-surface);
       z-index: 1;
       transition:
         opacity 0.3s,
@@ -185,7 +185,7 @@ onMounted(() => {
         transform 0.3s;
       &:hover {
         backdrop-filter: blur(20px);
-        background-color: var(--main-background-light-color);
+        background-color: var(--md-sys-color-primary-container);
       }
       &:active {
         transform: scale(0.95);
@@ -194,7 +194,7 @@ onMounted(() => {
   }
 }
 #loading {
-  color: var(--main-text-color);
+  color: var(--md-sys-color-on-surface);
   .logo {
     width: 100px;
     height: 100px;

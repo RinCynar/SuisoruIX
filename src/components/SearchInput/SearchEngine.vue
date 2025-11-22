@@ -131,10 +131,10 @@ const setCustomEngine = () => {
   top: -10px;
   left: 0;
   width: 100%;
-  color: var(--main-text-color);
-  background-color: var(--main-background-light-color);
-  backdrop-filter: blur(30px) saturate(1.25);
-  border-radius: 16px;
+  color: var(--md-sys-color-on-surface);
+  background-color: var(--md-sys-color-surface);
+  backdrop-filter: blur(20px) saturate(1.15);
+  border-radius: var(--md-sys-shape-corner-medium);
   box-sizing: border-box;
   z-index: 1;
   .all-engine {
@@ -152,10 +152,11 @@ const setCustomEngine = () => {
       grid-column: span 1 / span 1;
       border-radius: 10px;
       box-sizing: border-box;
-      background-color: var(--main-background-light-color);
+      background-color: var(--md-sys-color-surface);
       transition:
-        background-color 0.3s,
-        box-shadow 0.3s;
+        background-color var(--md-sys-motion-duration-short),
+        box-shadow var(--md-sys-motion-duration-short),
+        transform var(--md-sys-motion-duration-short);
       .i-icon {
         margin-right: 12px;
       }
@@ -166,7 +167,7 @@ const setCustomEngine = () => {
         white-space: nowrap;
       }
       &.choose {
-        background-color: var(--main-background-hover-color);
+        background-color: var(--md-sys-color-primary-container);
         &::before {
           content: "";
           position: absolute;
@@ -175,13 +176,13 @@ const setCustomEngine = () => {
           left: -4px;
           right: -4px;
           bottom: -4px;
-          border: 2px solid var(--main-background-hover-color);
-          transition: opacity 0.3s;
+          border: 2px solid var(--md-sys-color-primary-container);
+          transition: opacity var(--md-sys-motion-duration-short);
         }
       }
       &:hover {
-        background-color: var(--main-background-hover-color);
-        box-shadow: 0 0 0px 2px var(--main-background-hover-color);
+        background-color: var(--md-sys-color-primary-container);
+        box-shadow: 0 6px 14px rgba(0,0,0,0.12);
         &::before {
           opacity: 0;
         }

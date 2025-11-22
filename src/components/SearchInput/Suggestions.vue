@@ -182,10 +182,10 @@ defineExpose({ keyboardEvents });
   width: 100%;
   max-height: 45vh;
   overflow: hidden;
-  color: var(--main-text-color);
-  background-color: var(--main-background-light-color);
-  backdrop-filter: blur(30px) saturate(1.25);
-  border-radius: 16px;
+  color: var(--md-sys-color-on-surface);
+  background-color: var(--md-sys-color-surface);
+  backdrop-filter: blur(20px) saturate(1.15);
+  border-radius: var(--md-sys-shape-corner-medium);
   transition: height 0.2s ease,
   opacity 0.3s ease,
   transform 0.3s ease;
@@ -193,7 +193,7 @@ defineExpose({ keyboardEvents });
 
   .all-result,
   .special-result {
-    .s-result {
+      .s-result {
       cursor: pointer;
       box-sizing: border-box;
       display: flex;
@@ -201,8 +201,7 @@ defineExpose({ keyboardEvents });
       align-items: center;
       padding: 6px 12px;
       font-size: 14px;
-      transition: background-color 0.3s,
-      padding-left 0.3s;
+      transition: background-color 0.18s ease, padding-left 0.18s ease, transform 0.12s ease;
 
       .i-icon {
         opacity: 0.8;
@@ -219,13 +218,14 @@ defineExpose({ keyboardEvents });
       @media (min-width: 520px) {
         &:hover,
         &.focus {
-          background-color: var(--main-background-light-color);
+          background-color: var(--md-sys-color-primary-container);
           padding-left: 18px;
+          transform: translateX(4px);
         }
       }
 
       &:active {
-        background-color: var(--main-background-light-color);
+        background-color: var(--md-sys-color-primary-container);
         padding-left: 18px;
       }
     }
