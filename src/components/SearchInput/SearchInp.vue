@@ -163,7 +163,7 @@ const changeEngine = () => {
   align-items: center;
   max-width: 680px;
   width: calc(100% - 60px);
-  transition: width 0.35s linear;
+  transition: width 0.35s cubic-bezier(0.2, 0, 0, 1);
   .mask {
     position: fixed;
     top: 0;
@@ -177,44 +177,39 @@ const changeEngine = () => {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    height: 56px;
+    height: 52px;
     width: 100%;
-    border-radius: var(--md-sys-shape-corner-extra-large);
-    color: var(--md-sys-color-on-surface);
-    background-color: var(--md-sys-color-surface-container);
-    box-shadow: var(--md-sys-elevation-surface-2);
-    backdrop-filter: blur(8px);
+    border-radius: var(--md-sys-shape-corner-full);
+    color: var(--main-text-color);
+    background-color: var(--main-background-color);
+    backdrop-filter: blur(20px);
     opacity: 1;
-    animation: fade-up-in 0.7s cubic-bezier(0.37, 0.99, 0.36, 1);
+    box-shadow: var(--main-box-shadow);
+    animation: fade-up-in 0.7s cubic-bezier(0.2, 0, 0, 1);
     transition:
-      transform var(--md-sys-motion-duration-medium) ease,
-      background-color var(--md-sys-motion-duration-short2) ease,
-      opacity var(--md-sys-motion-duration-medium) ease,
-      box-shadow var(--md-sys-motion-duration-short2) ease;
+      transform 0.3s cubic-bezier(0.2, 0, 0, 1),
+      background-color 0.3s cubic-bezier(0.2, 0, 0, 1),
+      box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1),
+      opacity 0.5s cubic-bezier(0.2, 0, 0, 1);
     z-index: 1;
     .input {
       display: flex;
-      align-items: center;
+      justify-content: center;
       height: 100%;
       width: 100%;
-      padding: 0 16px;
+      padding: 0;
       margin: 0;
       border: none;
       outline: none;
       background: none;
-      font-size: var(--md-sys-typescale-body-size);
-      color: var(--md-sys-color-on-surface);
-      font-family: var(--md-sys-typescale-font-family);
-      font-weight: var(--md-sys-typescale-body-weight);
+      font-size: 18px;
+      color: var(--main-text-color);
       &::placeholder {
         width: 100%;
         text-align: center;
-        color: var(--md-sys-color-on-surface-variant);
-        letter-spacing: 0.3px;
-        transition: opacity var(--md-sys-motion-duration-short2) ease;
-      }
-      &:focus {
-        outline: none;
+        color: var(--main-text-color);
+        letter-spacing: 2px;
+        transition: opacity 0.3s ease;
       }
     }
     .engine,
@@ -223,25 +218,21 @@ const changeEngine = () => {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 40px;
-      width: 48px;
+      height: 44px;
+      width: 44px;
+      margin: 0 4px;
       font-size: 20px;
-      border-radius: var(--md-sys-shape-corner-medium);
-      color: var(--md-sys-color-on-surface);
+      border-radius: var(--md-sys-shape-corner-full);
       transition:
-        background-color var(--md-sys-motion-duration-short2) ease,
-        opacity var(--md-sys-motion-duration-short2) ease,
-        transform var(--md-sys-motion-duration-short) ease;
+        background-color 0.3s ease,
+        opacity 0.3s ease;
       &:hover {
-        background-color: var(--md-sys-color-surface-container-high);
-        transform: scale(1.05);
-      }
-      &:active {
-        transform: scale(0.95);
-        background-color: var(--md-sys-color-surface-container-highest);
+        background-color: var(--main-background-hover-color);
       }
       @media (max-width: 520px) {
         font-size: 18px;
+        height: 40px;
+        width: 40px;
       }
     }
   }
@@ -251,20 +242,23 @@ const changeEngine = () => {
       .engine,
       .go {
         opacity: 0;
+        pointer-events: none;
       }
       .input {
         &::placeholder {
-          opacity: 0.6;
+          opacity: 0.8;
         }
       }
       &.focus {
         .engine,
         .go {
           opacity: 1;
+          pointer-events: auto;
         }
       }
     }
     &:hover {
+      // width: calc(100% - 60px);
       .all {
         .input {
           &::placeholder {
@@ -277,11 +271,11 @@ const changeEngine = () => {
   &.focus {
     width: calc(100% - 60px);
     .all {
-      transform: translateY(-60px);
-      background-color: var(--md-sys-color-surface-container-high);
-      box-shadow: var(--md-sys-elevation-surface-3);
+      transform: translateY(-80px);
+      background-color: var(--main-input-hover-color);
+      box-shadow: 0px 6px 16px 4px rgba(0,0,0,0.15);
       .input {
-        color: var(--md-sys-color-on-surface);
+        color: var(--main-text-hover-color);
         &::placeholder {
           opacity: 0;
         }
@@ -290,7 +284,7 @@ const changeEngine = () => {
       .go,
       .delete {
         opacity: 1;
-        color: var(--md-sys-color-on-surface);
+        color: var(--main-text-hover-color);
       }
     }
   }

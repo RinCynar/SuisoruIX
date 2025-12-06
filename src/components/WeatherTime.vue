@@ -131,50 +131,52 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   transform: translateY(-140px);
-  color: var(--md-sys-color-on-surface);
-  animation: fade-time-in 0.6s cubic-bezier(0.21, 0.78, 0.36, 1);
+  color: var(--main-text-color);
+  animation: fade-time-in 0.6s cubic-bezier(0.2, 0, 0, 1);
   transition:
-    transform var(--md-sys-motion-duration-medium) ease,
-    opacity var(--md-sys-motion-duration-long) ease,
-    margin-bottom var(--md-sys-motion-duration-short2) ease;
+    transform 0.4s cubic-bezier(0.2, 0, 0, 1),
+    opacity 0.4s cubic-bezier(0.2, 0, 0, 1),
+    margin-bottom 0.4s cubic-bezier(0.2, 0, 0, 1);
   z-index: 1;
   .time {
     cursor: pointer;
-    font-size: var(--md-sys-typescale-display-large-size);
+    font-size: 5rem;
     font-weight: 400;
-    margin: 12px 0;
-    text-shadow: 0 6px 18px rgba(0,0,0,0.45);
-    transition: transform var(--md-sys-motion-duration-short2) ease;
-    letter-spacing: -1px;
+    margin: 6px 0px;
+    text-shadow: var(--main-text-shadow);
+    transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
     .separator {
       opacity: 0.8;
-      font-size: calc(var(--md-sys-typescale-display-large-size) - 4px);
+      font-size: 4.5rem;
       display: inline-block;
-      margin: 0 8px;
-      transform: translateY(-4px);
+      margin: 0 5px;
+      transform: translateY(-8px);
       animation: separator-breathe 0.7s infinite alternate;
     }
     .amPm {
-      font-size: var(--md-sys-typescale-body-size);
-      opacity: 0.7;
-      margin-left: 8px;
-      font-weight: 500;
+      font-size: 1.25rem;
+      opacity: 0.6;
+      margin-left: 12px;
+    }
+    .hour,
+    .minute,
+    .second-num {
+      font-variant-numeric: tabular-nums;
     }
     &:hover {
-      transform: scale(1.06);
+      transform: scale(1.05);
     }
     &:active {
-      transform: scale(0.98);
+      transform: scale(1);
     }
   }
   .date {
-    font-size: var(--md-sys-typescale-title-size);
+    font-size: 1.15rem;
     opacity: 0.8;
-    margin: 8px 0;
-    text-shadow: 0 6px 18px rgba(0,0,0,0.36);
-    font-weight: 500;
+    margin: 4px 0px;
+    text-shadow: var(--main-text-shadow);
     .month {
       &::after {
         margin: 0 4px;
@@ -189,10 +191,9 @@ onBeforeUnmount(() => {
     }
   }
   .lunar {
-    font-size: var(--md-sys-typescale-label-large-size);
-    opacity: 0.65;
-    text-shadow: 0 6px 18px rgba(0,0,0,0.36);
-    font-weight: 500;
+    font-size: 0.9rem;
+    opacity: 0.6;
+    text-shadow: var(--main-text-shadow);
     .year {
       &::after {
         margin-right: 4px;
@@ -201,15 +202,14 @@ onBeforeUnmount(() => {
     }
   }
   .weather {
-    opacity: 0.75;
-    font-size: var(--md-sys-typescale-body-size);
-    text-shadow: 0 6px 18px rgba(0,0,0,0.36);
-    font-weight: 400;
+    opacity: 0.7;
+    font-size: 1rem;
+    text-shadow: var(--main-text-shadow);
     .temperature {
-      margin: 0 8px;
+      margin: 0 6px;
     }
     .wind-level {
-      margin-left: 8px;
+      margin-left: 6px;
     }
   }
 

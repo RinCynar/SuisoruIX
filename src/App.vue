@@ -174,30 +174,27 @@ onMounted(() => {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 26px;
       padding: 12px;
-      border-radius: var(--md-sys-shape-corner-large);
-      color: var(--md-sys-color-on-surface);
+      border-radius: var(--md-sys-shape-corner-full);
+      color: var(--main-text-color);
       z-index: 1;
       transition:
-        opacity var(--md-sys-motion-duration-short) ease,
-        background-color var(--md-sys-motion-duration-short2) ease,
-        transform var(--md-sys-motion-duration-short) ease,
-        box-shadow var(--md-sys-motion-duration-short) ease;
+        opacity 0.3s cubic-bezier(0.2, 0, 0, 1),
+        background-color 0.3s cubic-bezier(0.2, 0, 0, 1),
+        transform 0.3s cubic-bezier(0.2, 0, 0, 1);
       &:hover {
         backdrop-filter: blur(20px);
-        background-color: var(--md-sys-color-surface-container-high);
-        box-shadow: var(--md-sys-elevation-surface-1);
+        background-color: var(--main-background-hover-color);
       }
       &:active {
-        transform: scale(0.95);
-        background-color: var(--md-sys-color-surface-container-highest);
+        transform: scale(0.9);
       }
     }
   }
 }
 #loading {
-  color: var(--md-sys-color-on-surface);
+  color: var(--main-text-color);
   .logo {
     width: 100px;
     height: 100px;

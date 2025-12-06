@@ -67,20 +67,18 @@ const jumpTo = (url) => {
   align-items: center;
   justify-content: center;
   bottom: 0;
-  height: 60px;
+  height: 50px;
   width: 100%;
-  color: var(--md-sys-color-on-surface);
+  color: var(--main-text-color);
   z-index: 1;
   .copyright {
     display: flex;
     align-items: center;
-    font-size: var(--md-sys-typescale-body-small-size);
-    font-weight: var(--md-sys-typescale-body-small-weight);
-    gap: 2px;
+    font-size: 13px;
     span {
       margin: 0 2px;
-      opacity: 0.7;
-      transition: opacity var(--md-sys-motion-duration-short2) ease;
+      opacity: 0.6;
+      transition: opacity 0.3s;
       &::before {
         opacity: 0.6;
         transition: none;
@@ -89,7 +87,7 @@ const jumpTo = (url) => {
     .year {
       &::before {
         content: "@";
-        opacity: 0.8;
+        opacity: 1;
         margin-right: 4px;
       }
     }
@@ -109,38 +107,31 @@ const jumpTo = (url) => {
     .icp,
     .about {
       cursor: pointer;
-      color: var(--md-sys-color-primary);
       &:hover {
         opacity: 1;
-        text-decoration: underline;
-      }
-      &:active {
-        opacity: 0.8;
       }
     }
   }
 }
 .about-modal {
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   .about {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    color: var(--md-sys-color-on-surface);
     .name {
-      font-size: var(--md-sys-typescale-headline-large-size);
-      font-weight: var(--md-sys-typescale-headline-large-weight);
-      margin-bottom: 8px;
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 4px;
     }
     .version {
-      opacity: 0.7;
-      font-size: var(--md-sys-typescale-body-size);
-      font-weight: 400;
+      opacity: 0.6;
+      font-size: 16px;
     }
   }
   .desc {
-    margin-top: 24px;
+    margin-top: 20px;
   }
 }
 </style>

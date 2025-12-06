@@ -30,44 +30,44 @@ const status = statusStore();
   width: 80%;
   height: 64vh;
   max-width: 1200px;
-  background-color: var(--md-sys-color-surface-container);
-  color: var(--md-sys-color-on-surface);
+  background-color: var(--md-sys-color-surface-container-high);
+  backdrop-filter: blur(40px);
+  color: var(--main-text-color);
   border-radius: var(--md-sys-shape-corner-extra-large);
-  box-shadow: var(--md-sys-elevation-surface-3);
-  backdrop-filter: blur(8px);
+  box-shadow: var(--main-box-shadow);
   transition:
-    opacity var(--md-sys-motion-duration-short) ease,
-    transform var(--md-sys-motion-duration-medium) ease,
-    margin-top var(--md-sys-motion-duration-short2) ease,
-    height var(--md-sys-motion-duration-short2) ease,
-    box-shadow var(--md-sys-motion-duration-short) ease;
+    opacity 0.3s cubic-bezier(0.2, 0, 0, 1),
+    transform 0.3s cubic-bezier(0.2, 0, 0, 1),
+    margin-top 0.3s cubic-bezier(0.2, 0, 0, 1),
+    height 0.3s cubic-bezier(0.2, 0, 0, 1);
   z-index: 2;
   .all-set {
     overflow: hidden;
     height: 100%;
     :deep(.scrollbar) {
+      padding: 0 16px; // Add padding to scrollview content
       max-height: calc(64vh - 84px);
       transition: max-height 0.3s;
     }
     :deep(.set-item) {
       width: 100%;
       border-radius: var(--md-sys-shape-corner-large);
-      margin-bottom: 16px;
-      border: 1px solid var(--md-sys-color-outline-variant);
-      box-shadow: var(--md-sys-elevation-surface-1);
+      margin-bottom: 12px;
+      border: none;
       background-color: var(--md-sys-color-surface-container-low);
+      transition: background-color 0.3s ease;
       --n-color: var(--md-sys-color-surface-container-low);
-      transition: box-shadow var(--md-sys-motion-duration-short) ease,
-                  background-color var(--md-sys-motion-duration-short) ease;
+      
       &:hover {
-        box-shadow: var(--md-sys-elevation-surface-2);
+        background-color: var(--md-sys-color-surface-container);
+        --n-color: var(--md-sys-color-surface-container);
       }
+
       .n-card__content {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        padding: 20px;
         .desc {
           display: flex;
           flex-direction: row;
@@ -78,7 +78,7 @@ const status = statusStore();
             flex-direction: column;
             align-items: flex-start;
             .name {
-              margin-bottom: 12px;
+              margin-bottom: 8px;
             }
           }
         }
@@ -86,15 +86,12 @@ const status = statusStore();
           display: flex;
           flex-direction: column;
           .title {
-            font-size: var(--md-sys-typescale-title-size);
-            font-weight: var(--md-sys-typescale-title-weight);
-            color: var(--md-sys-color-on-surface);
-            margin-bottom: 4px;
+            font-size: 16px;
+            font-weight: 500;
           }
           .tip {
-            font-size: var(--md-sys-typescale-body-small-size);
-            opacity: 0.75;
-            color: var(--md-sys-color-on-surface-variant);
+            font-size: 13px;
+            opacity: 0.8;
           }
         }
         .set {
