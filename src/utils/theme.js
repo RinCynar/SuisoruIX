@@ -1,3 +1,4 @@
+import { ref } from "vue";
 import {
   argbFromHex,
   hexFromArgb,
@@ -5,6 +6,21 @@ import {
 } from "@material/material-color-utilities";
 
 export const DEFAULT_SEED_COLOR = "#6750A4";
+
+/**
+ * Real (parsed) colors shared with naive-ui's theme engine, which cannot
+ * parse CSS `var(...)` strings. Kept in sync by `applyThemePalette`.
+ */
+export const naivePalette = ref({
+  primary: DEFAULT_SEED_COLOR,
+  onPrimary: "#ffffff",
+});
+
+// Fixed baseline palettes used when the Material 3 dynamic mode is off.
+const BASELINE_PALETTES = {
+  light: { primary: "#6750A4", onPrimary: "#ffffff" },
+  dark: { primary: "#D0BCFF", onPrimary: "#381E72" },
+};
 
 /**
  * CSS variables that hold the Material 3 color roles. They are managed
@@ -79,6 +95,8 @@ export const applyThemePalette = ({ enabled = false, seedColor = DEFAULT_SEED_CO
       rootStyle.removeProperty(`--md-sys-color-surface-container-${level}`);
     }
     rootStyle.removeProperty("--body-background-color");
+    // naive-ui needs real colors (it cannot parse `var(...)`).
+    naivePalette.value = BASELINE_PALETTES[themeType === "light" ? "light" : "dark"];
     return;
   }
 
@@ -91,6 +109,11 @@ export const applyThemePalette = ({ enabled = false, seedColor = DEFAULT_SEED_CO
     const theme = themeFromSourceColor(argbFromHex(seed));
     const isDark = themeType === "dark";
     const scheme = isDark ? theme.schemes.dark : theme.schemes.light;
+    // naive-ui needs real colors (it cannot parse `var(...)`).
+    naivePalette.value = {
+      primary: hexFromArgb(scheme.primary),
+      onPrimary: hexFromArgb(scheme.onPrimary),
+    };
     const neutral = theme.palettes.neutral;
     const tones = SURFACE_CONTAINER_TONES[isDark ? "dark" : "light"];
     const alphas = GLASS_ALPHAS[isDark ? "dark" : "light"];

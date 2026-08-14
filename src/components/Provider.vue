@@ -36,6 +36,7 @@ import {
   useMessage,
 } from "naive-ui";
 import { setStore } from "@/stores";
+import { naivePalette } from "@/utils/theme";
 
 const set = setStore();
 
@@ -45,14 +46,15 @@ const naiveTheme = computed(() => (set.themeType === "light" ? null : darkTheme)
 const locale = computed(() => (set.language === "ja" ? jaJP : enUS));
 const dateLocale = computed(() => (set.language === "ja" ? dateJaJP : dateEnUS));
 
-// Colors are driven by the Material 3 CSS variables.
+// naive-ui's theme engine parses color values, so pass real hex colors
+// (kept in sync with the Material 3 palette) instead of CSS `var(...)`.
 const themeOverrides = computed(() => ({
   common: {
     fontFamily: "'Noto Sans', 'HarmonyOS_Regular', 'Segoe UI', sans-serif",
-    primaryColor: "var(--md-sys-color-primary)",
-    primaryColorHover: "var(--md-sys-color-primary)",
-    primaryColorSuppl: "var(--md-sys-color-primary)",
-    primaryColorPressed: "var(--md-sys-color-primary)",
+    primaryColor: naivePalette.value.primary,
+    primaryColorHover: naivePalette.value.primary,
+    primaryColorSuppl: naivePalette.value.primary,
+    primaryColorPressed: naivePalette.value.primary,
     borderRadius: "12px",
   },
 }));
