@@ -82,7 +82,7 @@ import { useI18n } from "@/i18n";
 import ShortCut from "@/components/AllFunc/Box/ShortCut.vue";
 
 const { t } = useI18n();
-const version = import.meta.env.VITE_SITE_VERSION ?? "2.0.0 beta 5";
+const version = import.meta.env.VITE_SITE_VERSION ?? "2.0.0 beta 6";
 const year = new Date().getFullYear();
 </script>
 <style>
