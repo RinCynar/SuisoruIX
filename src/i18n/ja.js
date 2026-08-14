@@ -177,35 +177,7 @@ export default {
   "footer.about": "概要",
 
   // Box tabs
-  "box.tab.guide": "ガイド",
   "box.tab.about": "概要",
-
-  // Guide
-  "guide.welcomeTitle": "🎉 SuisoruIX へようこそ！",
-  "guide.welcomeDesc": "美しい Material You デザインのスタートページ。強力な検索機能付き。",
-  "guide.searchTitle": "🔍 検索",
-  "guide.searchQuick": "クイック検索: 検索ボックスをクリックするか Enter キーで検索を開始します。",
-  "guide.searchSwitch": "エンジン切り替え: 検索ボックス左側のアイコンをクリックして検索エンジンを切り替えます。",
-  "guide.searchDetect": "スマート検出: 検索ボックスがURLやメールアドレスを自動で検出します。",
-  "guide.searchSuggestions": "検索候補: 設定でリアルタイムの検索候補を有効にできます。",
-  "guide.shortcutsTitle": "🔖 ショートカット",
-  "guide.shortcutsAccess": "ショートカットを開く: 時計をクリックするか、ページのどこかを右クリックします。",
-  "guide.shortcutsExpand": "パネル拡大: 左上の拡大ボタンをクリックするとショートカット表示を最大化します。",
-  "guide.shortcutsAdd": "ショートカット追加: 「+」ボタンをクリックしてよく使うサイトを追加します。",
-  "guide.shortcutsEdit": "ショートカット編集: ロングタップ（モバイル）または右クリック（デスクトップ）で編集・削除できます。",
-  "guide.settingsTitle": "⚙️ 設定",
-  "guide.settingsAccess": "設定を開く: 時計をクリックし、右上の設定ボタンをクリックします。",
-  "guide.settingsThemes": "テーマ: テーマ設定でデフォルト・Material 3・カスタム背景を切り替えられます。",
-  "guide.settingsTime": "時間: 時計のスタイルと表示形式をカスタマイズできます。",
-  "guide.settingsBackup": "バックアップ: 設定とショートカットを書き出して保存できます。",
-  "guide.keyboardTitle": "⌨️ キーボードショートカット",
-  "guide.keyboardEnter": "Enter - 検索ボックスにフォーカス",
-  "guide.keyboardEsc": "Esc - パネルを閉じてホームに戻る",
-  "guide.keyboardRightClick": "右クリック - ショートカットパネルを開く",
-  "guide.tipsTitle": "💡 ヒント",
-  "guide.tipsCollapse": "• 未使用時は検索ボックスが自動で折りたたまれます（設定で変更可）。",
-  "guide.tipsSaved": "• すべての設定はブラウザにローカル保存されます。",
-  "guide.tipsPWA": "• PWA（プログレッシブWebアプリ）としてインストールするとオフラインでも利用できます。",
 
   // About
   "about.title": "✨ SuisoruIX",
@@ -221,5 +193,4 @@ export default {
   "about.creditsTitle": "🙏 クレジット",
   "about.creditsBased": "SNav に基づく",
   "about.creditsDeveloped": "RinCynar が開発",
-  "about.copyright": "© {year} SuisoruIX. All rights reserved.",
 };

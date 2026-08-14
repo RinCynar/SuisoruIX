@@ -177,35 +177,7 @@ export default {
   "footer.about": "About",
 
   // Box tabs
-  "box.tab.guide": "Guide",
   "box.tab.about": "About",
-
-  // Guide
-  "guide.welcomeTitle": "🎉 Welcome to SuisoruIX!",
-  "guide.welcomeDesc": "Your beautiful Material You start page with powerful search capabilities.",
-  "guide.searchTitle": "🔍 Search",
-  "guide.searchQuick": "Quick Search: Click the search box or press Enter to start searching.",
-  "guide.searchSwitch": "Switch Engines: Click the icon on the left side of the search box to switch between search engines.",
-  "guide.searchDetect": "Smart Detection: The search box automatically detects URLs and email addresses.",
-  "guide.searchSuggestions": "Search Suggestions: Enable real-time search suggestions in Settings.",
-  "guide.shortcutsTitle": "🔖 Shortcuts",
-  "guide.shortcutsAccess": "Access Shortcuts: Click the time display or right-click anywhere on the page to open the shortcuts panel.",
-  "guide.shortcutsExpand": "Expand Panel: Click the expand button in the top-left corner to maximize the shortcuts view.",
-  "guide.shortcutsAdd": "Add Shortcuts: Click the \"+\" button to add your frequently visited websites.",
-  "guide.shortcutsEdit": "Edit Shortcuts: Long press (mobile) or right-click (desktop) on any shortcut to edit or delete it.",
-  "guide.settingsTitle": "⚙️ Settings",
-  "guide.settingsAccess": "Access Settings: Click the time display, then click the settings button in the top-right corner.",
-  "guide.settingsThemes": "Themes: Switch between Default, Material 3, and custom backgrounds in the Theme settings.",
-  "guide.settingsTime": "Time: Customize clock style and format.",
-  "guide.settingsBackup": "Backup: Export your settings and shortcuts for safekeeping.",
-  "guide.keyboardTitle": "⌨️ Keyboard Shortcuts",
-  "guide.keyboardEnter": "Enter - Focus search box",
-  "guide.keyboardEsc": "Esc - Close panels and return to home",
-  "guide.keyboardRightClick": "Right Click - Open shortcuts panel",
-  "guide.tipsTitle": "💡 Tips",
-  "guide.tipsCollapse": "• The search box automatically collapses when not in use (configurable in Settings).",
-  "guide.tipsSaved": "• All your settings are saved locally in your browser.",
-  "guide.tipsPWA": "• You can install this page as a PWA (Progressive Web App) for offline access.",
 
   // About
   "about.title": "✨ SuisoruIX",
@@ -221,5 +193,4 @@ export default {
   "about.creditsTitle": "🙏 Credits",
   "about.creditsBased": "Based on SNav",
   "about.creditsDeveloped": "Developed by RinCynar",
-  "about.copyright": "© {year} SuisoruIX. All rights reserved.",
 };
