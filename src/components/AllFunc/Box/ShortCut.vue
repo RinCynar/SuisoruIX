@@ -30,18 +30,18 @@
               @click="addShortcutModalOpen"
             >
               <SvgIcon iconName="icon-add" />
-              <span class="name">Add shortcut</span>
+              <span class="name">{{ t("shortcut.add") }}</span>
             </n-grid-item>
           </n-grid>
         </n-scrollbar>
       </div>
       <div v-else class="not-shortcut">
-        <span class="tip">There is no shortcut yet, go add it</span>
+        <span class="tip">{{ t("shortcut.empty") }}</span>
         <n-button strong secondary @click="addShortcutModalOpen">
           <template #icon>
             <SvgIcon iconName="icon-add" />
           </template>
-          Add shortcut
+          {{ t("shortcut.add") }}
         </n-button>
       </div>
     </Transition>
@@ -61,7 +61,7 @@
   <n-modal
     preset="card"
     v-model:show="addShortcutModalShow"
-    :title="`${addShortcutModalType ? 'Edit' : 'Add'}Shortcuts`"
+    :title="t(addShortcutModalType ? 'shortcut.modalTitleEdit' : 'shortcut.modalTitleAdd')"
     :bordered="false"
     @mask-click="addShortcutClose"
   >
@@ -71,33 +71,33 @@
       :model="addShortcutValue"
       :label-width="80"
     >
-      <n-form-item label="ID" path="id">
+      <n-form-item :label="t('shortcut.id')" path="id">
         <n-input-number
           disabled
-          placeholder="Please imput ID"
+          :placeholder="t('shortcut.idPlaceholder')"
           v-model:value="addShortcutValue.id"
           style="width: 100%"
           :show-button="false"
         />
       </n-form-item>
-      <n-form-item label="Shortcut Name" path="name">
+      <n-form-item :label="t('shortcut.name')" path="name">
         <n-input
           clearable
           show-count
           maxlength="14"
           v-model:value="addShortcutValue.name"
-          placeholder="Please imput shortcut name"
+          :placeholder="t('shortcut.namePlaceholder')"
         />
       </n-form-item>
-      <n-form-item label="Site Links" path="url">
-        <n-input clearable v-model:value="addShortcutValue.url" placeholder="Please imput site links" />
+      <n-form-item :label="t('shortcut.url')" path="url">
+        <n-input clearable v-model:value="addShortcutValue.url" :placeholder="t('shortcut.urlPlaceholder')" />
       </n-form-item>
     </n-form>
     <template #footer>
       <n-space justify="end">
-        <n-button strong secondary @click="addShortcutClose"> Cancel </n-button>
+        <n-button strong secondary @click="addShortcutClose"> {{ t("shortcut.cancel") }} </n-button>
         <n-button strong secondary @click="addOrEditShortcuts">
-          {{ addShortcutModalType ? "Edit" : "Add" }}
+          {{ t(addShortcutModalType ? "shortcut.edit" : "shortcut.add") }}
         </n-button>
       </n-space>
     </template>
@@ -137,12 +137,14 @@ import {
 } from "naive-ui";
 import { storeToRefs } from "pinia";
 import { siteStore, setStore } from "@/stores";
+import { useI18n } from "@/i18n";
 import SvgIcon from "@/components/SvgIcon.vue";
 import identifyInput from "@/utils/identifyInput";
 import { onMounted, onBeforeUnmount } from "vue";
 
 const set = setStore();
 const site = siteStore();
+const { t } = useI18n();
 const { shortcutData } = storeToRefs(site);
 
 const renderIcon = (icon) => {
@@ -163,21 +165,21 @@ const addShortcutRules = {
   id: {
     required: true,
     type: "number",
-    message: "Please enter a valid ID",
+    message: t("shortcut.idPlaceholder"),
     trigger: ["input", "blur"],
   },
   name: {
     required: true,
-    message: "Please enter a name",
+    message: t("shortcut.namePlaceholder"),
     trigger: ["input", "blur"],
   },
   url: {
     required: true,
     validator(rule, value) {
       if (!value) {
-        return new Error("Please enter a site link");
+        return new Error(t("shortcut.urlPlaceholder"));
       } else if (identifyInput(value) !== "url") {
-        return new Error("Please check if it is the correct URL");
+        return new Error(t("shortcut.checkInput"));
       }
       return true;
     },
@@ -190,12 +192,12 @@ const shortCutDropdownY = ref(0);
 const shortCutDropdownShow = ref(false);
 const shortCutDropdownOptions = [
   {
-    label: "Edit",
+    label: t("shortcut.edit"),
     key: "edit",
     icon: renderIcon("edit"),
   },
   {
-    label: "Delete",
+    label: t("shortcut.delete"),
     key: "delete",
     icon: renderIcon("delete-1"),
   },
@@ -226,7 +228,7 @@ const addShortcutModalOpen = () => {
 const addOrEditShortcuts = () => {
   addShortcutRef.value?.validate((errors) => {
     if (errors) {
-      $message.error("Please check your input");
+      $message.error(t("shortcut.checkInput"));
       return false;
     }
     if (!addShortcutModalType.value) {
@@ -235,7 +237,7 @@ const addOrEditShortcuts = () => {
           item.name === addShortcutValue.value.name || item.url === addShortcutValue.value.url,
       );
       if (isDuplicate) {
-        $message.error("The newly added name or link is a duplicate of an existing shortcut");
+        $message.error(t("shortcut.duplicate"));
         return false;
       }
       shortcutData.value.push({
@@ -243,18 +245,18 @@ const addOrEditShortcuts = () => {
         name: addShortcutValue.value.name,
         url: addShortcutValue.value.url,
       });
-      $message.success("Shortcut added successfully");
+      $message.success(t("shortcut.editSuccess"));
       addShortcutClose();
       return true;
     } else {
       const index = shortcutData.value.findIndex((item) => item.id === addShortcutValue.value.id);
       if (index === -1) {
-        $message.error("The item does not exist in the shortcut, please try again");
+        $message.error(t("shortcut.deleteFail"));
         return false;
       }
       shortcutData.value[index].name = addShortcutValue.value.name;
       shortcutData.value[index].url = addShortcutValue.value.url;
-      $message.success("Shortcut edited successfully");
+      $message.success(t("shortcut.editSuccess"));
       addShortcutClose();
       return true;
     }
@@ -270,12 +272,12 @@ const delShortcuts = () => {
       for (let i = indexToRemove; i < shortcutData.value.length; i++) {
         shortcutData.value[i].id = i;
       }
-      $message.success("Shortcut deleted successfully");
+      $message.success(t("shortcut.deleteSuccess"));
       return true;
     }
-    $message.error("Shortcut deletion failed, please try again");
+    $message.error(t("shortcut.deleteFail"));
   } else {
-    $message.error("Shortcut deletion failed, please try again");
+    $message.error(t("shortcut.deleteFail"));
   }
 };
 
@@ -301,10 +303,10 @@ const shortCutDropdownSelect = (key) => {
       break;
     case "delete":
       $dialog.warning({
-        title: "Delete shortcut",
-        content: `Confirm Delete ${addShortcutValue.value.name} Shortcut? This action cannot be undone!`,
-        positiveText: "Delete",
-        negativeText: "Cancel",
+        title: t("shortcut.deleteDialogTitle"),
+        content: t("shortcut.deleteDialogContent", { name: addShortcutValue.value.name }),
+        positiveText: t("shortcut.delete"),
+        negativeText: t("shortcut.cancel"),
         onPositiveClick: () => {
           delShortcuts();
         },

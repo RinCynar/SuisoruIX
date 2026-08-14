@@ -17,18 +17,18 @@
             @click="customEngineClick"
           >
             <SvgIcon iconName="icon-custom" />
-            <span class="name">Custom</span>
+            <span class="name">{{ t("engine.custom") }}</span>
           </n-grid-item>
           <n-grid-item class="engine" @click="customEngineModal = true">
             <SvgIcon iconName="icon-custom" />
-            <span class="name">Custom Configuration</span>
+            <span class="name">{{ t("engine.customConfig") }}</span>
           </n-grid-item>
         </n-grid>
       </n-scrollbar>
       <!-- Custom Search Engine -->
       <n-modal
         preset="card"
-        title="Custom Search Engine"
+        :title="t('engine.modalTitle')"
         v-model:show="customEngineModal"
         :bordered="false"
       >
@@ -38,18 +38,18 @@
           :model="customEngineValue"
           :label-width="80"
         >
-          <n-form-item label="Custom search engine address" path="url">
+          <n-form-item :label="t('engine.address')" path="url">
             <n-input
               clearable
               v-model:value="customEngineValue.url"
-              placeholder="Please enter a custom search engine address"
+              :placeholder="t('engine.addressPlaceholder')"
             />
           </n-form-item>
         </n-form>
         <template #footer>
           <n-space justify="end">
-            <n-button strong secondary @click="customEngineModal = false"> Cancel </n-button>
-            <n-button strong secondary @click="setCustomEngine"> Confirm </n-button>
+            <n-button strong secondary @click="customEngineModal = false"> {{ t("common.cancel") }} </n-button>
+            <n-button strong secondary @click="setCustomEngine"> {{ t("common.confirm") }} </n-button>
           </n-space>
         </template>
       </n-modal>
@@ -71,10 +71,12 @@ import {
   NInput,
 } from "naive-ui";
 import { statusStore, setStore } from "@/stores";
+import { useI18n } from "@/i18n";
 import defaultEngine from "@/assets/defaultEngine.json";
 
 const set = setStore();
 const status = statusStore();
+const { t } = useI18n();
 
 const customEngineRef = ref(null);
 const customEngineModal = ref(false);
@@ -86,9 +88,9 @@ const customEngineRules = {
     required: true,
     validator(rule, value) {
       if (!value) {
-        return new Error("Please enter a custom search engine address");
+        return new Error(t("engine.addressRequired"));
       } else if (!/^https:\/\/[a-zA-Z0-9\-.]+\.[a-zA-Z]{2,}(\/\S*)?$/.test(value)) {
-        return new Error("Please check whether it is a URL and whether it starts with https://");
+        return new Error(t("engine.addressInvalid"));
       }
       return true;
     },
@@ -107,7 +109,7 @@ const customEngineClick = () => {
   if (set.customEngineUrl) {
     changeSearchEngine("custom");
   } else {
-    $message.info("No custom data, please configure");
+    $message.info(t("engine.noData"));
     customEngineModal.value = true;
   }
 };
@@ -117,9 +119,9 @@ const setCustomEngine = () => {
     if (!errors) {
       set.setSearchEngine(customEngineValue.value.url, true);
       customEngineModal.value = false;
-      $message.success("Custom Search Engine Enabled");
+      $message.success(t("engine.enabled"));
     } else {
-      $message.error("Please check your input");
+      $message.error(t("engine.checkInput"));
     }
   });
 };

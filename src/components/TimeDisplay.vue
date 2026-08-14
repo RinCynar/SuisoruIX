@@ -1,5 +1,5 @@
 <template>
-  <!-- Weather Clock -->
+  <!-- Time Display -->
   <div
     :class="[
       'weather-time',
@@ -7,7 +7,6 @@
       status.mainBoxBig && status.siteStatus !== 'normal' && status.siteStatus !== 'focus'
         ? 'hidden'
         : null,
-      set.showLunar ? 'lunar' : null,
       set.timeStyle,
     ]"
     @click.stop
@@ -33,20 +32,10 @@
         <span class="amPm">{{ timeData.amPm ?? "am" }}</span>
       </template>
     </div>
-    <div v-if="set.showLunar" class="lunar">
-      <span class="year">{{ timeData.lunar?.GanZhiYear }}</span>
-      <span class="text">{{ timeData.lunar?.text }}</span>
-    </div>
     <div class="date">
       <span class="month">{{ timeData.month ?? "0" }}</span>
       <span class="day">{{ timeData.day ?? "0" }}</span>
-      <span class="weekday">{{ timeData.weekday ?? "???" }}</span>
-    </div>
-    <div v-if="set.showWeather" class="weather">
-      <span class="status">{{ weatherData?.condition ?? "N/A" }}</span>
-      <span class="temperature">{{ weatherData?.temp ?? "N/A" }} ℃</span>
-      <span class="wind">{{ weatherData?.windDir ?? "N/A" }}</span>
-      <span v-if="weatherData?.windLevel" class="wind-level"> {{ weatherData.windLevel }} Level </span>
+      <span class="weekday">{{ weekdays[timeData.weekday] ?? "???" }}</span>
     </div>
   </div>
 </template>
@@ -55,54 +44,17 @@
 import { getCurrentTime } from "@/utils/timeTools";
 import { ref, onMounted, onBeforeUnmount, watch } from "vue";
 import { statusStore, setStore } from "@/stores";
-import { getAdcode, getWeather } from "@/api";
+import { useI18n } from "@/i18n";
 
 const set = setStore();
 const status = statusStore();
+const { weekdays } = useI18n();
 
 const timeData = ref({});
 const timeInterval = ref(null);
 
-const weatherData = ref(null);
-const weatherKey = import.meta.env.VITE_WEATHER_KEY;
-
 const updateTimeData = () => {
   timeData.value = getCurrentTime(set.showZeroTime, set.use12HourFormat);
-};
-
-const getWeatherData = async () => {
-  if (!weatherKey) {
-    return $message.warning("(⁠｡⁠•̀⁠ᴗ⁠-⁠)⁠✧");
-  }
-  const currentTime = Date.now();
-  let lastWeatherData = JSON.parse(localStorage.getItem("lastWeatherData")) || {
-    data: {},
-    lastFetchTime: 0,
-  };
-  const timeDifference = currentTime - lastWeatherData.lastFetchTime;
-  if (timeDifference >= 5 * 60 * 1000) {
-    const adCodeResult = await getAdcode(weatherKey);
-    if (adCodeResult.infocode !== "10000") {
-      return $message.error("Region query failed");
-    }
-    const weatherResult = await getWeather(weatherKey, adCodeResult.adcode);
-    if (weatherResult.infocode !== "10000") {
-      return $message.error("Region query failed");
-    }
-    const data = weatherResult.lives[0];
-    weatherData.value = {
-      condition: data.weather,
-      temp: data.temperature,
-      windDir: data.winddirection + "wind",
-      windLevel: data.windpower,
-    };
-    lastWeatherData = { data: weatherData.value, lastFetchTime: currentTime };
-
-    localStorage.setItem("lastWeatherData", JSON.stringify(lastWeatherData));
-  } else {
-    console.log("Read weather data from the cache:", lastWeatherData);
-    weatherData.value = lastWeatherData.data;
-  }
 };
 
 watch(
@@ -113,11 +65,8 @@ watch(
 );
 
 onMounted(() => {
-  // Time
   updateTimeData();
   timeInterval.value = setInterval(updateTimeData, 1000);
-  // Weather
-  getWeatherData();
 });
 
 onBeforeUnmount(() => {
@@ -174,7 +123,7 @@ onBeforeUnmount(() => {
   }
   .date {
     font-size: 1.15rem;
-    opacity: 0.8;
+    opacity: 0.85;
     margin: 4px 0px;
     text-shadow: var(--main-text-shadow);
     .month {
@@ -190,36 +139,12 @@ onBeforeUnmount(() => {
       }
     }
   }
-  .lunar {
-    font-size: 0.9rem;
-    opacity: 0.6;
-    text-shadow: var(--main-text-shadow);
-    .year {
-      &::after {
-        margin-right: 4px;
-        content: "年";
-      }
-    }
-  }
-  .weather {
-    opacity: 0.7;
-    font-size: 1rem;
-    text-shadow: var(--main-text-shadow);
-    .temperature {
-      margin: 0 6px;
-    }
-    .wind-level {
-      margin-left: 6px;
-    }
-  }
 
   &.focus {
     transform: translateY(-180px);
-    // transform: translateY(-24vh);
   }
   &.box,
   &.set {
-    // transform: translateY(-220px);
     transform: translateY(-34vh);
     @media (max-width: 478px) {
       transform: translateY(-32vh);
@@ -227,11 +152,7 @@ onBeforeUnmount(() => {
   }
   &.hidden {
     transform: translateY(-180px);
-    // transform: translateY(-24vh);
     opacity: 0;
-  }
-  &.lunar {
-    margin-bottom: 50px;
   }
   &.two {
     padding-bottom: 60px;

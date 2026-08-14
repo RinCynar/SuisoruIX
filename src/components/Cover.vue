@@ -1,6 +1,13 @@
 <template>
-  <div :class="status.siteStatus !== 'normal' ? 'cover focus' : 'cover'">
+  <div
+    :class="[
+      'cover',
+      status.siteStatus !== 'normal' ? 'focus' : null,
+      isSolidMode ? 'solid' : 'image',
+    ]"
+  >
     <img
+      v-if="!isSolidMode"
       v-show="status.imgLoadStatus"
       class="background"
       alt="background"
@@ -11,45 +18,37 @@
       @animationend="imgAnimationEnd"
     />
     <Transition name="fade">
-      <div v-if="set.showBackgroundGray" class="gray" />
+      <div v-if="set.showBackgroundGray && !isSolidMode" class="gray" />
     </Transition>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { computed, ref, onMounted, onBeforeUnmount, watch } from "vue";
 import { statusStore, setStore } from "@/stores";
+import { useI18n } from "@/i18n";
 
 const set = setStore();
 const status = statusStore();
+const { t } = useI18n();
 const bgUrl = ref(null);
 const imgTimeout = ref(null);
+const completed = ref(false);
 const emit = defineEmits(["loadComplete"]);
 
-// Wallpaper random number
-// Please modify the first number after Math.random() according to the number of pictures in the folder.
-const bgRandom = Math.floor(Math.random() * 10 + 1);
+const isSolidMode = computed(() => set.backgroundType === "m3");
 
-// Assign wallpaper
+// Random default background (bg0 ~ bg9)
+const bgRandom = Math.floor(Math.random() * 10);
+
+// Assign background source based on the selected theme mode
 const setBgUrl = () => {
-  const { backgroundType } = set;
-  switch (backgroundType) {
-    case 0:
-      bgUrl.value = `/background/bg${bgRandom}.jpg`;
+  switch (set.backgroundType) {
+    case "custom":
+      bgUrl.value = set.backgroundCustom || `/background/bg${bgRandom}.jpg`;
       break;
-    case 1: {
-      const isMobile = window.innerWidth < 768;
-      bgUrl.value = `https://api.dujin.org/bing/${isMobile ? "m" : "1920"}.php`;
-      break;
-    }
-    case 2:
-      bgUrl.value = "https://api.aixiaowai.cn/gqapi/gqapi.php";
-      break;
-    case 3:
-      bgUrl.value = "https://api.aixiaowai.cn/api/api.php";
-      break;
-    case 4:
-      bgUrl.value = set.backgroundCustom;
+    case "m3":
+      bgUrl.value = null;
       break;
     default:
       bgUrl.value = `/background/bg${bgRandom}.jpg`;
@@ -67,18 +66,49 @@ const imgLoadComplete = () => {
 };
 
 const imgAnimationEnd = () => {
-  console.log("Wallpaper loaded and animation completed");
-  emit("loadComplete");
+  if (!completed.value) {
+    completed.value = true;
+    emit("loadComplete");
+  }
 };
 
 const imgLoadError = () => {
-  console.error("Wallpaper loading failed:", bgUrl.value);
-  $message.error("Wallpaper loading failed, temporarily switched back to default");
+  console.error("Background loading failed:", bgUrl.value);
+  $message.error(t("cover.loadError"));
   bgUrl.value = `/background/bg${bgRandom}.jpg`;
 };
 
+// Solid-color (Material 3) backgrounds do not need an image load cycle.
+const solidModeReady = () => {
+  imgTimeout.value = setTimeout(() => {
+    status.setImgLoadStatus(true);
+    if (!completed.value) {
+      completed.value = true;
+      emit("loadComplete");
+    }
+  }, 350);
+};
+
+// React to theme-mode changes made in the settings panel.
+watch(
+  () => [set.backgroundType, set.backgroundCustom],
+  () => {
+    if (!status.imgLoadStatus) return;
+    clearTimeout(imgTimeout.value);
+    if (isSolidMode.value) {
+      bgUrl.value = null;
+    } else {
+      setBgUrl();
+    }
+  },
+);
+
 onMounted(() => {
-  setBgUrl();
+  if (isSolidMode.value) {
+    solidModeReady();
+  } else {
+    setBgUrl();
+  }
 });
 
 onBeforeUnmount(() => {
@@ -92,6 +122,9 @@ onBeforeUnmount(() => {
   height: 100%;
   position: relative;
   background-color: var(--body-background-color);
+  &.solid {
+    background-color: var(--md-sys-color-surface);
+  }
   &.focus {
     .background {
       filter: blur(calc(var(--blur) + 10px)) brightness(0.8);
@@ -124,3 +157,4 @@ onBeforeUnmount(() => {
   }
 }
 </style>
+

@@ -26,7 +26,7 @@
               @click.stop="toSearch(keyWord, 2)"
             >
               <SvgIcon iconName="icon-translation-two" />
-              <span class="text">Quick Translate: {{ keyWord }}</span>
+              <span class="text">{{ t("search.quickTranslate", { text: keyWord }) }}</span>
             </div>
             <!-- direct access -->
             <div
@@ -36,7 +36,12 @@
             >
               <SvgIcon :iconName="`icon-${searchKeywordType === 'email' ? 'email' : 'link'}`" />
               <span class="text">
-                {{ searchKeywordType === "email" ? "Send email to" : "Direct access" }}：{{ searchKeyword }}
+                {{
+                  t(searchKeywordType === "email" ? "search.sendEmail" : "search.directAccess", {
+                    email: searchKeyword,
+                    url: searchKeyword,
+                  })
+                }}
               </span>
             </div>
           </div>
@@ -73,11 +78,13 @@
 import { NScrollbar } from "naive-ui";
 import { nextTick, ref, watch } from "vue";
 import { statusStore, setStore } from "@/stores";
+import { useI18n } from "@/i18n";
 import { getSearchSuggestions } from "@/api";
 import debounce from "@/utils/debounce";
 import identifyInput from "@/utils/identifyInput";
 const set = setStore();
 const status = statusStore();
+const { t } = useI18n();
 const emit = defineEmits(["toSearch"]);
 const searchKeyword = ref(null);
 const searchKeywordType = ref("text");
@@ -141,7 +148,7 @@ const keyboardEvents = (keyCode, event) => {
       toSearch(mainInput.value, 1);
     }
   } catch (error) {
-    $message.error("Something went wrong, try resetting the program");
+    $message.error(t("search.suggestionsError"));
     console.error("There is an error with keyboard events:" + error);
   }
 };

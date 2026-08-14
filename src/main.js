@@ -8,7 +8,6 @@ import SvgIcon from "@/components/SvgIcon.vue";
 import App from "@/App.vue";
 
 import "@/style/global.scss";
-import "/public/lib/iconfont.js";
 
 const app = createApp(App);
 

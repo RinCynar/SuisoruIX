@@ -18,9 +18,11 @@
 
 - 🎨 **Material You Design** - Modern Material Design 3 aesthetics with dynamic colors and smooth animations
 - 🔍 **Multi-Engine Search** - Support for Google, Bing, Baidu, DuckDuckGo, Yandex, 360, Sogou, and custom engines
-- 🌈 **Dynamic Wallpapers** - Daily Bing wallpaper, random scenery, anime images, or custom backgrounds
-- ⏰ **Time & Weather** - Real-time clock with weather information and lunar calendar support
+- 🌈 **Material 3 Themes** - Generate a dynamic color palette from your own seed color, with a solid-color background
 - 🔖 **Quick Shortcuts** - Customizable website shortcuts for quick access
+- ⏰ **Clock** - Real-time clock with customizable styles and 12/24-hour formats
+- 🖼️ **Custom Backgrounds** - Use an image from a URL or upload one from your device
+- 🌐 **Multi-Language** - English and Japanese interface support
 - 📱 **Responsive Design** - Perfect display on desktop, tablet, and mobile devices
 - 🌓 **Dark Mode** - Automatic theme switching with light and dark modes
 - 💾 **Data Persistence** - Local storage of settings and shortcuts
@@ -131,8 +133,7 @@ This project has been refactored to follow Material Design 3 (Material You) guid
 - [iconfont](https://www.iconfont.cn/) - Icon solution
 
 ### Utilities
-- [Axios](https://axios-http.com/) - HTTP client
-- [lunar-calendar](https://www.npmjs.com/package/lunar-calendar) - Lunar calendar support
+- [@material/material-color-utilities](https://www.npmjs.com/package/@material/material-color-utilities) - Material 3 color system (HCT) for dynamic themes
 
 ## 📦 Project Structure
 
@@ -167,24 +168,21 @@ SuisoruIX/
 - **Search Suggestions**: Real-time search suggestions (configurable)
 - **Smart Detection**: Automatically detect URLs and email addresses
 
-### Wallpapers
-- **Local Default**: Random default wallpapers
-- **Daily Bing**: Bing's daily featured image
-- **Random Scenery**: Beautiful landscape photos
-- **Random Anime**: Anime-style illustrations
-- **Custom URL**: Use your own image URL
+### Themes & Backgrounds
+- **Default**: Random built-in wallpapers with the default color palette
+- **Material 3**: Dynamic color palette generated from your custom seed color, with a solid-color background
+- **Custom**: Use your own image from a URL, or upload one from your device (stored in your browser)
+- **Effects**: Background mask and blur adjustments
 
-### Time & Weather
+### Clock
 - **Multiple Clock Styles**: Horizontal or vertical layout
 - **12/24 Hour Format**: Choose your preferred time format
 - **Seconds Display**: Optional seconds display
-- **Lunar Calendar**: Traditional Chinese calendar
-- **Weather Info**: Real-time weather with temperature and wind
 
 ### Customization
-- **Theme**: Light and dark mode
+- **Theme Type**: Light and dark mode
+- **Language**: English and Japanese interface
 - **Search Box**: Auto-collapse, auto-focus options
-- **Wallpaper Effects**: Blur and mask adjustments
 - **Data Backup**: Export and import your settings
 
 ## 🤝 Contributing

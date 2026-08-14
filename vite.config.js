@@ -64,6 +64,16 @@ export default defineConfig({
   },
   build: {
     minify: "terser",
+    rollupOptions: {
+      output: {
+        // Split the heavy vendor libraries into parallel-loadable chunks.
+        manualChunks: {
+          "naive-ui": ["naive-ui"],
+          "vue-vendor": ["vue", "pinia", "pinia-plugin-persistedstate"],
+          "m3-color": ["@material/material-color-utilities"],
+        },
+      },
+    },
     terserOptions: {
       compress: {
         pure_funcs: ["console.log"],

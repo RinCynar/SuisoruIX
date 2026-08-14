@@ -1,9 +1,9 @@
 <template>
   <!-- Global Configuration Components -->
   <n-config-provider
-    :locale="zhCN"
-    :date-locale="dateZhCN"
-    :theme="darkTheme"
+    :locale="locale"
+    :date-locale="dateLocale"
+    :theme="naiveTheme"
     :theme-overrides="themeOverrides"
     abstract
     inline-theme-disabled
@@ -20,10 +20,12 @@
 </template>
 
 <script setup>
-import { defineComponent, h } from "vue";
+import { defineComponent, h, computed } from "vue";
 import {
-  zhCN,
-  dateZhCN,
+  enUS,
+  dateEnUS,
+  jaJP,
+  dateJaJP,
   darkTheme,
   NConfigProvider,
   NDialogProvider,
@@ -33,16 +35,27 @@ import {
   useNotification,
   useMessage,
 } from "naive-ui";
+import { setStore } from "@/stores";
 
-const themeOverrides = {
+const set = setStore();
+
+// Follow the persisted light / dark preference.
+const naiveTheme = computed(() => (set.themeType === "light" ? null : darkTheme));
+
+const locale = computed(() => (set.language === "ja" ? jaJP : enUS));
+const dateLocale = computed(() => (set.language === "ja" ? dateJaJP : dateEnUS));
+
+// Colors are driven by the Material 3 CSS variables.
+const themeOverrides = computed(() => ({
   common: {
-    fontFamily: "'HarmonyOS_Regular', sans-serif",
-    primaryColor: "#ffffff",
-    primaryColorHover: "#ffffff70",
-    primaryColorSuppl: "#ffffff30",
-    primaryColorPressed: "#ffffff30",
+    fontFamily: "'Noto Sans', 'HarmonyOS_Regular', 'Segoe UI', sans-serif",
+    primaryColor: "var(--md-sys-color-primary)",
+    primaryColorHover: "var(--md-sys-color-primary)",
+    primaryColorSuppl: "var(--md-sys-color-primary)",
+    primaryColorPressed: "var(--md-sys-color-primary)",
+    borderRadius: "12px",
   },
-};
+}));
 
 const setupNaiveTools = () => {
   window.$notification = useNotification();
@@ -59,3 +72,4 @@ const NaiveProviderContent = defineComponent({
   },
 });
 </script>
+

@@ -1,17 +1,25 @@
 import { defineStore } from "pinia";
+import { DEFAULT_SEED_COLOR } from "@/utils/theme";
 
 const useSetDataStore = defineStore("setData", {
   state: () => {
     return {
+      // Language
+      // en / ja
+      language: "en",
       // Theme category
       themeType: "dark",
-      // Wallpaper category
-      // 0 local / 1 Bing / 2 random landscape / 3 random anime / 4 custom
-      backgroundType: 0,
+      // Theme / background mode
+      // "default" - built-in wallpaper + fixed palette
+      // "m3"      - Material 3 dynamic palette from seed color + solid background
+      // "custom"  - custom background image (URL or local data URL)
+      backgroundType: "default",
       backgroundCustom: "",
-      // Wallpaper mask
+      // Material 3 seed color
+      seedColor: DEFAULT_SEED_COLOR,
+      // Background mask
       showBackgroundGray: true,
-      // Wallpaper blur
+      // Background blur
       backgroundBlur: 0,
       // Search engine
       searchEngine: "bing",
@@ -27,16 +35,12 @@ const useSetDataStore = defineStore("setData", {
       autoInputBlur: true,
       // Time style
       timeStyle: "one",
-      // Display lunar calendar
-      showLunar: false,
       // Whether to display seconds
       showSeconds: false,
       // Whether to display zero
       showZeroTime: true,
       // 12 Hour format
       use12HourFormat: false,
-      // Weather display
-      showWeather: false,
       // Whether to display search suggestions
       showSuggestions: true,
       // Jump method
@@ -46,7 +50,6 @@ const useSetDataStore = defineStore("setData", {
   },
   actions: {
     setSearchEngine(value, custom = false) {
-
       if (this.searchEngine !== "custom") {
         this.lastSearchEngine = this.searchEngine;
       }
@@ -57,6 +60,30 @@ const useSetDataStore = defineStore("setData", {
         return;
       }
       this.searchEngine = value;
+    },
+
+    /**
+     * Normalize persisted settings written by older versions of the app
+     * (numeric backgroundType values, removed features) to the current schema.
+     */
+    migrate() {
+      // Legacy numeric backgroundType: 0 local / 1 Bing / 2 scenery / 3 anime / 4 custom
+      if (typeof this.backgroundType === "number") {
+        const legacyMap = { 0: "default", 1: "default", 2: "default", 3: "default", 4: "custom" };
+        this.backgroundType = legacyMap[this.backgroundType] ?? "default";
+      }
+      if (!["default", "m3", "custom"].includes(this.backgroundType)) {
+        this.backgroundType = "default";
+      }
+      if (!["en", "ja"].includes(this.language)) {
+        this.language = "en";
+      }
+      if (!["light", "dark"].includes(this.themeType)) {
+        this.themeType = "dark";
+      }
+      if (!this.seedColor || !/^#([0-9a-fA-F]{6})$/.test(this.seedColor)) {
+        this.seedColor = DEFAULT_SEED_COLOR;
+      }
     },
 
     recoverSiteData(data) {
@@ -84,3 +111,4 @@ const useSetDataStore = defineStore("setData", {
 });
 
 export default useSetDataStore;
+

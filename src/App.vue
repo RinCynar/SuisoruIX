@@ -1,6 +1,6 @@
 <template>
   <Provider>
-    <!-- wallpaper -->
+    <!-- background -->
     <Cover @loadComplete="loadComplete" />
     <!-- main page -->
     <Transition name="fade" mode="out-in">
@@ -14,7 +14,7 @@
         @contextmenu="mainContextmenu"
         @keydown="mainPressKeyboard"
       >
-        <WeatherTime />
+        <TimeDisplay />
         <SearchInp @contextmenu.stop />
         <AllFunc @contextmenu.stop />
         <Footer />
@@ -62,20 +62,35 @@
 <script setup>
 import { onMounted, nextTick, watch, ref } from "vue";
 import { statusStore, setStore } from "@/stores";
-import { getGreeting } from "@/utils/timeTools";
+import { getGreetingKey } from "@/utils/timeTools";
+import { applyThemePalette } from "@/utils/theme";
+import { useI18n } from "@/i18n";
 import Provider from "@/components/Provider.vue";
 import Cover from "@/components/Cover.vue";
-import WeatherTime from "@/components/WeatherTime.vue";
+import TimeDisplay from "@/components/TimeDisplay.vue";
 import SearchInp from "@/components/SearchInput/SearchInp.vue";
 import AllFunc from "@/components/AllFunc/AllFunc.vue";
 import Footer from "@/components/Footer.vue";
 
 const set = setStore();
 const status = statusStore();
+const { t } = useI18n();
 const mainClickable = ref(false);
 
 // get config
 const welcomeText = import.meta.env.VITE_WELCOME_TEXT ?? "Ciallo～(∠・ω< )⌒☆";
+
+// Apply the light/dark attribute, language and (when active) the Material 3 palette.
+const changeThemeType = () => {
+  const htmlElement = document.querySelector("html");
+  htmlElement.setAttribute("theme", set.themeType === "light" ? "light" : "dark");
+  htmlElement.setAttribute("lang", set.language === "ja" ? "ja" : "en");
+  applyThemePalette({
+    enabled: set.backgroundType === "m3",
+    seedColor: set.seedColor,
+    themeType: set.themeType,
+  });
+};
 
 const mainContextmenu = (event) => {
   event.preventDefault();
@@ -85,7 +100,7 @@ const mainContextmenu = (event) => {
 const loadComplete = () => {
   nextTick().then(() => {
     mainClickable.value = true;
-    $message.info(getGreeting() + "，" + welcomeText, {
+    $message.info(`${t(`app.greeting.${getGreetingKey()}`)}, ${welcomeText}`, {
       showIcon: false,
       duration: 3000,
     });
@@ -96,26 +111,20 @@ const mainPressKeyboard = (event) => {
   const keyCode = event.keyCode;
 
   if (keyCode === 13) {
-
     const mainInput = document.getElementById("main-input");
     status.setSiteStatus("focus");
     mainInput?.focus();
   }
 };
 
-const changeThemeType = (val) => {
-  const htmlElement = document.querySelector("html");
-  const themeType = val === "light" ? "light" : "dark";
-  htmlElement.setAttribute("theme", themeType);
-};
-
 watch(
-  () => set.themeType,
-  (val) => changeThemeType(val),
+  () => [set.themeType, set.backgroundType, set.seedColor, set.language],
+  () => changeThemeType(),
 );
 
 onMounted(() => {
-  changeThemeType(set.themeType);
+  set.migrate();
+  changeThemeType();
 });
 </script>
 
@@ -206,3 +215,4 @@ onMounted(() => {
   }
 }
 </style>
+

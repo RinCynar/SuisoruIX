@@ -9,7 +9,7 @@
       <span v-if="icp" class="icp" @click="jumpTo('https://google.cn/icp')">
         {{ icp }}
       </span>
-      <span class="about" @click="aboutSiteModal = true">About</span>
+      <span class="about" @click="aboutSiteModal = true">{{ t("footer.about") }}</span>
     </div>
     <!-- About -->
     <n-modal
@@ -26,7 +26,7 @@
         <div class="desc">
           <n-space class="link" justify="center">
             <n-button strong secondary @click="jumpTo('https://github.com/RinCynar/SuisoruIX')">
-              Github
+              {{ t("footer.about") }} · Github
             </n-button>
           </n-space>
         </div>
@@ -38,10 +38,12 @@
 <script setup>
 import { ref } from "vue";
 import { setStore } from "@/stores";
+import { useI18n } from "@/i18n";
 import { NModal, NButton, NSpace } from "naive-ui";
 import packageJson from "@/../package.json";
 
 const set = setStore();
+const { t } = useI18n();
 
 const icp = import.meta.env.VITE_ICP;
 const siteName = import.meta.env.VITE_SITE_TITLE;

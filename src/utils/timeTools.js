@@ -1,9 +1,9 @@
-import LunarCalendar from "lunar-calendar";
-
 /**
-* Get the current time
-* @returns {Object} time object
-*/
+ * Get the current time
+ * @param {boolean} ShowZero - pad single-digit values with a leading zero
+ * @param {boolean} Use12Hour - use 12 hour format
+ * @returns {Object} time object
+ */
 export const getCurrentTime = (ShowZero = true, Use12Hour = false) => {
   try {
     const time = new Date();
@@ -24,36 +24,18 @@ export const getCurrentTime = (ShowZero = true, Use12Hour = false) => {
     }
     const minute = formatTime(time.getMinutes());
     const second = formatTime(time.getSeconds());
-    const weekdayArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const weekday = weekdayArr[time.getDay()];
 
-    const lunar = LunarCalendar.solarToLunar(
-      time.getFullYear(),
-      time.getMonth() + 1,
-      time.getDate(),
-    );
-
-    const currentTime = {
+    return {
       year,
       month,
       day,
       hour,
       minute,
       second,
-      weekday,
+      // 0 = Sunday ... 6 = Saturday (localized by the view layer)
+      weekday: time.getDay(),
       amPm,
-      lunar: {
-        data: lunar,
-        year: lunar.lunarYear,
-        month: lunar.lunarMonthName,
-        day: lunar.lunarDayName,
-        GanZhiYear: lunar.GanZhiYear,
-        GanZhiMonth: lunar.GanZhiMonth,
-        GanZhiDay: lunar.GanZhiDay,
-        text: lunar.lunarMonthName + lunar.lunarDayName,
-      },
     };
-    return currentTime;
   } catch (error) {
     console.error("Error in getting time:" + error);
     return {};
@@ -61,27 +43,23 @@ export const getCurrentTime = (ShowZero = true, Use12Hour = false) => {
 };
 
 /**
-* Return different greetings based on real time
-* @returns {string} greeting
-*/
-export const getGreeting = () => {
-  const currentTime = new Date();
-  const currentHour = currentTime.getHours();
-  let greeting = "";
-  if (currentHour >= 6 && currentHour < 9) {
-    greeting = "Good morning";
-  } else if (currentHour >= 9 && currentHour < 12) {
-    greeting = "Good morning";
+ * Return a greeting key based on the current hour.
+ * Localized by the caller.
+ * @returns {string} greeting key
+ */
+export const getGreetingKey = () => {
+  const currentHour = new Date().getHours();
+  if (currentHour >= 6 && currentHour < 12) {
+    return "morning";
   } else if (currentHour >= 12 && currentHour < 18) {
-    greeting = "Good afternoon";
+    return "afternoon";
   } else if (currentHour >= 18 && currentHour < 20) {
-    greeting = "Good evening";
+    return "evening";
   } else if (currentHour >= 20 && currentHour < 24) {
-    greeting = "Good night";
+    return "night";
   } else if (currentHour >= 4 && currentHour < 6) {
-    greeting = "Good early-morning";
-  } else {
-    greeting = "It's late at night";
+    return "earlyMorning";
   }
-  return greeting;
+  return "lateNight";
 };
+

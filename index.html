@@ -7,6 +7,26 @@
     <title>SuisoruIX</title>
     <!-- Noto Sans -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" />
+    <!-- Icon font (SVG sprite) -->
+    <script src="/lib/iconfont.js" defer></script>
+    <!-- Restore persisted theme & language before the app mounts (avoids flash) -->
+    <script>
+      (function () {
+        try {
+          var raw = localStorage.getItem("setData");
+          if (!raw) {
+            // First visit: the store defaults to dark.
+            document.documentElement.setAttribute("theme", "dark");
+            return;
+          }
+          var data = JSON.parse(raw);
+          var theme = data && data.themeType === "light" ? "light" : "dark";
+          var lang = data && data.language === "ja" ? "ja" : "en";
+          document.documentElement.setAttribute("theme", theme);
+          document.documentElement.setAttribute("lang", lang);
+        } catch (e) {}
+      })();
+    </script>
     <!-- IE Out -->
     <script>
       if (

@@ -21,7 +21,7 @@
     />
     <!-- Main search box -->
     <div class="all" ref="searchAllRef" @animationend="inputAnimationEnd">
-      <div class="engine" title="Switch search engine" @click="changeEngine">
+      <div class="engine" :title="t('search.switchEngine')" @click="changeEngine">
         <Transition name="fade" mode="out-in">
           <SvgIcon
             :iconName="`icon-${
@@ -37,7 +37,7 @@
         ref="searchInputRef"
         type="text"
         label="search"
-        title="Please enter your search content"
+        :title="t('search.inputTitle')"
         autocomplete="false"
         :placeholder="inputTip"
         v-model="status.searchInputValue"
@@ -45,7 +45,7 @@
         @click.stop="status.setEngineChangeStatus(false)"
         @keydown.stop="pressKeyboard"
       />
-      <div class="go" title="Search" @click="toSearch(status.searchInputValue)">
+      <div class="go" :title="t('search.go')" @click="toSearch(status.searchInputValue)">
         <SvgIcon iconName="icon-search" className="search" />
       </div>
     </div>
@@ -57,16 +57,18 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { statusStore, setStore } from "@/stores";
+import { useI18n } from "@/i18n";
 import SearchEngine from "@/components/SearchInput/SearchEngine.vue";
 import Suggestions from "@/components/SearchInput/Suggestions.vue";
 import defaultEngine from "@/assets/defaultEngine.json";
 
 const set = setStore();
 const status = statusStore();
+const { t } = useI18n();
 
-const inputTip = import.meta.env.VITE_INPUT_TIP ?? "What's you want?";
+const inputTip = computed(() => import.meta.env.VITE_INPUT_TIP ?? t("search.placeholder"));
 
 const searchAllRef = ref(null);
 const searchInputRef = ref(null);
@@ -129,7 +131,7 @@ const toSearch = (val, type = 1) => {
     closeSearchInput(true);
   } else {
     if (status.siteStatus === "focus") {
-      $message.info("Please enter your search content", { duration: 1500 });
+      $message.info(t("search.empty"), { duration: 1500 });
     }
     status.setSiteStatus("focus");
     searchInputRef.value?.focus();
