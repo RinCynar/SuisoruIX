@@ -72,7 +72,7 @@
               <span class="title">{{ t('settings.theme.mask') }}</span>
               <span class="tip">{{ t('settings.theme.maskTip') }}</span>
             </div>
-            <n-switch v-model:value="showBackgroundGray" :round="false" />
+            <n-switch v-model:value="showBackgroundGray" />
           </n-card>
           <n-card v-if="backgroundType !== 'm3'" class="set-item">
             <div class="name">
@@ -101,7 +101,7 @@
               <span class="title">{{ t('settings.search.suggestions') }}</span>
               <span class="tip">{{ t('settings.search.suggestionsTip') }}</span>
             </div>
-            <n-switch v-model:value="showSuggestions" :round="false" />
+            <n-switch v-model:value="showSuggestions" />
           </n-card>
           <n-card class="set-item">
             <div class="name">
@@ -123,20 +123,20 @@
               <span class="title">{{ t('settings.time.seconds') }}</span>
               <span class="tip">{{ t('settings.time.secondsTip') }}</span>
             </div>
-            <n-switch v-model:value="showSeconds" :round="false" />
+            <n-switch v-model:value="showSeconds" />
           </n-card>
           <n-card class="set-item">
             <div class="name">
               <span class="title">{{ t('settings.time.zero') }}</span>
               <span class="tip">{{ t('settings.time.zeroTip') }}</span>
             </div>
-            <n-switch v-model:value="showZeroTime" :round="false" />
+            <n-switch v-model:value="showZeroTime" />
           </n-card>
           <n-card class="set-item">
             <div class="name">
               <span class="title">{{ t('settings.time.h12') }}</span>
             </div>
-            <n-switch v-model:value="use12HourFormat" :round="false" />
+            <n-switch v-model:value="use12HourFormat" />
           </n-card>
         </n-scrollbar>
       </n-tab-pane>
@@ -148,21 +148,21 @@
               <span class="title">{{ t('settings.input.shrink') }}</span>
               <span class="tip">{{ t('settings.input.shrinkTip') }}</span>
             </div>
-            <n-switch v-model:value="smallInput" :round="false" />
+            <n-switch v-model:value="smallInput" />
           </n-card>
           <n-card class="set-item">
             <div class="name">
               <span class="title">{{ t('settings.input.focus') }}</span>
               <span class="tip">{{ t('settings.input.focusTip') }}</span>
             </div>
-            <n-switch v-model:value="autoFocus" :round="false" />
+            <n-switch v-model:value="autoFocus" />
           </n-card>
           <n-card class="set-item">
             <div class="name">
               <span class="title">{{ t('settings.input.blur') }}</span>
               <span class="tip">{{ t('settings.input.blurTip') }}</span>
             </div>
-            <n-switch v-model:value="autoInputBlur" :round="false" />
+            <n-switch v-model:value="autoInputBlur" />
           </n-card>
         </n-scrollbar>
       </n-tab-pane>
@@ -309,6 +309,7 @@ const languageOptions = [
 const themeTypeOptions = computed(() => [
   { label: t("settings.theme.type.light"), value: "light" },
   { label: t("settings.theme.type.dark"), value: "dark" },
+  { label: t("settings.theme.type.system"), value: "system" },
 ]);
 
 const themeModeOptions = computed(() => [
@@ -519,42 +520,30 @@ onMounted(() => {
 
 <style lang="scss">
 .cover-selete {
-  margin-top: 12px;
+  margin-top: var(--md-sys-spacing-3);
   .item {
     cursor: pointer;
     position: relative;
     width: 100%;
-    height: 48px;
+    min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--md-sys-shape-corner-medium);
-    background-color: var(--md-sys-color-surface-container-low);
+    border-radius: var(--md-sys-shape-corner-full);
+    background-color: var(--md-sys-color-surface-container);
+    font-size: var(--md-sys-typescale-label-large-size);
+    line-height: var(--md-sys-typescale-label-large-line);
     transition:
-      background-color 0.3s cubic-bezier(0.2, 0, 0, 1),
-      box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1),
-      transform 0.1s;
+      background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+      color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+      transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
     &.check {
-      background-color: var(--md-sys-color-surface-container);
-      color: var(--md-sys-color-primary);
+      background-color: var(--md-sys-color-secondary-container);
+      color: var(--md-sys-color-on-secondary-container);
       font-weight: 500;
-      &::before {
-        content: "";
-        position: absolute;
-        border-radius: 14px; // Medium + 2
-        top: -2px;
-        left: -2px;
-        right: -2px;
-        bottom: -2px;
-        border: 2px solid var(--md-sys-color-primary);
-        transition: opacity 0.3s;
-      }
     }
     &:hover {
-      background-color: var(--md-sys-color-surface-container);
-      &::before {
-        opacity: 0;
-      }
+      background-color: var(--md-sys-elevation-tint-2);
     }
     &:active {
       transform: scale(0.98);
@@ -569,7 +558,7 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: var(--md-sys-spacing-3);
   }
 }
 .custom-preview {
@@ -593,7 +582,7 @@ onMounted(() => {
   max-height: 220px;
   border-radius: var(--md-sys-shape-corner-large);
   overflow: hidden;
-  margin-bottom: 8px;
+  margin-bottom: var(--md-sys-spacing-2);
   border: 1px solid var(--md-sys-color-outline-variant);
   img {
     display: block;

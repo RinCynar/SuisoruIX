@@ -27,6 +27,11 @@
 import { computed, ref, onMounted, onBeforeUnmount, watch } from "vue";
 import { statusStore, setStore } from "@/stores";
 import { useI18n } from "@/i18n";
+import {
+  extractSeedFromImage,
+  extractSeedFromUrl,
+  setWallpaperSeed,
+} from "@/utils/theme";
 
 const set = setStore();
 const status = statusStore();
@@ -34,14 +39,12 @@ const { t } = useI18n();
 const bgUrl = ref(null);
 const imgTimeout = ref(null);
 const completed = ref(false);
-const emit = defineEmits(["loadComplete"]);
+const emit = defineEmits(["loadComplete", "paletteReady"]);
 
 const isSolidMode = computed(() => set.backgroundType === "m3");
 
-// Random default background (bg0 ~ bg9)
 const bgRandom = Math.floor(Math.random() * 10);
 
-// Assign background source based on the selected theme mode
 const setBgUrl = () => {
   switch (set.backgroundType) {
     case "custom":
@@ -56,7 +59,24 @@ const setBgUrl = () => {
   }
 };
 
-const imgLoadComplete = () => {
+const publishWallpaperSeed = (seed) => {
+  setWallpaperSeed(seed);
+  emit("paletteReady", seed);
+};
+
+const extractFromEventTarget = (img) => {
+  const seed = extractSeedFromImage(img);
+  publishWallpaperSeed(seed);
+};
+
+const extractFromCurrentUrl = async () => {
+  if (!bgUrl.value) return;
+  const seed = await extractSeedFromUrl(bgUrl.value);
+  publishWallpaperSeed(seed);
+};
+
+const imgLoadComplete = (event) => {
+  extractFromEventTarget(event.target);
   imgTimeout.value = setTimeout(
     () => {
       status.setImgLoadStatus(true);
@@ -78,7 +98,6 @@ const imgLoadError = () => {
   bgUrl.value = `/background/bg${bgRandom}.jpg`;
 };
 
-// Solid-color (Material 3) backgrounds do not need an image load cycle.
 const solidModeReady = () => {
   imgTimeout.value = setTimeout(() => {
     status.setImgLoadStatus(true);
@@ -89,7 +108,6 @@ const solidModeReady = () => {
   }, 350);
 };
 
-// React to theme-mode changes made in the settings panel.
 watch(
   () => [set.backgroundType, set.backgroundCustom],
   () => {
@@ -99,6 +117,7 @@ watch(
       bgUrl.value = null;
     } else {
       setBgUrl();
+      extractFromCurrentUrl();
     }
   },
 );
@@ -121,7 +140,7 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 100%;
   position: relative;
-  background-color: var(--body-background-color);
+  background-color: var(--md-sys-color-surface);
   &.solid {
     background-color: var(--md-sys-color-surface);
   }
@@ -142,9 +161,9 @@ onBeforeUnmount(() => {
     transform: scale(1.2);
     filter: blur(var(--blur));
     transition:
-      filter 0.3s,
-      transform 0.3s;
-    animation: fade-blur-in 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      filter var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+      transform var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
+    animation: fade-blur-in 1s var(--md-sys-motion-easing-emphasized-decelerate);
   }
   .gray {
     position: absolute;
@@ -152,9 +171,14 @@ onBeforeUnmount(() => {
     top: 0;
     width: 100%;
     height: 100%;
-    background-image: radial-gradient(rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.5) 100%),
-      radial-gradient(rgba(0, 0, 0, 0) 33%, rgba(0, 0, 0, 0.3) 166%);
+    background-image: radial-gradient(
+        color-mix(in srgb, var(--md-sys-color-scrim) 0%, transparent) 0,
+        color-mix(in srgb, var(--md-sys-color-scrim) 50%, transparent) 100%
+      ),
+      radial-gradient(
+        color-mix(in srgb, var(--md-sys-color-scrim) 0%, transparent) 33%,
+        color-mix(in srgb, var(--md-sys-color-scrim) 30%, transparent) 166%
+      );
   }
 }
 </style>
-

@@ -1,32 +1,20 @@
 import { ref } from "vue";
 import {
   argbFromHex,
+  argbFromRgb,
   hexFromArgb,
-  themeFromSourceColor,
+  Hct,
+  SchemeTonalSpot,
+  MaterialDynamicColors,
+  QuantizerCelebi,
+  Score,
 } from "@material/material-color-utilities";
 
 export const DEFAULT_SEED_COLOR = "#6750A4";
+export const FONT_FAMILY =
+  '"Roboto", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif';
 
-/**
- * Real (parsed) colors shared with naive-ui's theme engine, which cannot
- * parse CSS `var(...)` strings. Kept in sync by `applyThemePalette`.
- */
-export const naivePalette = ref({
-  primary: DEFAULT_SEED_COLOR,
-  onPrimary: "#ffffff",
-});
-
-// Fixed baseline palettes used when the Material 3 dynamic mode is off.
-const BASELINE_PALETTES = {
-  light: { primary: "#6750A4", onPrimary: "#ffffff" },
-  dark: { primary: "#D0BCFF", onPrimary: "#381E72" },
-};
-
-/**
- * CSS variables that hold the Material 3 color roles. They are managed
- * at runtime so the palette can be regenerated from a user seed color.
- */
-const COLOR_ROLE_VARS = [
+const COLOR_ROLES = [
   "primary",
   "onPrimary",
   "primaryContainer",
@@ -47,108 +35,252 @@ const COLOR_ROLE_VARS = [
   "onSurface",
   "surfaceVariant",
   "onSurfaceVariant",
+  "surfaceDim",
+  "surfaceBright",
+  "surfaceContainerLowest",
+  "surfaceContainerLow",
+  "surfaceContainer",
+  "surfaceContainerHigh",
+  "surfaceContainerHighest",
   "outline",
   "outlineVariant",
+  "inverseSurface",
+  "inverseOnSurface",
+  "inversePrimary",
+  "scrim",
+  "shadow",
+  "surfaceTint",
 ];
 
-const hexToRgba = (hex, alpha) => {
-  const value = parseInt(hex.slice(1), 16);
-  const r = (value >> 16) & 255;
-  const g = (value >> 8) & 255;
-  const b = value & 255;
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+const BASELINE_LIGHT = {
+  primary: "#6750A4",
+  onPrimary: "#FFFFFF",
+  primaryContainer: "#EADDFF",
+  onPrimaryContainer: "#21005D",
+  secondary: "#625B71",
+  onSecondary: "#FFFFFF",
+  secondaryContainer: "#E8DEF8",
+  onSecondaryContainer: "#1D192B",
+  tertiary: "#7D5260",
+  onTertiary: "#FFFFFF",
+  tertiaryContainer: "#FFD8E4",
+  onTertiaryContainer: "#31111D",
+  error: "#B3261E",
+  onError: "#FFFFFF",
+  errorContainer: "#F9DEDC",
+  onErrorContainer: "#410E0B",
+  surface: "#FEF7FF",
+  onSurface: "#1D1B20",
+  surfaceVariant: "#E7E0EC",
+  onSurfaceVariant: "#49454F",
+  surfaceDim: "#DED8E1",
+  surfaceBright: "#FEF7FF",
+  surfaceContainerLowest: "#FFFFFF",
+  surfaceContainerLow: "#F7F2FA",
+  surfaceContainer: "#F3EDF7",
+  surfaceContainerHigh: "#ECE6F0",
+  surfaceContainerHighest: "#E6E0E9",
+  outline: "#79747E",
+  outlineVariant: "#CAC4D0",
+  inverseSurface: "#322F35",
+  inverseOnSurface: "#F5EFF7",
+  inversePrimary: "#D0BCFF",
+  scrim: "#000000",
+  shadow: "#000000",
+  surfaceTint: "#6750A4",
+};
+
+const BASELINE_DARK = {
+  primary: "#D0BCFF",
+  onPrimary: "#381E72",
+  primaryContainer: "#4F378B",
+  onPrimaryContainer: "#EADDFF",
+  secondary: "#CCC2DC",
+  onSecondary: "#332D41",
+  secondaryContainer: "#4A4458",
+  onSecondaryContainer: "#E8DEF8",
+  tertiary: "#EFB8C8",
+  onTertiary: "#492532",
+  tertiaryContainer: "#633B48",
+  onTertiaryContainer: "#FFD8E4",
+  error: "#F2B8B5",
+  onError: "#601410",
+  errorContainer: "#8C1D18",
+  onErrorContainer: "#F9DEDC",
+  surface: "#141218",
+  onSurface: "#E6E1E5",
+  surfaceVariant: "#49454F",
+  onSurfaceVariant: "#CAC4D0",
+  surfaceDim: "#141218",
+  surfaceBright: "#3B383E",
+  surfaceContainerLowest: "#0F0D13",
+  surfaceContainerLow: "#1D1B20",
+  surfaceContainer: "#211F26",
+  surfaceContainerHigh: "#2B2930",
+  surfaceContainerHighest: "#36343B",
+  outline: "#938F99",
+  outlineVariant: "#49454F",
+  inverseSurface: "#E6E1E5",
+  inverseOnSurface: "#322F35",
+  inversePrimary: "#6750A4",
+  scrim: "#000000",
+  shadow: "#000000",
+  surfaceTint: "#D0BCFF",
 };
 
 /**
- * Material 3 surface container tones per spec.
- * https://m3.material.io/styles/color/static/baseline
+ * Real hex colors shared with naive-ui's theme engine, which cannot parse
+ * CSS `var(...)`. Kept in sync by `applyThemePalette`.
  */
-const SURFACE_CONTAINER_TONES = {
-  light: { lowest: 100, low: 96, container: 94, high: 92, highest: 90 },
-  dark: { lowest: 4, low: 10, container: 12, high: 17, highest: 22 },
+export const naivePalette = ref({ ...BASELINE_DARK });
+export const resolvedScheme = ref("dark");
+
+let lastWallpaperSeed = DEFAULT_SEED_COLOR;
+
+export const getWallpaperSeed = () => lastWallpaperSeed;
+
+export const setWallpaperSeed = (hex) => {
+  if (/^#([0-9a-fA-F]{6})$/.test(hex)) {
+    lastWallpaperSeed = hex;
+  }
 };
 
-const GLASS_ALPHAS = {
-  light: { low: 0.35, container: 0.5, high: 0.72, highest: 0.88 },
-  dark: { low: 0.45, container: 0.58, high: 0.78, highest: 0.92 },
+const toCssVar = (role) =>
+  `--md-sys-color-${role.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)}`;
+
+/**
+ * Resolve the persisted theme preference into a concrete light / dark scheme.
+ * `"system"` follows `prefers-color-scheme`.
+ */
+export const resolveThemeType = (themeType) => {
+  if (themeType === "system") {
+    if (typeof window !== "undefined" && window.matchMedia) {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    return "dark";
+  }
+  return themeType === "light" ? "light" : "dark";
 };
 
 /**
- * Apply a full Material 3 color scheme (generated from `seedColor`) to the
- * document root. When `enabled` is false, the runtime overrides are removed
- * and the stylesheet defaults (fixed palette) take over again.
+ * Build a complete Material 3 token map from a seed color via SchemeTonalSpot.
+ */
+export const generateTokens = (seedColor, isDark) => {
+  const seed = /^#([0-9a-fA-F]{6})$/.test(seedColor) ? seedColor : DEFAULT_SEED_COLOR;
+  const scheme = new SchemeTonalSpot(Hct.fromInt(argbFromHex(seed)), isDark, 0);
+  const tokens = {};
+  for (const role of COLOR_ROLES) {
+    const dynamicColor = MaterialDynamicColors[role];
+    if (dynamicColor && typeof dynamicColor.getArgb === "function") {
+      tokens[role] = hexFromArgb(dynamicColor.getArgb(scheme));
+    }
+  }
+  return tokens;
+};
+
+const SURFACE_SOLID_ROLES = [
+  ["surfaceContainerLowest", "--md-sys-color-surface-container-lowest-solid"],
+  ["surfaceContainerLow", "--md-sys-color-surface-container-low-solid"],
+  ["surfaceContainer", "--md-sys-color-surface-container-solid"],
+  ["surfaceContainerHigh", "--md-sys-color-surface-container-high-solid"],
+  ["surfaceContainerHighest", "--md-sys-color-surface-container-highest-solid"],
+];
+
+/**
+ * Apply a full Material 3 scheme to `:root`. Always writes tokens — wallpaper
+ * modes also live inside this system (tinted via `[data-surface-mode]`).
  *
  * @param {Object} options
- * @param {boolean} options.enabled - true when the Material 3 mode is active
- * @param {string} options.seedColor - hex color used to generate the palette
- * @param {"light"|"dark"} options.themeType - light or dark scheme
+ * @param {string} options.seedColor - hex seed used to generate the palette
+ * @param {"light"|"dark"|"system"} options.themeType
+ * @param {"solid"|"wallpaper"} options.surfaceMode
  */
-export const applyThemePalette = ({ enabled = false, seedColor = DEFAULT_SEED_COLOR, themeType = "dark" } = {}) => {
+export const applyThemePalette = ({
+  seedColor = DEFAULT_SEED_COLOR,
+  themeType = "dark",
+  surfaceMode = "solid",
+} = {}) => {
   const root = document.documentElement;
-  const rootStyle = root.style;
+  const resolved = resolveThemeType(themeType);
+  const isDark = resolved === "dark";
+  const mode = surfaceMode === "wallpaper" ? "wallpaper" : "solid";
 
-  if (!enabled) {
-    for (const role of COLOR_ROLE_VARS) {
-      rootStyle.removeProperty(`--md-sys-color-${role}`);
-    }
-    for (const level of ["lowest", "low", "container", "high", "highest"]) {
-      rootStyle.removeProperty(`--md-sys-color-surface-container-${level}`);
-    }
-    rootStyle.removeProperty("--body-background-color");
-    // naive-ui needs real colors (it cannot parse `var(...)`).
-    naivePalette.value = BASELINE_PALETTES[themeType === "light" ? "light" : "dark"];
-    return;
-  }
+  root.setAttribute("theme", resolved);
+  root.setAttribute("data-surface-mode", mode);
+  resolvedScheme.value = resolved;
 
-  let seed = seedColor;
-  if (!/^#([0-9a-fA-F]{6})$/.test(seed)) {
-    seed = DEFAULT_SEED_COLOR;
-  }
-
+  let tokens;
   try {
-    const theme = themeFromSourceColor(argbFromHex(seed));
-    const isDark = themeType === "dark";
-    const scheme = isDark ? theme.schemes.dark : theme.schemes.light;
-    // naive-ui needs real colors (it cannot parse `var(...)`).
-    naivePalette.value = {
-      primary: hexFromArgb(scheme.primary),
-      onPrimary: hexFromArgb(scheme.onPrimary),
-    };
-    const neutral = theme.palettes.neutral;
-    const tones = SURFACE_CONTAINER_TONES[isDark ? "dark" : "light"];
-    const alphas = GLASS_ALPHAS[isDark ? "dark" : "light"];
-
-    for (const role of COLOR_ROLE_VARS) {
-      const argb = scheme[role];
-      if (typeof argb === "number") {
-        rootStyle.setProperty(`--md-sys-color-${role}`, hexFromArgb(argb));
-      }
-    }
-
-    const surfaceContainers = {
-      lowest: neutral.tone(tones.lowest),
-      low: neutral.tone(tones.low),
-      container: neutral.tone(tones.container),
-      high: neutral.tone(tones.high),
-      highest: neutral.tone(tones.highest),
-    };
-
-    for (const [level, argb] of Object.entries(surfaceContainers)) {
-      const hex = hexFromArgb(argb);
-      // The four "glass" levels keep translucency for the blurred surfaces.
-      if (level === "lowest") {
-        rootStyle.setProperty("--md-sys-color-surface-container-lowest", hex);
-      } else {
-        rootStyle.setProperty(
-          `--md-sys-color-surface-container-${level}`,
-          hexToRgba(hex, alphas[level]),
-        );
-      }
-    }
-
-    // The solid page background (used by the cover in Material 3 mode).
-    rootStyle.setProperty("--body-background-color", hexFromArgb(scheme.surface));
+    tokens = generateTokens(seedColor, isDark);
   } catch (error) {
     console.error("Failed to generate Material 3 palette:", error);
+    tokens = isDark ? { ...BASELINE_DARK } : { ...BASELINE_LIGHT };
   }
+
+  const rootStyle = root.style;
+  for (const [role, hex] of Object.entries(tokens)) {
+    rootStyle.setProperty(toCssVar(role), hex);
+  }
+  for (const [role, cssVar] of SURFACE_SOLID_ROLES) {
+    if (tokens[role]) {
+      rootStyle.setProperty(cssVar, tokens[role]);
+    }
+  }
+  rootStyle.setProperty("--body-background-color", tokens.surface);
+
+  naivePalette.value = tokens;
+  return tokens;
+};
+
+/**
+ * Quantize a downsampled image and return the best Material seed color.
+ * Falls back to the default seed if the canvas is tainted or empty.
+ *
+ * @param {CanvasImageSource} image
+ * @returns {string} hex seed
+ */
+export const extractSeedFromImage = (image) => {
+  try {
+    const size = 64;
+    const canvas = document.createElement("canvas");
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    if (!ctx) return DEFAULT_SEED_COLOR;
+    ctx.drawImage(image, 0, 0, size, size);
+    const { data } = ctx.getImageData(0, 0, size, size);
+    const pixels = [];
+    for (let i = 0; i < data.length; i += 4) {
+      if (data[i + 3] < 255) continue;
+      pixels.push(argbFromRgb(data[i], data[i + 1], data[i + 2]));
+    }
+    if (!pixels.length) return DEFAULT_SEED_COLOR;
+    const quantized = QuantizerCelebi.quantize(pixels, 128);
+    const ranked = Score.score(quantized);
+    if (!ranked[0]) return DEFAULT_SEED_COLOR;
+    return hexFromArgb(ranked[0]);
+  } catch (error) {
+    console.warn("Failed to extract seed color from image:", error);
+    return DEFAULT_SEED_COLOR;
+  }
+};
+
+/**
+ * Load `url` (optionally with CORS) and extract a seed. Resolves to the
+ * default seed on any failure so callers can keep applying a valid palette.
+ */
+export const extractSeedFromUrl = (url) => {
+  return new Promise((resolve) => {
+    if (!url) {
+      resolve(DEFAULT_SEED_COLOR);
+      return;
+    }
+    const img = new Image();
+    if (!url.startsWith("data:")) {
+      img.crossOrigin = "anonymous";
+    }
+    img.onload = () => resolve(extractSeedFromImage(img));
+    img.onerror = () => resolve(DEFAULT_SEED_COLOR);
+    img.src = url;
+  });
 };

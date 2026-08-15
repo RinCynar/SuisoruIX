@@ -184,18 +184,20 @@ defineExpose({ keyboardEvents });
 <style lang="scss" scoped>
 .suggestions {
   position: absolute;
-  top: -10px;
+  top: -8px;
   left: 0;
   width: 100%;
   max-height: 45vh;
   overflow: hidden;
-  color: var(--main-text-color);
-  background-color: var(--main-background-light-color);
-  backdrop-filter: blur(30px) saturate(1.25);
-  border-radius: 16px;
-  transition: height 0.2s ease,
-  opacity 0.3s ease,
-  transform 0.3s ease;
+  color: var(--md-sys-color-on-surface);
+  background-color: var(--md-sys-color-surface-container-high);
+  backdrop-filter: blur(var(--md-sys-surface-blur));
+  border-radius: var(--md-sys-shape-corner-extra-large);
+  box-shadow: var(--md-sys-elevation-2);
+  transition:
+    height var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+    opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+    transform var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
   z-index: 1;
 
   .all-result,
@@ -206,14 +208,18 @@ defineExpose({ keyboardEvents });
       display: flex;
       flex-direction: row;
       align-items: center;
-      padding: 6px 12px;
-      font-size: 14px;
-      transition: background-color 0.3s,
-      padding-left 0.3s;
+      min-height: 48px;
+      padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
+      font-size: var(--md-sys-typescale-body-medium-size);
+      line-height: var(--md-sys-typescale-body-medium-line);
+      transition:
+        background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+        padding-left var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
 
       .i-icon {
         opacity: 0.8;
-        margin-right: 8px;
+        margin-right: var(--md-sys-spacing-2);
+        color: var(--md-sys-color-on-surface-variant);
       }
 
       .text {
@@ -223,17 +229,17 @@ defineExpose({ keyboardEvents });
         white-space: nowrap;
       }
 
-      @media (min-width: 520px) {
+      @media (min-width: 600px) {
         &:hover,
         &.focus {
-          background-color: var(--main-background-light-color);
-          padding-left: 18px;
+          background-color: var(--md-sys-color-surface-container);
+          padding-left: var(--md-sys-spacing-5);
         }
       }
 
       &:active {
-        background-color: var(--main-background-light-color);
-        padding-left: 18px;
+        background-color: var(--md-sys-color-surface-container);
+        padding-left: var(--md-sys-spacing-5);
       }
     }
   }

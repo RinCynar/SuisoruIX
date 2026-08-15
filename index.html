@@ -5,8 +5,13 @@
     <link rel="icon" type="image/svg+xml" href="favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SuisoruIX</title>
-    <!-- Noto Sans -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" />
+    <!-- Roboto (Material 3 typeface) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap"
+    />
     <!-- Icon font (SVG sprite) -->
     <script src="/lib/iconfont.js" defer></script>
     <!-- Restore persisted theme & language before the app mounts (avoids flash) -->
@@ -15,15 +20,24 @@
         try {
           var raw = localStorage.getItem("setData");
           if (!raw) {
-            // First visit: the store defaults to dark.
+            // First visit: the store defaults to dark + random wallpaper.
             document.documentElement.setAttribute("theme", "dark");
+            document.documentElement.setAttribute("data-surface-mode", "wallpaper");
             return;
           }
           var data = JSON.parse(raw);
-          var theme = data && data.themeType === "light" ? "light" : "dark";
+          var pref = data && data.themeType;
+          var theme;
+          if (pref === "system") {
+            theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          } else {
+            theme = pref === "light" ? "light" : "dark";
+          }
           var lang = data && data.language === "ja" ? "ja" : "en";
+          var surface = data && data.backgroundType === "m3" ? "solid" : "wallpaper";
           document.documentElement.setAttribute("theme", theme);
           document.documentElement.setAttribute("lang", lang);
+          document.documentElement.setAttribute("data-surface-mode", surface);
         } catch (e) {}
       })();
     </script>

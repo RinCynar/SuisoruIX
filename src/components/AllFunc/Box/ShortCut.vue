@@ -8,8 +8,8 @@
             class="all-shortcut"
             responsive="screen"
             cols="2 s:3 m:4 l:5"
-            :x-gap="10"
-            :y-gap="10"
+            :x-gap="12"
+            :y-gap="12"
           >
             <n-grid-item
               v-for="item in shortcutData"
@@ -18,10 +18,11 @@
               @contextmenu="shortCutContextmenu($event, item)"
               @click="shortCutJump(item.url)"
             >
+              <span class="icon-container" aria-hidden="true">{{ item.name?.charAt(0) }}</span>
               <span class="name">{{ item.name }}</span>
             </n-grid-item>
             <n-grid-item
-              class="shortcut-item"
+              class="shortcut-item add"
               @contextmenu="
                 (e) => {
                   e.preventDefault();
@@ -29,7 +30,9 @@
               "
               @click="addShortcutModalOpen"
             >
-              <SvgIcon iconName="icon-add" />
+              <span class="icon-container add" aria-hidden="true">
+                <SvgIcon iconName="icon-add" />
+              </span>
               <span class="name">{{ t("shortcut.add") }}</span>
             </n-grid-item>
           </n-grid>
@@ -429,26 +432,41 @@ function clickFileDom() {
     height: 100%;
     overflow-y: auto;
     .all-shortcut {
-      padding: 20px;
+      padding: var(--md-sys-spacing-4);
       box-sizing: border-box;
       .shortcut-item {
         cursor: pointer;
-        height: 60px;
-        padding: 0 10px;
+        min-height: 56px;
+        padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
         display: flex;
         align-items: center;
-        justify-content: center;
-        background-color: var(--main-background-light-color);
-        border-radius: 8px;
-        font-size: 16px;
+        justify-content: flex-start;
+        gap: var(--md-sys-spacing-3);
+        background-color: var(--md-sys-color-surface-container-high);
+        border-radius: var(--md-sys-shape-corner-large);
+        box-shadow: var(--md-sys-elevation-1);
+        font-size: var(--md-sys-typescale-title-medium-size);
+        line-height: var(--md-sys-typescale-title-medium-line);
         transition:
-          background-color 0.3s,
-          box-shadow 0.3s;
-        .i-icon {
-          width: 1rem;
-          margin-right: 6px;
-          font-size: 20px;
-          opacity: 1;
+          background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+          box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+          transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+        .icon-container {
+          flex-shrink: 0;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: var(--md-sys-shape-corner-medium);
+          background-color: var(--md-sys-color-primary-container);
+          color: var(--md-sys-color-on-primary-container);
+          font-size: var(--md-sys-typescale-title-medium-size);
+          font-weight: 500;
+          &.add {
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+          }
         }
         .name {
           overflow: hidden;
@@ -456,11 +474,13 @@ function clickFileDom() {
           white-space: nowrap;
         }
         &:hover {
-          background-color: var(--main-background-hover-color);
-          box-shadow: 0 0 0px 2px var(--main-background-hover-color);
+          background-color: var(--md-sys-elevation-tint-3);
+          box-shadow: var(--md-sys-elevation-3);
+          transform: translateY(-2px);
         }
         &:active {
-          box-shadow: none;
+          transform: translateY(0);
+          box-shadow: var(--md-sys-elevation-1);
         }
       }
     }
@@ -471,29 +491,32 @@ function clickFileDom() {
     align-items: center;
     justify-content: center;
     .tip {
-      font-size: 24px;
-      margin-bottom: 20px;
+      font-size: var(--md-sys-typescale-headline-medium-size);
+      line-height: var(--md-sys-typescale-headline-medium-line);
+      margin-bottom: var(--md-sys-spacing-4);
+      color: var(--md-sys-color-on-surface-variant);
     }
   }
   .footer__btn-group {
     display: flex;
-    padding: 15px 0;
-    padding-left: 20px;
+    padding: var(--md-sys-spacing-3) 0;
+    padding-left: var(--md-sys-spacing-4);
     .footer__btn {
-      border-radius: 8px;
-      width: 80px;
+      border-radius: var(--md-sys-shape-corner-full);
+      min-width: 80px;
       height: 40px;
-      background-color: var(--main-background-light-color);
+      background-color: var(--md-sys-color-surface-container);
+      color: var(--md-sys-color-on-surface);
       line-height: 40px;
       text-align: center;
       cursor: pointer;
-      font-size: 16px;
+      font-size: var(--md-sys-typescale-label-large-size);
     }
     #shortCutUploadInput {
       display: none;
     }
     div + div {
-      margin-left: 10px;
+      margin-left: var(--md-sys-spacing-3);
     }
   }
 }

@@ -1,0 +1,263 @@
+// Material Design 3 static tokens.
+// Color roles are written at runtime by src/utils/theme.js; the hex values
+// here are the baseline purple palette used before JS runs (and as fallbacks).
+
+:root {
+  /* —— Shape scale —— */
+  --md-sys-shape-corner-none: 0px;
+  --md-sys-shape-corner-extra-small: 4px;
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-extra-large: 28px;
+  --md-sys-shape-corner-full: 999px;
+
+  /* —— 8dp spacing grid (4px base) —— */
+  --md-sys-spacing-1: 4px;
+  --md-sys-spacing-2: 8px;
+  --md-sys-spacing-3: 12px;
+  --md-sys-spacing-4: 16px;
+  --md-sys-spacing-5: 24px;
+  --md-sys-spacing-6: 32px;
+  --md-sys-spacing-7: 48px;
+
+  /* —— Motion —— */
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --md-sys-motion-duration-short2: 100ms;
+  --md-sys-motion-duration-short3: 150ms;
+  --md-sys-motion-duration-short4: 200ms;
+  --md-sys-motion-duration-medium1: 250ms;
+  --md-sys-motion-duration-medium2: 300ms;
+  --md-sys-motion-duration-medium3: 350ms;
+  --md-sys-motion-duration-medium4: 400ms;
+  --md-sys-motion-duration-long2: 500ms;
+
+  /* —— Type scale (start-page subset) —— */
+  --md-sys-typescale-font: "Roboto", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --md-sys-typescale-display-large-size: 57px;
+  --md-sys-typescale-display-large-line: 64px;
+  --md-sys-typescale-headline-medium-size: 28px;
+  --md-sys-typescale-headline-medium-line: 36px;
+  --md-sys-typescale-title-large-size: 22px;
+  --md-sys-typescale-title-large-line: 28px;
+  --md-sys-typescale-title-medium-size: 16px;
+  --md-sys-typescale-title-medium-line: 24px;
+  --md-sys-typescale-body-large-size: 16px;
+  --md-sys-typescale-body-large-line: 24px;
+  --md-sys-typescale-body-medium-size: 14px;
+  --md-sys-typescale-body-medium-line: 20px;
+  --md-sys-typescale-label-large-size: 14px;
+  --md-sys-typescale-label-large-line: 20px;
+  --md-sys-typescale-label-small-size: 11px;
+  --md-sys-typescale-label-small-line: 16px;
+
+  /* —— Elevation (umbra) —— */
+  --md-sys-elevation-0: none;
+  --md-sys-elevation-1:
+    0 1px 2px 0 color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent),
+    0 1px 3px 1px color-mix(in srgb, var(--md-sys-color-shadow) 8%, transparent);
+  --md-sys-elevation-2:
+    0 1px 2px 0 color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent),
+    0 2px 6px 2px color-mix(in srgb, var(--md-sys-color-shadow) 8%, transparent);
+  --md-sys-elevation-3:
+    0 1px 3px 0 color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent),
+    0 4px 8px 3px color-mix(in srgb, var(--md-sys-color-shadow) 8%, transparent);
+  --md-sys-elevation-4:
+    0 2px 3px 0 color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent),
+    0 6px 10px 4px color-mix(in srgb, var(--md-sys-color-shadow) 8%, transparent);
+  --md-sys-elevation-5:
+    0 4px 4px 0 color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent),
+    0 8px 12px 6px color-mix(in srgb, var(--md-sys-color-shadow) 8%, transparent);
+
+  /* Elevation tint: mix primary onto the matching surface container. */
+  --md-sys-elevation-tint-1: color-mix(
+    in srgb,
+    var(--md-sys-color-primary) 5%,
+    var(--md-sys-color-surface-container-low)
+  );
+  --md-sys-elevation-tint-2: color-mix(
+    in srgb,
+    var(--md-sys-color-primary) 8%,
+    var(--md-sys-color-surface-container)
+  );
+  --md-sys-elevation-tint-3: color-mix(
+    in srgb,
+    var(--md-sys-color-primary) 11%,
+    var(--md-sys-color-surface-container-high)
+  );
+  --md-sys-elevation-tint-4: color-mix(
+    in srgb,
+    var(--md-sys-color-primary) 12%,
+    var(--md-sys-color-surface-container-high)
+  );
+  --md-sys-elevation-tint-5: color-mix(
+    in srgb,
+    var(--md-sys-color-primary) 14%,
+    var(--md-sys-color-surface-container-highest)
+  );
+
+  /* Wallpaper-mode blur. Overridden to 0 in solid (Material 3) mode. */
+  --md-sys-surface-blur: 24px;
+
+  /* —— Baseline color roles (light) —— */
+  --md-sys-color-primary: #6750a4;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #eaddff;
+  --md-sys-color-on-primary-container: #21005d;
+  --md-sys-color-secondary: #625b71;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #e8def8;
+  --md-sys-color-on-secondary-container: #1d192b;
+  --md-sys-color-tertiary: #7d5260;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #ffd8e4;
+  --md-sys-color-on-tertiary-container: #31111d;
+  --md-sys-color-error: #b3261e;
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-error-container: #f9dedc;
+  --md-sys-color-on-error-container: #410e0b;
+  --md-sys-color-surface: #fef7ff;
+  --md-sys-color-on-surface: #1d1b20;
+  --md-sys-color-surface-variant: #e7e0ec;
+  --md-sys-color-on-surface-variant: #49454f;
+  --md-sys-color-surface-dim: #ded8e1;
+  --md-sys-color-surface-bright: #fef7ff;
+  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-low: #f7f2fa;
+  --md-sys-color-surface-container: #f3edf7;
+  --md-sys-color-surface-container-high: #ece6f0;
+  --md-sys-color-surface-container-highest: #e6e0e9;
+  --md-sys-color-outline: #79747e;
+  --md-sys-color-outline-variant: #cac4d0;
+  --md-sys-color-inverse-surface: #322f35;
+  --md-sys-color-inverse-on-surface: #f5eff7;
+  --md-sys-color-inverse-primary: #d0bcff;
+  --md-sys-color-scrim: #000000;
+  --md-sys-color-shadow: #000000;
+  --md-sys-color-surface-tint: #6750a4;
+
+  /* Solid copies used by wallpaper-mode color-mix tints. */
+  --md-sys-color-surface-container-lowest-solid: #ffffff;
+  --md-sys-color-surface-container-low-solid: #f7f2fa;
+  --md-sys-color-surface-container-solid: #f3edf7;
+  --md-sys-color-surface-container-high-solid: #ece6f0;
+  --md-sys-color-surface-container-highest-solid: #e6e0e9;
+
+  /* Legacy aliases — every consumer should prefer --md-sys-color-*. */
+  --body-background-color: var(--md-sys-color-surface);
+  --main-text-color: var(--md-sys-color-on-surface);
+  --main-text-grey-color: var(--md-sys-color-on-surface-variant);
+  --main-text-hover-color: var(--md-sys-color-primary);
+  --main-background-color: var(--md-sys-color-surface-container);
+  --main-background-light-color: var(--md-sys-color-surface-container-low);
+  --main-background-hover-color: var(--md-sys-color-surface-container-high);
+  --main-input-hover-color: var(--md-sys-color-surface-container-highest);
+  --main-notification-background-color: var(--md-sys-color-surface-container-highest);
+  --main-box-shadow: var(--md-sys-elevation-1);
+  --main-text-shadow: none;
+}
+
+[theme="dark"] {
+  --md-sys-elevation-tint-1: color-mix(
+    in srgb,
+    var(--md-sys-color-primary) 8%,
+    var(--md-sys-color-surface-container-low)
+  );
+  --md-sys-elevation-tint-2: color-mix(
+    in srgb,
+    var(--md-sys-color-primary) 11%,
+    var(--md-sys-color-surface-container)
+  );
+  --md-sys-elevation-tint-3: color-mix(
+    in srgb,
+    var(--md-sys-color-primary) 14%,
+    var(--md-sys-color-surface-container-high)
+  );
+  --md-sys-elevation-tint-4: color-mix(
+    in srgb,
+    var(--md-sys-color-primary) 16%,
+    var(--md-sys-color-surface-container-high)
+  );
+  --md-sys-elevation-tint-5: color-mix(
+    in srgb,
+    var(--md-sys-color-primary) 19%,
+    var(--md-sys-color-surface-container-highest)
+  );
+
+  --md-sys-color-primary: #d0bcff;
+  --md-sys-color-on-primary: #381e72;
+  --md-sys-color-primary-container: #4f378b;
+  --md-sys-color-on-primary-container: #eaddff;
+  --md-sys-color-secondary: #ccc2dc;
+  --md-sys-color-on-secondary: #332d41;
+  --md-sys-color-secondary-container: #4a4458;
+  --md-sys-color-on-secondary-container: #e8def8;
+  --md-sys-color-tertiary: #efb8c8;
+  --md-sys-color-on-tertiary: #492532;
+  --md-sys-color-tertiary-container: #633b48;
+  --md-sys-color-on-tertiary-container: #ffd8e4;
+  --md-sys-color-error: #f2b8b5;
+  --md-sys-color-on-error: #601410;
+  --md-sys-color-error-container: #8c1d18;
+  --md-sys-color-on-error-container: #f9dedc;
+  --md-sys-color-surface: #141218;
+  --md-sys-color-on-surface: #e6e1e5;
+  --md-sys-color-surface-variant: #49454f;
+  --md-sys-color-on-surface-variant: #cac4d0;
+  --md-sys-color-surface-dim: #141218;
+  --md-sys-color-surface-bright: #3b383e;
+  --md-sys-color-surface-container-lowest: #0f0d13;
+  --md-sys-color-surface-container-low: #1d1b20;
+  --md-sys-color-surface-container: #211f26;
+  --md-sys-color-surface-container-high: #2b2930;
+  --md-sys-color-surface-container-highest: #36343b;
+  --md-sys-color-outline: #938f99;
+  --md-sys-color-outline-variant: #49454f;
+  --md-sys-color-inverse-surface: #e6e1e5;
+  --md-sys-color-inverse-on-surface: #322f35;
+  --md-sys-color-inverse-primary: #6750a4;
+  --md-sys-color-scrim: #000000;
+  --md-sys-color-shadow: #000000;
+  --md-sys-color-surface-tint: #d0bcff;
+
+  --md-sys-color-surface-container-lowest-solid: #0f0d13;
+  --md-sys-color-surface-container-low-solid: #1d1b20;
+  --md-sys-color-surface-container-solid: #211f26;
+  --md-sys-color-surface-container-high-solid: #2b2930;
+  --md-sys-color-surface-container-highest-solid: #36343b;
+}
+
+/* Solid Material 3 mode: opaque surfaces, no glass. */
+[data-surface-mode="solid"] {
+  --md-sys-surface-blur: 0px;
+  --main-text-shadow: none;
+}
+
+/* Wallpaper modes: surface-container tokens become a tinted frosted layer. */
+[data-surface-mode="wallpaper"] {
+  --md-sys-surface-blur: 24px;
+  --md-sys-color-surface-container-low: color-mix(
+    in srgb,
+    var(--md-sys-color-surface-container-low-solid) 72%,
+    transparent
+  );
+  --md-sys-color-surface-container: color-mix(
+    in srgb,
+    var(--md-sys-color-surface-container-solid) 78%,
+    transparent
+  );
+  --md-sys-color-surface-container-high: color-mix(
+    in srgb,
+    var(--md-sys-color-surface-container-high-solid) 84%,
+    transparent
+  );
+  --md-sys-color-surface-container-highest: color-mix(
+    in srgb,
+    var(--md-sys-color-surface-container-highest-solid) 90%,
+    transparent
+  );
+  --main-text-shadow: 0 1px 2px color-mix(in srgb, var(--md-sys-color-scrim) 28%, transparent);
+}

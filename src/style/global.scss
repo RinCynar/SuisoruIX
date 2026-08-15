@@ -1,63 +1,7 @@
+@use "./md-tokens";
+
 :root {
   color-scheme: light;
-
-  /* Material Design 3 Tokens - Light Theme */
-  --md-sys-color-primary: #6750a4;
-  --md-sys-color-on-primary: #ffffff;
-  --md-sys-color-primary-container: #eaddff;
-  --md-sys-color-on-primary-container: #21005d;
-
-  --md-sys-color-secondary: #625b71;
-  --md-sys-color-on-secondary: #ffffff;
-  --md-sys-color-secondary-container: #e8def8;
-  --md-sys-color-on-secondary-container: #1d192b;
-
-  --md-sys-color-tertiary: #7d5260;
-  --md-sys-color-on-tertiary: #ffffff;
-  --md-sys-color-tertiary-container: #ffd8e4;
-  --md-sys-color-on-tertiary-container: #31111d;
-
-  --md-sys-color-error: #b3261e;
-  --md-sys-color-on-error: #ffffff;
-  --md-sys-color-error-container: #f9dedc;
-  --md-sys-color-on-error-container: #410e0b;
-
-  --md-sys-color-surface: #fef7ff;
-  --md-sys-color-on-surface: #1d1b20;
-  --md-sys-color-surface-variant: #e7e0ec;
-  --md-sys-color-on-surface-variant: #49454f;
-  --md-sys-color-outline: #79747e;
-  --md-sys-color-outline-variant: #cac4d0;
-
-  /* Transparent/Glassmorphism adaptations */
-  --md-sys-color-surface-container-lowest: #ffffff;
-  --md-sys-color-surface-container-low: rgba(255, 255, 255, 0.35);
-  --md-sys-color-surface-container: rgba(255, 255, 255, 0.5);
-  --md-sys-color-surface-container-high: rgba(255, 255, 255, 0.72);
-  --md-sys-color-surface-container-highest: rgba(255, 255, 255, 0.88);
-
-  /* Mapping to existing vars */
-  --body-background-color: #f3eef9;
-  --main-text-color: var(--md-sys-color-on-surface);
-  --main-text-grey-color: var(--md-sys-color-on-surface-variant);
-  --main-text-hover-color: var(--md-sys-color-primary);
-
-  --main-background-color: var(--md-sys-color-surface-container-high);
-  --main-background-light-color: var(--md-sys-color-surface-container-low);
-  --main-background-hover-color: var(--md-sys-color-surface-container);
-
-  --main-input-hover-color: var(--md-sys-color-surface-container-highest);
-  --main-notification-background-color: var(--md-sys-color-surface-container-highest);
-
-  --main-box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px rgba(0, 0, 0, 0.3);
-  --main-text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.35);
-
-  /* Shapes */
-  --md-sys-shape-corner-small: 8px;
-  --md-sys-shape-corner-medium: 12px;
-  --md-sys-shape-corner-large: 16px;
-  --md-sys-shape-corner-extra-large: 28px;
-  --md-sys-shape-corner-full: 9999px;
 }
 
 [theme="light"] {
@@ -66,53 +10,8 @@
 
 [theme="dark"] {
   color-scheme: dark;
-
-  /* Material Design 3 Tokens - Dark Theme */
-  --md-sys-color-primary: #d0bcff;
-  --md-sys-color-on-primary: #381e72;
-  --md-sys-color-primary-container: #4f378b;
-  --md-sys-color-on-primary-container: #eaddff;
-
-  --md-sys-color-secondary: #ccc2dc;
-  --md-sys-color-on-secondary: #332d41;
-  --md-sys-color-secondary-container: #4a4458;
-  --md-sys-color-on-secondary-container: #e8def8;
-
-  --md-sys-color-tertiary: #efb8c8;
-  --md-sys-color-on-tertiary: #492532;
-  --md-sys-color-tertiary-container: #633b48;
-  --md-sys-color-on-tertiary-container: #ffd8e4;
-
-  --md-sys-color-error: #f2b8b5;
-  --md-sys-color-on-error: #601410;
-  --md-sys-color-error-container: #8c1d18;
-  --md-sys-color-on-error-container: #f9dedc;
-
-  --md-sys-color-surface: #141218;
-  --md-sys-color-on-surface: #e6e1e5;
-  --md-sys-color-surface-variant: #49454f;
-  --md-sys-color-on-surface-variant: #cac4d0;
-  --md-sys-color-outline: #938f99;
-  --md-sys-color-outline-variant: #49454f;
-
-  --md-sys-color-surface-container-lowest: #0f0d13;
-  --md-sys-color-surface-container-low: rgba(20, 18, 24, 0.45);
-  --md-sys-color-surface-container: rgba(20, 18, 24, 0.58);
-  --md-sys-color-surface-container-high: rgba(20, 18, 24, 0.78);
-  --md-sys-color-surface-container-highest: rgba(20, 18, 24, 0.92);
-
-  --body-background-color: #141218;
-  --main-text-color: var(--md-sys-color-on-surface);
-  --main-text-grey-color: var(--md-sys-color-on-surface-variant);
-  --main-background-color: var(--md-sys-color-surface-container-high);
-  --main-background-light-color: var(--md-sys-color-surface-container-low);
-  --main-background-hover-color: var(--md-sys-color-surface-container);
-  --main-input-hover-color: var(--md-sys-color-surface);
-  --main-notification-background-color: var(--md-sys-color-surface-container-highest);
-  --main-text-hover-color: var(--md-sys-color-primary);
-  --main-text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
-  --main-box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.35), 0px 1px 3px rgba(0, 0, 0, 0.5);
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -123,9 +22,12 @@ html,
 body {
   width: 100%;
   height: 100%;
-  background-color: var(--body-background-color);
+  background-color: var(--md-sys-color-surface);
   overflow: hidden;
-  font-family: "Noto Sans", "HarmonyOS_Regular", "Segoe UI", sans-serif;
+  font-family: var(--md-sys-typescale-font);
+  font-size: var(--md-sys-typescale-body-medium-size);
+  line-height: var(--md-sys-typescale-body-medium-line);
+  color: var(--md-sys-color-on-surface);
 }
 
 #app {
@@ -133,44 +35,16 @@ body {
   height: 100vh;
 }
 
-// NButton
-.n-button {
-  background-color: var(--main-background-light-color);
-  border-radius: 8px;
-  transition: background-color 0.3s;
-}
-
-// NMessage
-.n-message-container {
-  top: 20px !important;
-  .n-message-wrapper {
-    border-radius: 25px;
-    backdrop-filter: blur(20px);
-    .n-message {
-      padding: 12px 28px;
-      border-radius: 25px;
-      background-color: var(--main-background-light-color);
-      color: var(--main-text-color);
-      .n-message__icon > * {
-        color: var(--main-text-color);
-      }
-    }
-  }
-}
-
-// NTabs
+// Structural Naive UI rules that theme-overrides cannot express.
 .n-tabs {
   height: 100%;
-  --n-bar-color: var(--md-sys-color-primary) !important;
-  --n-tab-text-color-active: var(--md-sys-color-primary) !important;
-  --n-tab-text-color-hover: var(--md-sys-color-on-surface-variant) !important;
   .n-tabs-nav {
-    height: 44px;
+    height: 48px;
   }
   .n-tabs-pane-wrapper {
     height: 100%;
     .n-tab-pane {
-      padding: 20px;
+      padding: var(--md-sys-spacing-4);
       box-sizing: border-box;
       &.no-padding {
         padding: 0;
@@ -179,81 +53,53 @@ body {
   }
 }
 
-// NSwitch
-.n-switch {
-  --n-rail-color: var(--main-background-light-color) !important;
-  --n-rail-color-active: var(--main-background-hover-color) !important;
-  --n-box-shadow-focus: var(--main-box-shadow) !important;
+.n-h {
+  font-family: var(--md-sys-typescale-font);
+  color: var(--md-sys-color-on-surface);
+}
+.n-h6 {
+  font-size: var(--md-sys-typescale-title-large-size);
+  line-height: var(--md-sys-typescale-title-large-line);
+  font-weight: 400;
 }
 
-// NScrollbar
+.n-message-container {
+  top: var(--md-sys-spacing-4) !important;
+}
+
+.n-modal-container {
+  .n-modal-mask {
+    background-color: color-mix(in srgb, var(--md-sys-color-scrim) 32%, transparent) !important;
+    backdrop-filter: none;
+  }
+  .n-modal {
+    width: 60vw;
+    max-width: 700px;
+    min-width: min(24rem, 100vw);
+    border-radius: var(--md-sys-shape-corner-extra-large);
+  }
+}
+
 .n-scrollbar {
   .n-scrollbar-rail {
     right: 0 !important;
   }
 }
 
-// NModal
-.n-modal-container {
-  .n-modal-mask {
-    backdrop-filter: blur(40px);
-  }
-  // n-dialog
-  .n-dialog {
-    border-radius: 8px;
-    box-shadow: none;
-    --n-icon-color: var(--main-text-color);
-    --n-color: var(--main-background-light-color);
-    .n-dialog__title {
-      font-weight: bold;
-      font-size: 18px;
-      .n-dialog__icon {
-        font-size: 24px;
-        margin-right: 8px;
-      }
-    }
-    .n-dialog__content {
-      font-size: 15px;
-    }
-    .n-button {
-      height: auto;
-      padding: 9px 16px;
-      transition: background-color 0.3s;
-      --n-border: none;
-      --n-border-hover: none;
-      --n-border-focus: none;
-      --n-border-pressed: none;
-      --n-text-color-pressed: var(--main-text-color);
-      --n-color-pressed: var(--main-background-hover-color);
-      --n-text-color: var(--main-text-color);
-      --n-text-color-hover: var(--main-text-color);
-      --n-color-focus: var(--main-background-hover-color);
-      --n-text-color-focus: var(--main-text-color);
-      --n-color-hover: var(--main-background-hover-color);
-    }
-  }
-  .n-modal {
-    width: 60vw;
-    max-width: 700px;
-    min-width: min(24rem, 100vw);
-    border-radius: 8px;
-    box-shadow: none;
-    --n-color-modal: var(--main-background-light-color);
+[data-surface-mode="wallpaper"] {
+  .n-card,
+  .n-modal,
+  .n-dialog,
+  .n-dropdown,
+  .n-message {
+    backdrop-filter: blur(var(--md-sys-surface-blur));
   }
 }
 
-// NDropdown
-.n-dropdown {
-  --n-border-radius: 8px !important;
-  --n-color: var(--main-background-light-color) !important;
-  --n-option-color-hover: var(--main-background-hover-color) !important;
-  backdrop-filter: blur(10px);
-}
-
-// Transition
+// Transitions — M3 standard easing only.
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.25s ease-in-out;
+  transition: opacity var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard);
 }
 
 .fade-enter-from,
@@ -264,40 +110,37 @@ body {
 .fadeDown-enter-active,
 .fadeDown-leave-active {
   transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+    opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+    transform var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
 }
 
 .fadeDown-enter-active {
-  transition-delay: 0.2s;
+  transition-delay: var(--md-sys-motion-duration-short4);
 }
 
 .fadeDown-enter-from,
 .fadeDown-leave-to {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-8px);
 }
 
 .show-enter-active,
 .show-leave-active {
   transition:
-    opacity 0.25s ease,
-    transform 0.25s ease-in-out;
+    opacity var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard),
+    transform var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-emphasized-decelerate);
 }
 
 .show-enter-from,
 .show-leave-to {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(16px);
 }
 
 @keyframes fade-up-in {
   0% {
     opacity: 0;
-  }
-  30% {
-    opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(24px);
   }
   100% {
     opacity: 1;
@@ -308,10 +151,7 @@ body {
 @keyframes fade-time-in {
   0% {
     opacity: 0;
-  }
-  20% {
-    opacity: 0;
-    transform: translateY(-90px);
+    transform: translateY(-96px);
   }
   100% {
     opacity: 1;
@@ -347,23 +187,21 @@ body {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.06);
   }
   100% {
     transform: scale(1);
   }
 }
 
-// Text Selection
 ::selection {
-  color: var(--main-text-color);
-  background-color: var(--main-text-hover-color);
+  color: var(--md-sys-color-on-primary);
+  background-color: var(--md-sys-color-primary);
 }
 
-// Scrollbars
 .ps__rail-y {
   .ps__thumb-y {
     right: 0;
-    background-color: var(--main-background-light-color);
+    background-color: var(--md-sys-color-surface-container);
   }
 }

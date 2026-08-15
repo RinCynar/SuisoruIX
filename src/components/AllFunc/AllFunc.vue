@@ -9,6 +9,7 @@
       }
     "
   >
+    <div class="sheet-handle" aria-hidden="true" />
     <Transition name="fade" mode="out-in">
       <AllBox v-if="status.siteStatus === 'box'" />
       <AllSet v-else-if="status.siteStatus === 'set'" />
@@ -30,34 +31,37 @@ const status = statusStore();
   width: 80%;
   height: 64vh;
   max-width: 1200px;
-  background-color: var(--md-sys-color-surface-container-high);
-  backdrop-filter: blur(40px);
-  color: var(--main-text-color);
+  background-color: var(--md-sys-color-surface-container-highest);
+  backdrop-filter: blur(var(--md-sys-surface-blur));
+  color: var(--md-sys-color-on-surface);
   border-radius: var(--md-sys-shape-corner-extra-large);
-  box-shadow: var(--main-box-shadow);
+  box-shadow: var(--md-sys-elevation-2);
   transition:
-    opacity 0.3s cubic-bezier(0.2, 0, 0, 1),
-    transform 0.3s cubic-bezier(0.2, 0, 0, 1),
-    margin-top 0.3s cubic-bezier(0.2, 0, 0, 1),
-    height 0.3s cubic-bezier(0.2, 0, 0, 1);
+    opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+    transform var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized-decelerate),
+    margin-top var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+    height var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
   z-index: 2;
+  .sheet-handle {
+    display: none;
+  }
   .all-set {
     overflow: hidden;
     height: 100%;
     :deep(.scrollbar) {
-      padding: 0 16px; // Add padding to scrollview content
+      padding: 0 var(--md-sys-spacing-4);
       max-height: calc(64vh - 84px);
-      transition: max-height 0.3s;
+      transition: max-height var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
     }
     :deep(.set-item) {
       width: 100%;
       border-radius: var(--md-sys-shape-corner-large);
-      margin-bottom: 12px;
+      margin-bottom: var(--md-sys-spacing-3);
       border: none;
       background-color: var(--md-sys-color-surface-container-low);
-      transition: background-color 0.3s ease;
+      transition: background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
       --n-color: var(--md-sys-color-surface-container-low);
-      
+
       &:hover {
         background-color: var(--md-sys-color-surface-container);
         --n-color: var(--md-sys-color-surface-container);
@@ -78,7 +82,7 @@ const status = statusStore();
             flex-direction: column;
             align-items: flex-start;
             .name {
-              margin-bottom: 8px;
+              margin-bottom: var(--md-sys-spacing-2);
             }
           }
         }
@@ -86,12 +90,14 @@ const status = statusStore();
           display: flex;
           flex-direction: column;
           .title {
-            font-size: 16px;
+            font-size: var(--md-sys-typescale-body-large-size);
+            line-height: var(--md-sys-typescale-body-large-line);
             font-weight: 500;
           }
           .tip {
-            font-size: 13px;
-            opacity: 0.8;
+            font-size: var(--md-sys-typescale-body-medium-size);
+            line-height: var(--md-sys-typescale-body-medium-line);
+            color: var(--md-sys-color-on-surface-variant);
           }
         }
         .set {
@@ -131,8 +137,34 @@ const status = statusStore();
       max-height: calc(80vh - 84px);
     }
   }
-  @media (max-width: 478px) {
-    height: 60vh;
+  @media (max-width: 600px) {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    max-width: 100%;
+    height: 68vh;
+    margin-top: 0 !important;
+    border-radius: var(--md-sys-shape-corner-extra-large) var(--md-sys-shape-corner-extra-large) 0 0;
+    .sheet-handle {
+      display: block;
+      width: 32px;
+      height: 4px;
+      border-radius: var(--md-sys-shape-corner-full);
+      background-color: var(--md-sys-color-outline-variant);
+      margin: var(--md-sys-spacing-2) auto var(--md-sys-spacing-1);
+    }
+    :deep(.scrollbar) {
+      max-height: calc(68vh - 84px);
+    }
+    &.big {
+      height: 88vh;
+      :deep(.scrollbar) {
+        max-height: calc(88vh - 84px);
+      }
+    }
   }
 }
 </style>

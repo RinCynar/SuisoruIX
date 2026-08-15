@@ -1,7 +1,7 @@
 <template>
   <Provider>
     <!-- background -->
-    <Cover @loadComplete="loadComplete" />
+    <Cover @loadComplete="loadComplete" @paletteReady="onPaletteReady" />
     <!-- main page -->
     <Transition name="fade" mode="out-in">
       <main
@@ -60,10 +60,14 @@
 </template>
 
 <script setup>
-import { onMounted, nextTick, watch, ref } from "vue";
+import { onMounted, onBeforeUnmount, nextTick, watch, ref } from "vue";
 import { statusStore, setStore } from "@/stores";
 import { getGreetingKey } from "@/utils/timeTools";
-import { applyThemePalette } from "@/utils/theme";
+import {
+  applyThemePalette,
+  getWallpaperSeed,
+  resolveThemeType,
+} from "@/utils/theme";
 import { useI18n } from "@/i18n";
 import Provider from "@/components/Provider.vue";
 import Cover from "@/components/Cover.vue";
@@ -77,19 +81,25 @@ const status = statusStore();
 const { t } = useI18n();
 const mainClickable = ref(false);
 
-// get config
 const welcomeText = import.meta.env.VITE_WELCOME_TEXT ?? "Ciallo～(∠・ω< )⌒☆";
 
-// Apply the light/dark attribute, language and (when active) the Material 3 palette.
-const changeThemeType = () => {
-  const htmlElement = document.querySelector("html");
-  htmlElement.setAttribute("theme", set.themeType === "light" ? "light" : "dark");
+let systemThemeQuery = null;
+
+const applyCurrentTheme = (seedOverride) => {
+  const htmlElement = document.documentElement;
   htmlElement.setAttribute("lang", set.language === "ja" ? "ja" : "en");
+  const surfaceMode = set.backgroundType === "m3" ? "solid" : "wallpaper";
+  const seed =
+    seedOverride ?? (surfaceMode === "solid" ? set.seedColor : getWallpaperSeed());
   applyThemePalette({
-    enabled: set.backgroundType === "m3",
-    seedColor: set.seedColor,
+    seedColor: seed,
     themeType: set.themeType,
+    surfaceMode,
   });
+};
+
+const onPaletteReady = (seed) => {
+  applyCurrentTheme(seed);
 };
 
 const mainContextmenu = (event) => {
@@ -117,14 +127,31 @@ const mainPressKeyboard = (event) => {
   }
 };
 
+const onSystemThemeChange = () => {
+  if (set.themeType === "system") {
+    applyCurrentTheme();
+  }
+};
+
 watch(
   () => [set.themeType, set.backgroundType, set.seedColor, set.language],
-  () => changeThemeType(),
+  () => applyCurrentTheme(),
 );
 
 onMounted(() => {
   set.migrate();
-  changeThemeType();
+  applyCurrentTheme();
+  if (typeof window !== "undefined" && window.matchMedia) {
+    systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    systemThemeQuery.addEventListener("change", onSystemThemeChange);
+  }
+  // Touch the resolver so the html[theme] attribute matches the OS on first paint
+  // when the user has chosen "system".
+  resolveThemeType(set.themeType);
+});
+
+onBeforeUnmount(() => {
+  systemThemeQuery?.removeEventListener("change", onSystemThemeChange);
 });
 </script>
 
@@ -156,8 +183,8 @@ onMounted(() => {
       margin-top: 20vh;
       transform: scale(1);
       visibility: visible;
-      @media (max-width: 478px) {
-        margin-top: 22vh;
+      @media (max-width: 600px) {
+        margin-top: 0;
       }
     }
     .search-input {
@@ -168,11 +195,26 @@ onMounted(() => {
       }
     }
   }
+  @media (max-width: 600px) {
+    &.main-normal,
+    &.main-focus {
+      .main-box {
+        transform: translateY(110%);
+        opacity: 1;
+      }
+    }
+    &.main-box,
+    &.main-set {
+      .main-box {
+        transform: translateY(0);
+      }
+    }
+  }
   .all-controls {
     position: fixed;
     width: 100%;
     top: 0;
-    padding: 10px;
+    padding: var(--md-sys-spacing-2);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -183,36 +225,37 @@ onMounted(() => {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 26px;
-      padding: 12px;
+      width: 48px;
+      height: 48px;
+      font-size: 24px;
       border-radius: var(--md-sys-shape-corner-full);
-      color: var(--main-text-color);
+      color: var(--md-sys-color-on-surface);
       z-index: 1;
       transition:
-        opacity 0.3s cubic-bezier(0.2, 0, 0, 1),
-        background-color 0.3s cubic-bezier(0.2, 0, 0, 1),
-        transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+        background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+        transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
       &:hover {
-        backdrop-filter: blur(20px);
-        background-color: var(--main-background-hover-color);
+        background-color: var(--md-sys-color-surface-container);
+        backdrop-filter: blur(var(--md-sys-surface-blur));
       }
       &:active {
-        transform: scale(0.9);
+        transform: scale(0.92);
       }
     }
   }
 }
 #loading {
-  color: var(--main-text-color);
+  color: var(--md-sys-color-on-surface);
+  background-color: var(--md-sys-color-surface);
   .logo {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 24px;
+    width: 96px;
+    height: 96px;
+    margin-bottom: var(--md-sys-spacing-5);
     animation: logo-breathe 3s infinite alternate;
   }
   .tip {
-    font-size: 20px;
+    font-size: var(--md-sys-typescale-title-large-size);
+    line-height: var(--md-sys-typescale-title-large-line);
   }
 }
 </style>
-

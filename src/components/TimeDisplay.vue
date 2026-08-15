@@ -80,34 +80,37 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: var(--md-sys-spacing-4);
   transform: translateY(-140px);
-  color: var(--main-text-color);
-  animation: fade-time-in 0.6s cubic-bezier(0.2, 0, 0, 1);
+  color: var(--md-sys-color-on-surface);
+  animation: fade-time-in 0.6s var(--md-sys-motion-easing-emphasized-decelerate);
   transition:
-    transform 0.4s cubic-bezier(0.2, 0, 0, 1),
-    opacity 0.4s cubic-bezier(0.2, 0, 0, 1),
-    margin-bottom 0.4s cubic-bezier(0.2, 0, 0, 1);
+    transform var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-standard),
+    opacity var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-standard),
+    margin-bottom var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-standard);
   z-index: 1;
   .time {
     cursor: pointer;
-    font-size: 5rem;
+    font-family: var(--md-sys-typescale-font);
+    font-size: var(--md-sys-typescale-display-large-size);
+    line-height: var(--md-sys-typescale-display-large-line);
     font-weight: 400;
-    margin: 6px 0px;
+    margin: var(--md-sys-spacing-2) 0;
     text-shadow: var(--main-text-shadow);
-    transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+    color: var(--md-sys-color-on-surface);
+    transition: transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
     .separator {
       opacity: 0.8;
-      font-size: 4.5rem;
       display: inline-block;
-      margin: 0 5px;
+      margin: 0 var(--md-sys-spacing-1);
       transform: translateY(-8px);
       animation: separator-breathe 0.7s infinite alternate;
     }
     .amPm {
-      font-size: 1.25rem;
-      opacity: 0.6;
-      margin-left: 12px;
+      font-size: var(--md-sys-typescale-label-large-size);
+      line-height: var(--md-sys-typescale-label-large-line);
+      color: var(--md-sys-color-on-surface-variant);
+      margin-left: var(--md-sys-spacing-3);
     }
     .hour,
     .minute,
@@ -115,26 +118,27 @@ onBeforeUnmount(() => {
       font-variant-numeric: tabular-nums;
     }
     &:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
     }
     &:active {
       transform: scale(1);
     }
   }
   .date {
-    font-size: 1.15rem;
-    opacity: 0.85;
-    margin: 4px 0px;
+    font-size: var(--md-sys-typescale-title-medium-size);
+    line-height: var(--md-sys-typescale-title-medium-line);
+    color: var(--md-sys-color-on-surface-variant);
+    margin: var(--md-sys-spacing-1) 0;
     text-shadow: var(--main-text-shadow);
     .month {
       &::after {
-        margin: 0 4px;
+        margin: 0 var(--md-sys-spacing-1);
         content: "/";
       }
     }
     .day {
       &::after {
-        margin: 0 8px 0 4px;
+        margin: 0 var(--md-sys-spacing-2) 0 var(--md-sys-spacing-1);
         content: "";
       }
     }
@@ -146,8 +150,8 @@ onBeforeUnmount(() => {
   &.box,
   &.set {
     transform: translateY(-34vh);
-    @media (max-width: 478px) {
-      transform: translateY(-32vh);
+    @media (max-width: 600px) {
+      transform: translateY(-28vh);
     }
   }
   &.hidden {
@@ -155,7 +159,7 @@ onBeforeUnmount(() => {
     opacity: 0;
   }
   &.two {
-    padding-bottom: 60px;
+    padding-bottom: var(--md-sys-spacing-7);
     .time {
       display: flex;
       flex-direction: column;
@@ -170,14 +174,14 @@ onBeforeUnmount(() => {
       .hour {
         &::after {
           content: "/";
-          font-size: 2rem;
+          font-size: var(--md-sys-typescale-headline-medium-size);
           display: flex;
           align-items: center;
           justify-content: center;
           line-height: 0;
           opacity: 0.4;
           transform: rotate(50deg);
-          margin: 12px 0;
+          margin: var(--md-sys-spacing-3) 0;
         }
       }
     }

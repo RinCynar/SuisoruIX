@@ -164,8 +164,8 @@ const changeEngine = () => {
   flex-direction: row;
   align-items: center;
   max-width: 680px;
-  width: calc(100% - 60px);
-  transition: width 0.35s cubic-bezier(0.2, 0, 0, 1);
+  width: calc(100% - 48px);
+  transition: width var(--md-sys-motion-duration-medium3) var(--md-sys-motion-easing-standard);
   .mask {
     position: fixed;
     top: 0;
@@ -179,20 +179,20 @@ const changeEngine = () => {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    height: 52px;
+    height: 56px;
     width: 100%;
-    border-radius: var(--md-sys-shape-corner-full);
-    color: var(--main-text-color);
-    background-color: var(--main-background-color);
-    backdrop-filter: blur(20px);
+    border-radius: var(--md-sys-shape-corner-extra-large);
+    color: var(--md-sys-color-on-surface);
+    background-color: var(--md-sys-color-surface-container-low);
+    backdrop-filter: blur(var(--md-sys-surface-blur));
     opacity: 1;
-    box-shadow: var(--main-box-shadow);
-    animation: fade-up-in 0.7s cubic-bezier(0.2, 0, 0, 1);
+    box-shadow: var(--md-sys-elevation-0);
+    animation: fade-up-in 0.7s var(--md-sys-motion-easing-emphasized-decelerate);
     transition:
-      transform 0.3s cubic-bezier(0.2, 0, 0, 1),
-      background-color 0.3s cubic-bezier(0.2, 0, 0, 1),
-      box-shadow 0.3s cubic-bezier(0.2, 0, 0, 1),
-      opacity 0.5s cubic-bezier(0.2, 0, 0, 1);
+      transform var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-emphasized-decelerate),
+      background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+      box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+      opacity var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-standard);
     z-index: 1;
     .input {
       display: flex;
@@ -204,14 +204,16 @@ const changeEngine = () => {
       border: none;
       outline: none;
       background: none;
-      font-size: 18px;
-      color: var(--main-text-color);
+      font-family: var(--md-sys-typescale-font);
+      font-size: var(--md-sys-typescale-body-large-size);
+      line-height: var(--md-sys-typescale-body-large-line);
+      color: var(--md-sys-color-on-surface);
       &::placeholder {
         width: 100%;
         text-align: center;
-        color: var(--main-text-color);
-        letter-spacing: 2px;
-        transition: opacity 0.3s ease;
+        color: var(--md-sys-color-on-surface-variant);
+        letter-spacing: 0.15px;
+        transition: opacity var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
       }
     }
     .engine,
@@ -220,21 +222,16 @@ const changeEngine = () => {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 44px;
-      width: 44px;
-      margin: 0 4px;
+      height: 48px;
+      width: 48px;
+      margin: 0 var(--md-sys-spacing-1);
       font-size: 20px;
       border-radius: var(--md-sys-shape-corner-full);
       transition:
-        background-color 0.3s ease,
-        opacity 0.3s ease;
+        background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+        opacity var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
       &:hover {
-        background-color: var(--main-background-hover-color);
-      }
-      @media (max-width: 520px) {
-        font-size: 18px;
-        height: 40px;
-        width: 40px;
+        background-color: var(--md-sys-color-surface-container);
       }
     }
   }
@@ -251,16 +248,8 @@ const changeEngine = () => {
           opacity: 0.8;
         }
       }
-      &.focus {
-        .engine,
-        .go {
-          opacity: 1;
-          pointer-events: auto;
-        }
-      }
     }
     &:hover {
-      // width: calc(100% - 60px);
       .all {
         .input {
           &::placeholder {
@@ -271,22 +260,22 @@ const changeEngine = () => {
     }
   }
   &.focus {
-    width: calc(100% - 60px);
+    width: calc(100% - 48px);
     .all {
-      transform: translateY(-80px);
-      background-color: var(--main-input-hover-color);
-      box-shadow: 0px 6px 16px 4px rgba(0,0,0,0.15);
+      transform: translateY(-80px) scale(1.02);
+      background-color: var(--md-sys-elevation-tint-2);
+      box-shadow: var(--md-sys-elevation-2);
       .input {
-        color: var(--main-text-hover-color);
+        color: var(--md-sys-color-on-surface);
         &::placeholder {
           opacity: 0;
         }
       }
       .engine,
-      .go,
-      .delete {
+      .go {
         opacity: 1;
-        color: var(--main-text-hover-color);
+        pointer-events: auto;
+        color: var(--md-sys-color-on-surface);
       }
     }
   }

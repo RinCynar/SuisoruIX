@@ -69,20 +69,21 @@ const jumpTo = (url) => {
   align-items: center;
   justify-content: center;
   bottom: 0;
-  height: 50px;
+  height: 48px;
   width: 100%;
-  color: var(--main-text-color);
+  color: var(--md-sys-color-on-surface-variant);
   z-index: 1;
   .copyright {
     display: flex;
     align-items: center;
-    font-size: 13px;
+    font-size: var(--md-sys-typescale-label-small-size);
+    line-height: var(--md-sys-typescale-label-small-line);
     span {
       margin: 0 2px;
-      opacity: 0.6;
-      transition: opacity 0.3s;
+      opacity: 0.8;
+      transition: opacity var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
       &::before {
-        opacity: 0.6;
+        opacity: 0.8;
         transition: none;
       }
     }
@@ -90,19 +91,19 @@ const jumpTo = (url) => {
       &::before {
         content: "@";
         opacity: 1;
-        margin-right: 4px;
+        margin-right: var(--md-sys-spacing-1);
       }
     }
     .icp {
       &::before {
         content: "|";
-        margin-right: 4px;
+        margin-right: var(--md-sys-spacing-1);
       }
     }
     .about {
       &::before {
         content: "|";
-        margin-right: 4px;
+        margin-right: var(--md-sys-spacing-1);
       }
     }
     .anthor,
@@ -111,29 +112,32 @@ const jumpTo = (url) => {
       cursor: pointer;
       &:hover {
         opacity: 1;
+        color: var(--md-sys-color-on-surface);
       }
     }
   }
 }
 .about-modal {
-  margin-bottom: 10px;
+  margin-bottom: var(--md-sys-spacing-3);
   .about {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     .name {
-      font-size: 26px;
-      font-weight: bold;
-      margin-bottom: 4px;
+      font-size: var(--md-sys-typescale-headline-medium-size);
+      line-height: var(--md-sys-typescale-headline-medium-line);
+      font-weight: 400;
+      margin-bottom: var(--md-sys-spacing-1);
     }
     .version {
-      opacity: 0.6;
-      font-size: 16px;
+      color: var(--md-sys-color-on-surface-variant);
+      font-size: var(--md-sys-typescale-body-large-size);
+      line-height: var(--md-sys-typescale-body-large-line);
     }
   }
   .desc {
-    margin-top: 20px;
+    margin-top: var(--md-sys-spacing-4);
   }
 }
 </style>

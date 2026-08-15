@@ -2,7 +2,7 @@
   <Transition name="fadeDown" mode="out-in">
     <div v-if="status.engineChangeStatus" class="engine-choose">
       <n-scrollbar style="max-height: 44.5vh">
-        <n-grid class="all-engine" responsive="screen" cols="2 s:3 m:4 l:4" :x-gap="10" :y-gap="10">
+        <n-grid class="all-engine" responsive="screen" cols="2 s:3 m:4 l:4" :x-gap="12" :y-gap="12">
           <n-grid-item
             v-for="(item, key) in defaultEngine"
             :key="key"
@@ -48,8 +48,12 @@
         </n-form>
         <template #footer>
           <n-space justify="end">
-            <n-button strong secondary @click="customEngineModal = false"> {{ t("common.cancel") }} </n-button>
-            <n-button strong secondary @click="setCustomEngine"> {{ t("common.confirm") }} </n-button>
+            <n-button strong secondary @click="customEngineModal = false">
+              {{ t("common.cancel") }}
+            </n-button>
+            <n-button strong secondary @click="setCustomEngine">
+              {{ t("common.confirm") }}
+            </n-button>
           </n-space>
         </template>
       </n-modal>
@@ -130,17 +134,18 @@ const setCustomEngine = () => {
 <style lang="scss" scoped>
 .engine-choose {
   position: absolute;
-  top: -10px;
+  top: -8px;
   left: 0;
   width: 100%;
-  color: var(--main-text-color);
-  background-color: var(--main-background-light-color);
-  backdrop-filter: blur(30px) saturate(1.25);
-  border-radius: 16px;
+  color: var(--md-sys-color-on-surface);
+  background-color: var(--md-sys-color-surface-container-highest);
+  backdrop-filter: blur(var(--md-sys-surface-blur));
+  border-radius: var(--md-sys-shape-corner-extra-large);
+  box-shadow: var(--md-sys-elevation-2);
   box-sizing: border-box;
   z-index: 1;
   .all-engine {
-    padding: 10px;
+    padding: var(--md-sys-spacing-3);
     box-sizing: border-box;
     .engine {
       cursor: pointer;
@@ -149,17 +154,19 @@ const setCustomEngine = () => {
       align-items: center;
       justify-content: center;
       width: 100%;
-      height: 40px;
-      padding: 0 16px;
+      min-height: 48px;
+      padding: 0 var(--md-sys-spacing-4);
       grid-column: span 1 / span 1;
-      border-radius: 10px;
+      border-radius: var(--md-sys-shape-corner-full);
       box-sizing: border-box;
-      background-color: var(--main-background-light-color);
+      background-color: var(--md-sys-color-surface-container);
+      font-size: var(--md-sys-typescale-label-large-size);
+      line-height: var(--md-sys-typescale-label-large-line);
       transition:
-        background-color 0.3s,
-        box-shadow 0.3s;
+        background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+        box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
       .i-icon {
-        margin-right: 12px;
+        margin-right: var(--md-sys-spacing-3);
       }
       .name {
         width: 100%;
@@ -168,28 +175,14 @@ const setCustomEngine = () => {
         white-space: nowrap;
       }
       &.choose {
-        background-color: var(--main-background-hover-color);
-        &::before {
-          content: "";
-          position: absolute;
-          border-radius: 14px;
-          top: -4px;
-          left: -4px;
-          right: -4px;
-          bottom: -4px;
-          border: 2px solid var(--main-background-hover-color);
-          transition: opacity 0.3s;
-        }
+        background-color: var(--md-sys-color-secondary-container);
+        color: var(--md-sys-color-on-secondary-container);
       }
       &:hover {
-        background-color: var(--main-background-hover-color);
-        box-shadow: 0 0 0px 2px var(--main-background-hover-color);
-        &::before {
-          opacity: 0;
-        }
+        background-color: var(--md-sys-elevation-tint-2);
       }
       &:active {
-        box-shadow: none;
+        background-color: var(--md-sys-color-surface-container-high);
       }
     }
     @media (max-width: 798px) {

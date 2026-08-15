@@ -7,7 +7,7 @@ const useSetDataStore = defineStore("setData", {
       // Language
       // en / ja
       language: "en",
-      // Theme category
+      // Theme category: light / dark / system
       themeType: "dark",
       // Theme / background mode
       // "default" - built-in wallpaper + fixed palette
@@ -78,7 +78,7 @@ const useSetDataStore = defineStore("setData", {
       if (!["en", "ja"].includes(this.language)) {
         this.language = "en";
       }
-      if (!["light", "dark"].includes(this.themeType)) {
+      if (!["light", "dark", "system"].includes(this.themeType)) {
         this.themeType = "dark";
       }
       if (!this.seedColor || !/^#([0-9a-fA-F]{6})$/.test(this.seedColor)) {

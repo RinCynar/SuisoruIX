@@ -36,28 +36,17 @@ import {
   useMessage,
 } from "naive-ui";
 import { setStore } from "@/stores";
-import { naivePalette } from "@/utils/theme";
+import { naivePalette, resolvedScheme } from "@/utils/theme";
+import { buildNaiveThemeOverrides } from "@/style/naive-theme";
 
 const set = setStore();
 
-// Follow the persisted light / dark preference.
-const naiveTheme = computed(() => (set.themeType === "light" ? null : darkTheme));
+const naiveTheme = computed(() => (resolvedScheme.value === "light" ? null : darkTheme));
 
 const locale = computed(() => (set.language === "ja" ? jaJP : enUS));
 const dateLocale = computed(() => (set.language === "ja" ? dateJaJP : dateEnUS));
 
-// naive-ui's theme engine parses color values, so pass real hex colors
-// (kept in sync with the Material 3 palette) instead of CSS `var(...)`.
-const themeOverrides = computed(() => ({
-  common: {
-    fontFamily: "'Noto Sans', 'HarmonyOS_Regular', 'Segoe UI', sans-serif",
-    primaryColor: naivePalette.value.primary,
-    primaryColorHover: naivePalette.value.primary,
-    primaryColorSuppl: naivePalette.value.primary,
-    primaryColorPressed: naivePalette.value.primary,
-    borderRadius: "12px",
-  },
-}));
+const themeOverrides = computed(() => buildNaiveThemeOverrides(naivePalette.value));
 
 const setupNaiveTools = () => {
   window.$notification = useNotification();
@@ -74,4 +63,3 @@ const NaiveProviderContent = defineComponent({
   },
 });
 </script>
-
