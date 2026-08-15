@@ -185,11 +185,14 @@ const setCustomEngine = () => {
         background-color: var(--md-sys-color-surface-container-high);
       }
     }
-    @media (max-width: 798px) {
-      grid-template-columns: repeat(3, minmax(0px, 1fr));
+    @media (max-width: 599.98px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    @media (max-width: 580px) {
-      grid-template-columns: repeat(2, minmax(0px, 1fr));
+    @media (min-width: 600px) and (max-width: 904.98px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    @media (min-width: 905px) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 }

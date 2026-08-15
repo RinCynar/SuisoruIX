@@ -63,6 +63,15 @@ body {
   font-weight: 400;
 }
 
+// Keep the M3 switch visual size, expand the hit target to 48×48.
+.n-switch {
+  min-width: 48px;
+  min-height: 48px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
 .n-message-container {
   top: var(--md-sys-spacing-4) !important;
 }

@@ -434,6 +434,15 @@ function clickFileDom() {
     .all-shortcut {
       padding: var(--md-sys-spacing-4);
       box-sizing: border-box;
+      @media (max-width: 599.98px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      }
+      @media (min-width: 600px) and (max-width: 904.98px) {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      }
+      @media (min-width: 905px) {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+      }
       .shortcut-item {
         cursor: pointer;
         min-height: 56px;
@@ -502,15 +511,21 @@ function clickFileDom() {
     padding: var(--md-sys-spacing-3) 0;
     padding-left: var(--md-sys-spacing-4);
     .footer__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--md-sys-spacing-1);
       border-radius: var(--md-sys-shape-corner-full);
-      min-width: 80px;
-      height: 40px;
+      min-width: 48px;
+      min-height: 48px;
+      height: 48px;
+      padding: 0 var(--md-sys-spacing-4);
       background-color: var(--md-sys-color-surface-container);
       color: var(--md-sys-color-on-surface);
-      line-height: 40px;
       text-align: center;
       cursor: pointer;
       font-size: var(--md-sys-typescale-label-large-size);
+      line-height: var(--md-sys-typescale-label-large-line);
     }
     #shortCutUploadInput {
       display: none;

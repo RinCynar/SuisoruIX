@@ -183,7 +183,7 @@ onBeforeUnmount(() => {
       margin-top: 20vh;
       transform: scale(1);
       visibility: visible;
-      @media (max-width: 600px) {
+      @media (max-width: 599.98px) {
         margin-top: 0;
       }
     }
@@ -195,7 +195,7 @@ onBeforeUnmount(() => {
       }
     }
   }
-  @media (max-width: 600px) {
+  @media (max-width: 599.98px) {
     &.main-normal,
     &.main-focus {
       .main-box {
@@ -227,7 +227,7 @@ onBeforeUnmount(() => {
       justify-content: center;
       width: 48px;
       height: 48px;
-      font-size: 24px;
+      font-size: var(--md-sys-icon-size-medium);
       border-radius: var(--md-sys-shape-corner-full);
       color: var(--md-sys-color-on-surface);
       z-index: 1;

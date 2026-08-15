@@ -225,7 +225,7 @@ const changeEngine = () => {
       height: 48px;
       width: 48px;
       margin: 0 var(--md-sys-spacing-1);
-      font-size: 20px;
+      font-size: var(--md-sys-icon-size-small);
       border-radius: var(--md-sys-shape-corner-full);
       transition:
         background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),

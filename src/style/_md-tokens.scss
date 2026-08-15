@@ -21,6 +21,15 @@
   --md-sys-spacing-6: 32px;
   --md-sys-spacing-7: 48px;
 
+  /* M3 window sizes. Media queries must use these pixel values (CSS vars
+     are not valid in @media). Compact <600 / medium 600–905 / expanded >905. */
+  --md-sys-breakpoint-compact: 600px;
+  --md-sys-breakpoint-medium: 905px;
+
+  /* Icon sizes (not type scale). */
+  --md-sys-icon-size-small: 20px;
+  --md-sys-icon-size-medium: 24px;
+
   /* —— Motion —— */
   --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
   --md-sys-motion-easing-emphasized: cubic-bezier(0.3, 0, 0.8, 0.15);

@@ -115,7 +115,7 @@ export function buildNaiveThemeOverrides(tokens) {
       borderRadiusSmall: pill,
       borderRadiusMedium: pill,
       borderRadiusLarge: pill,
-      heightMedium: "40px",
+      heightMedium: "48px",
       heightLarge: "48px",
       fontSizeMedium: "14px",
       fontWeight: "500",
@@ -209,6 +209,7 @@ export function buildNaiveThemeOverrides(tokens) {
       railColorHover: outlineVariant,
     },
     Input: {
+      heightMedium: "48px",
       borderRadius: shapeMedium,
       color: surfaceContainer,
       colorFocus: surfaceContainerHigh,
@@ -229,6 +230,7 @@ export function buildNaiveThemeOverrides(tokens) {
       borderFocus: `1px solid ${primary}`,
     },
     InternalSelection: {
+      heightMedium: "48px",
       borderRadius: shapeMedium,
       color: surfaceContainer,
       colorActive: surfaceContainerHigh,

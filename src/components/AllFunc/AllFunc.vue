@@ -72,13 +72,14 @@ const status = statusStore();
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+        min-height: 48px;
         .desc {
           display: flex;
           flex-direction: row;
           align-items: center;
           justify-content: space-between;
           width: 100%;
-          @media (max-width: 720px) {
+          @media (max-width: 599.98px) {
             flex-direction: column;
             align-items: flex-start;
             .name {
@@ -102,9 +103,13 @@ const status = statusStore();
         }
         .set {
           width: 200px;
-          @media (max-width: 768px) {
-            width: 140px;
-            min-width: 140px;
+          @media (max-width: 599.98px) {
+            width: 100%;
+            min-width: 0;
+          }
+          @media (min-width: 600px) and (max-width: 904.98px) {
+            width: 160px;
+            min-width: 160px;
           }
         }
       }
@@ -137,7 +142,11 @@ const status = statusStore();
       max-height: calc(80vh - 84px);
     }
   }
-  @media (max-width: 600px) {
+  @media (min-width: 600px) and (max-width: 904.98px) {
+    width: 90%;
+    max-width: 840px;
+  }
+  @media (max-width: 599.98px) {
     position: fixed;
     left: 0;
     right: 0;

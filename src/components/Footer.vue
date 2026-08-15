@@ -79,7 +79,7 @@ const jumpTo = (url) => {
     font-size: var(--md-sys-typescale-label-small-size);
     line-height: var(--md-sys-typescale-label-small-line);
     span {
-      margin: 0 2px;
+      margin: 0 var(--md-sys-spacing-1);
       opacity: 0.8;
       transition: opacity var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
       &::before {
@@ -110,6 +110,9 @@ const jumpTo = (url) => {
     .icp,
     .about {
       cursor: pointer;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
       &:hover {
         opacity: 1;
         color: var(--md-sys-color-on-surface);
