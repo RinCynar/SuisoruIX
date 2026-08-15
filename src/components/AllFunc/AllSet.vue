@@ -12,7 +12,7 @@
             <n-select class="set" v-model:value="language" :options="languageOptions" />
           </n-card>
           <n-h6 prefix="bar">{{ t('settings.theme.section') }}</n-h6>
-          <n-card class="set-item">
+          <n-card class="set-item set-item--stack">
             <div class="name">
               <span class="title">{{ t('settings.theme.mode') }}</span>
               <span class="tip">{{ t('settings.theme.modeTip') }}</span>
@@ -41,7 +41,7 @@
               @complete="onSeedColorComplete"
             />
           </n-card>
-          <n-card v-if="backgroundType === 'custom'" class="set-item custom-card">
+          <n-card v-if="backgroundType === 'custom'" class="set-item set-item--stack custom-card">
             <div class="name">
               <span class="title">{{ t('settings.theme.customBackground') }}</span>
               <span class="tip">{{ t('settings.theme.customBackgroundTip') }}</span>
@@ -519,8 +519,77 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+.all-set .set-item .n-card-content {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--md-sys-spacing-4);
+  min-height: 48px;
+}
+
+.all-set .set-item .n-card-content > .name {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--md-sys-spacing-1);
+  flex: 1 1 auto;
+  min-width: 0;
+
+  .title {
+    display: block;
+    font-size: var(--md-sys-typescale-body-large-size);
+    line-height: var(--md-sys-typescale-body-large-line);
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .tip {
+    display: block;
+    font-size: var(--md-sys-typescale-body-medium-size);
+    line-height: var(--md-sys-typescale-body-medium-line);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+}
+
+.all-set .set-item .n-card-content > .set,
+.all-set .set-item .n-card-content > .n-switch,
+.all-set .set-item .n-card-content > .n-button {
+  flex: 0 0 auto;
+}
+
+.all-set .set-item .n-card-content > .set {
+  width: 220px;
+  max-width: 40%;
+}
+
+.all-set .set-item.set-item--stack .n-card-content,
+.all-set .set-item.custom-card .n-card-content {
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+
+.all-set .set-item.set-item--stack .n-card-content > .set,
+.all-set .set-item.set-item--stack .cover-selete {
+  width: 100%;
+  max-width: none;
+}
+
+@media (max-width: 599.98px) {
+  .all-set .set-item .n-card-content {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .all-set .set-item .n-card-content > .set {
+    width: 100%;
+    max-width: none;
+  }
+}
+
 .cover-selete {
-  margin-top: var(--md-sys-spacing-3);
+  margin-top: var(--md-sys-spacing-1);
+  width: 100%;
   .item {
     cursor: pointer;
     position: relative;
@@ -550,7 +619,7 @@ onMounted(() => {
     }
   }
 }
-.custom-card .n-card__content {
+.custom-card .n-card-content {
   flex-direction: column !important;
   align-items: flex-start !important;
   .custom-content {
@@ -575,7 +644,7 @@ onMounted(() => {
   }
 }
 .seed-picker {
-  width: 200px;
+  width: 220px;
 }
 .modal-preview {
   width: 100%;

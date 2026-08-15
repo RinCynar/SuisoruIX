@@ -32,7 +32,6 @@ export default {
 
   // Search engine
   "engine.custom": "Custom",
-  "engine.customConfig": "Custom Configuration",
   "engine.modalTitle": "Custom Search Engine",
   "engine.address": "Custom search engine address",
   "engine.addressPlaceholder": "Please enter a custom search engine address",

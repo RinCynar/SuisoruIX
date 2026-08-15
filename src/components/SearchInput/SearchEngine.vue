@@ -19,10 +19,6 @@
             <SvgIcon iconName="icon-custom" />
             <span class="name">{{ t("engine.custom") }}</span>
           </n-grid-item>
-          <n-grid-item class="engine" @click="customEngineModal = true">
-            <SvgIcon iconName="icon-custom" />
-            <span class="name">{{ t("engine.customConfig") }}</span>
-          </n-grid-item>
         </n-grid>
       </n-scrollbar>
       <!-- Custom Search Engine -->

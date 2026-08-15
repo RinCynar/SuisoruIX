@@ -67,52 +67,6 @@ const status = statusStore();
         --n-color: var(--md-sys-color-surface-container);
       }
 
-      .n-card__content {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        min-height: 48px;
-        .desc {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          justify-content: space-between;
-          width: 100%;
-          @media (max-width: 599.98px) {
-            flex-direction: column;
-            align-items: flex-start;
-            .name {
-              margin-bottom: var(--md-sys-spacing-2);
-            }
-          }
-        }
-        .name {
-          display: flex;
-          flex-direction: column;
-          .title {
-            font-size: var(--md-sys-typescale-body-large-size);
-            line-height: var(--md-sys-typescale-body-large-line);
-            font-weight: 500;
-          }
-          .tip {
-            font-size: var(--md-sys-typescale-body-medium-size);
-            line-height: var(--md-sys-typescale-body-medium-line);
-            color: var(--md-sys-color-on-surface-variant);
-          }
-        }
-        .set {
-          width: 200px;
-          @media (max-width: 599.98px) {
-            width: 100%;
-            min-width: 0;
-          }
-          @media (min-width: 600px) and (max-width: 904.98px) {
-            width: 160px;
-            min-width: 160px;
-          }
-        }
-      }
       &:last-child {
         margin-bottom: 0;
       }

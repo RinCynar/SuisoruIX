@@ -32,7 +32,6 @@ export default {
 
   // Search engine
   "engine.custom": "カスタム",
-  "engine.customConfig": "カスタム設定",
   "engine.modalTitle": "カスタム検索エンジン",
   "engine.address": "カスタム検索エンジンのアドレス",
   "engine.addressPlaceholder": "カスタム検索エンジンのアドレスを入力してください",
