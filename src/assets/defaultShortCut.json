@@ -6,17 +6,22 @@
   },
   {
     "id": 1,
-    "name": "inxUF",
-    "url": "https://installerx.app.tc"
+    "name": "Gemini",
+    "url": "https://gemini.google.com"
   },
   {
     "id": 2,
-    "name": "Cloudflare",
-    "url": "https://dash.cloudflare.com"
+    "name": "ChatGPT",
+    "url": "https://chatgpt.com"
   },
   {
     "id": 3,
-    "name": "YouTube",
-    "url": "https://youtube.com"
+    "name": "Grok",
+    "url": "https://grok.com"
+  },
+  {
+    "id": 4,
+    "name": "Claude",
+    "url": "https://claude.ai"
   }
 ]
